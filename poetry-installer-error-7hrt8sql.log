@@ -1,0 +1,68 @@
+Collecting poetry==2.2.1
+  Downloading poetry-2.2.1-py3-none-any.whl.metadata (7.4 kB)
+Collecting build<2.0.0,>=1.2.1 (from poetry==2.2.1)
+  Downloading build-1.3.0-py3-none-any.whl.metadata (5.6 kB)
+Collecting cachecontrol<0.15.0,>=0.14.0 (from cachecontrol[filecache]<0.15.0,>=0.14.0->poetry==2.2.1)
+  Downloading cachecontrol-0.14.4-py3-none-any.whl.metadata (3.1 kB)
+Collecting cleo<3.0.0,>=2.1.0 (from poetry==2.2.1)
+  Downloading cleo-2.1.0-py3-none-any.whl.metadata (12 kB)
+Collecting dulwich<0.25.0,>=0.24.0 (from poetry==2.2.1)
+  Downloading dulwich-0.24.10-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (5.4 kB)
+Collecting fastjsonschema<3.0.0,>=2.18.0 (from poetry==2.2.1)
+  Downloading fastjsonschema-2.21.2-py3-none-any.whl.metadata (2.3 kB)
+Collecting findpython<0.8.0,>=0.6.2 (from poetry==2.2.1)
+  Downloading findpython-0.7.1-py3-none-any.whl.metadata (5.4 kB)
+Collecting installer<0.8.0,>=0.7.0 (from poetry==2.2.1)
+  Downloading installer-0.7.0-py3-none-any.whl.metadata (936 bytes)
+Collecting keyring<26.0.0,>=25.1.0 (from poetry==2.2.1)
+  Downloading keyring-25.7.0-py3-none-any.whl.metadata (21 kB)
+Collecting packaging>=24.2 (from poetry==2.2.1)
+  Downloading packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting pbs-installer<2026.0.0,>=2025.1.6 (from pbs-installer[download,install]<2026.0.0,>=2025.1.6->poetry==2.2.1)
+  Downloading pbs_installer-2025.11.20-py3-none-any.whl.metadata (992 bytes)
+Collecting pkginfo<2.0,>=1.12 (from poetry==2.2.1)
+  Downloading pkginfo-1.12.1.2-py3-none-any.whl.metadata (13 kB)
+Collecting platformdirs<5,>=3.0.0 (from poetry==2.2.1)
+  Downloading platformdirs-4.5.0-py3-none-any.whl.metadata (12 kB)
+Collecting poetry-core==2.2.1 (from poetry==2.2.1)
+  Downloading poetry_core-2.2.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting pyproject-hooks<2.0.0,>=1.0.0 (from poetry==2.2.1)
+  Downloading pyproject_hooks-1.2.0-py3-none-any.whl.metadata (1.3 kB)
+Collecting requests<3.0,>=2.26 (from poetry==2.2.1)
+  Downloading requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+Collecting requests-toolbelt<2.0.0,>=1.0.0 (from poetry==2.2.1)
+  Downloading requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+Collecting shellingham<2.0,>=1.5 (from poetry==2.2.1)
+  Downloading shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting tomlkit<1.0.0,>=0.11.4 (from poetry==2.2.1)
+  Downloading tomlkit-0.13.3-py3-none-any.whl.metadata (2.8 kB)
+Collecting trove-classifiers>=2022.5.19 (from poetry==2.2.1)
+  Downloading trove_classifiers-2025.11.14.15-py3-none-any.whl.metadata (2.4 kB)
+Collecting virtualenv>=20.26.6 (from poetry==2.2.1)
+  Downloading virtualenv-20.35.4-py3-none-any.whl.metadata (4.6 kB)
+Collecting msgpack<2.0.0,>=0.5.2 (from cachecontrol<0.15.0,>=0.14.0->cachecontrol[filecache]<0.15.0,>=0.14.0->poetry==2.2.1)
+  Downloading msgpack-1.1.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.1 kB)
+Collecting filelock>=3.8.0 (from cachecontrol[filecache]<0.15.0,>=0.14.0->poetry==2.2.1)
+  Downloading filelock-3.20.0-py3-none-any.whl.metadata (2.1 kB)
+Collecting crashtest<0.5.0,>=0.4.1 (from cleo<3.0.0,>=2.1.0->poetry==2.2.1)
+  Downloading crashtest-0.4.1-py3-none-any.whl.metadata (1.1 kB)
+
+Traceback:
+
+  File "/workspaces/CLARA-SSoT/install-poetry.py", line 937, in main
+    return installer.run()
+           ^^^^^^^^^^^^^^^
+  File "/workspaces/CLARA-SSoT/install-poetry.py", line 574, in run
+    self.install(version)
+  File "/workspaces/CLARA-SSoT/install-poetry.py", line 596, in install
+    self.install_poetry(version, env)
+  File "/workspaces/CLARA-SSoT/install-poetry.py", line 699, in install_poetry
+    env.pip("install", specification)
+  File "/workspaces/CLARA-SSoT/install-poetry.py", line 389, in pip
+    return self.python("-m", "pip", *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/CLARA-SSoT/install-poetry.py", line 386, in python
+    return self.run(self._python, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/CLARA-SSoT/install-poetry.py", line 379, in run
+    raise PoetryInstallationError(

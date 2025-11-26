@@ -13,3 +13,6 @@ __pycache__/
 *.xlsx
 *.csv
 *.pdf
+
+# DVC local storage
+/dvc-storage/

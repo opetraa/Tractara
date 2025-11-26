@@ -21,7 +21,8 @@
         "ms-azuretools.vscode-docker",
         "iterative.dvc",
         "GitHub.copilot",
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "Google.geminicodeassist"
       ],
       "settings": {
         "python.defaultInterpreter": "/usr/local/bin/python",
@@ -40,6 +41,11 @@
     "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
     "source=clara-ssot-dvc-cache,target=/home/vscode/.dvc/cache,type=volume"
   ],
-  "runArgs": ["--network=host"],
-  "forwardPorts": [8000, 8501]
+  "runArgs": [
+    "--network=host"
+  ],
+  "forwardPorts": [
+    8000,
+    8501
+  ]
 }

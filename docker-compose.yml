@@ -1,48 +1,82 @@
+# docker-compose 파일 형식 버전을 지정합니다. '3.8'은 비교적 최신 기능들을 지원합니다.
 version: '3.8'
 
+# 실행할 컨테이너(서비스)들을 정의하는 부분입니다.
 services:
+  # FastAPI 애플리케이션을 위한 서비스 정의
   clara-ssot-api:
+    # 이 서비스를 위한 Docker 이미지를 빌드하는 방법을 정의합니다.
     build:
+      # Dockerfile이 위치한 경로(context)를 현재 디렉토리('.')로 지정합니다.
       context: .
+      # 사용할 Dockerfile의 이름을 명시합니다.
       dockerfile: Dockerfile
+    # 호스트 머신과 컨테이너 간의 포트를 연결합니다.
+    # 호스트의 8000번 포트를 컨테이너의 8000번 포트로 연결하여 API에 접근할 수 있게 합니다.
     ports:
       - "8000:8000"
+    # 호스트 머신의 디렉토리를 컨테이너 내부의 디렉토리로 마운트합니다.
+    # 이를 통해 코드 변경 시 컨테이너를 다시 빌드하지 않아도 바로 적용됩니다 (핫 리로딩).
     volumes:
-      - ./src:/app/src
-      - ./data:/app/data
-      - ./models:/app/models
-      - dvc-cache:/root/.dvc/cache
+      - ./src:/app/src # 소스 코드 마운트
+      - ./data:/app/data # 데이터 파일 마운트
+      - ./models:/app/models # 머신러닝 모델 파일 마운트
+      - ./dvc-storage:/app/dvc-storage # DVC 로컬 저장소를 컨테이너에 마운트
+      - dvc-cache:/root/.dvc/cache # DVC 캐시를 명명된 볼륨으로 연결하여 유지
+    # 컨테이너 내에서 사용할 환경 변수를 설정합니다.
     environment:
-      - PYTHONPATH=/app
-      - DVC_REMOTE=myremote
+      - PYTHONPATH=/app # 파이썬이 모듈을 찾을 수 있도록 경로를 추가합니다.
+      - DVC_REMOTE=myremote # DVC 원격 저장소 이름을 설정합니다.
+    # 컨테이너가 시작될 때 실행할 기본 명령어를 지정합니다.
+    # uvicorn을 사용하여 FastAPI 앱을 실행하며, --reload 옵션으로 코드 변경 시 자동 재시작됩니다.
     command: uvicorn src.clara_ssot.api.main:app --host 0.0.0.0 --port 8000 --reload
+    # 이 서비스가 연결될 네트워크를 지정합니다.
     networks:
       - clara-network
+    # 컨테이너의 /etc/hosts 파일에 호스트 이름을 추가합니다.
+    # 'host.docker.internal'은 컨테이너에서 호스트 머신(로컬 PC)을 가리키는 특별한 주소입니다.
+    # 이를 통해 컨테이너 안에서 로컬 PC의 DB 등에 접근할 수 있습니다.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
+  # PostgreSQL 데이터베이스 서비스를 위한 정의
   postgres:
+    # 사용할 Docker 이미지를 지정합니다. postgres 15 버전을 사용합니다.
     image: postgres:15-alpine
+    # 데이터베이스 설정을 위한 환경 변수입니다.
     environment:
-      POSTGRES_DB: clara_ssot
-      POSTGRES_USER: clara_user
-      POSTGRES_PASSWORD: clara_password
+      POSTGRES_DB: clara_ssot # 데이터베이스 이름
+      POSTGRES_USER: clara_user # 사용자 이름
+      POSTGRES_PASSWORD: clara_password # 비밀번호
+    # 데이터베이스 파일을 영속적으로 저장하기 위해 명명된 볼륨을 사용합니다.
+    # 컨테이너가 삭제되어도 데이터는 postgres-data 볼륨에 남아있습니다.
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    # 호스트의 5432 포트를 컨테이너의 5432 포트로 연결하여 외부에서 DB에 접속할 수 있게 합니다.
     ports:
       - "5432:5432"
     networks:
       - clara-network
 
+  # Redis 서비스를 위한 정의 (캐시, 세션 관리, 메시지 큐 등으로 사용)
   redis:
+    # 사용할 Redis 이미지를 지정합니다. redis 7 버전을 사용합니다.
     image: redis:7-alpine
+    # 호스트의 6379 포트를 컨테이너의 6379 포트로 연결합니다.
     ports:
       - "6379:6379"
     networks:
       - clara-network
 
+# 서비스들 간에 데이터를 영속적으로 저장하거나 공유하기 위해 사용하는 볼륨을 정의합니다.
 volumes:
-  dvc-cache:
-  postgres-data:
+  dvc-cache: {} # DVC 캐시를 저장하기 위한 명명된 볼륨
+  postgres-data: {} # PostgreSQL 데이터를 저장하기 위한 명명된 볼륨
 
+# 서비스들이 서로 통신할 수 있도록 하는 가상 네트워크를 정의합니다.
 networks:
+  # 'clara-network'라는 이름의 bridge 네트워크를 생성합니다.
+  # 이 네트워크에 속한 서비스들은 서비스 이름을 호스트 이름으로 사용하여 서로 통신할 수 있습니다.
+  # (예: clara-ssot-api 컨테이너에서 'postgres'라는 이름으로 DB에 연결)
   clara-network:
     driver: bridge
