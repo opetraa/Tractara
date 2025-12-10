@@ -5,7 +5,7 @@ import traceback
 from pathlib import Path
 
 from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 
 from ..logging_setup import configure_logging
 from ..problem_details import MachineReadableError, ProblemDetails
@@ -30,6 +30,11 @@ async def schema_validation_exception_handler(_, exc: SchemaValidationException)
     # json_schema_validator에서 이미 ProblemDetails를 만들어 넣었으므로
     # 여기서는 그대로 반환만 해주면 된다.
     return JSONResponse(status_code=exc.problem.status, content=exc.problem.dict())
+
+
+@app.get("/", include_in_schema=False)
+async def redirect_to_docs():
+    return RedirectResponse(url="/docs")
 
 
 @app.get("/health")
@@ -80,7 +85,8 @@ async def ingest_document(file: UploadFile = File(...)):
             raise exc
         except Exception as e:
             # ✅ 나머지는 "internal-error"로 래핑하되, errors[]도 채워서 LLM-friendly 하게
-            tb_str = "".join(traceback.format_exception(type(e), e, e.__traceback__))
+            tb_str = "".join(traceback.format_exception(
+                type(e), e, e.__traceback__))
             problem = ProblemDetails(
                 type="https://clara-ssot.org/problems/internal-error",
                 title="Unexpected error during ingestion",

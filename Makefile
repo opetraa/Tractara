@@ -1,9 +1,9 @@
 # 기본 커밋 메시지
 M ?= chore: sync changes
 
-.PHONY: help install test lint format clean run docker-build docker-up docker-down \
+.PHONY: help install test lint format clean run run-ui docker-build docker-up docker-down \
         dvc-repro dvc-push dvc-pull dvc-status git-push git-pull \
-        dvc-add-push sync-all
+        dvc-add-push sync-all 
 FILE ?=
 
 help:
@@ -46,6 +46,11 @@ clean:
 	find . -type d -name ".mypy_cache" -exec rm -r {} +
 
 run:
+	poetry run uvicorn src.clara_ssot.api.main:app --reload --host 0.0.0.0 --port 8000
+
+run-ui:
+	@echo "API running on: http://127.0.0.1:8000/docs"
+	@echo "   (Swagger UI 실행)"
 	poetry run uvicorn src.clara_ssot.api.main:app --reload --host 0.0.0.0 --port 8000
 
 docker-build:
