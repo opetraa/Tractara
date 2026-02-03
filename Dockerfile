@@ -1,5 +1,7 @@
 FROM python:3.11-slim-bullseye
 
+RUN rm -f /etc/apt/sources.list.d/yarn.list || true
+
 # 필수 시스템 패키지 설치
 RUN apt-get update && apt-get install -y \
     gcc \

@@ -1,9 +1,6 @@
 {
   "name": "CLARA-SSoT Development",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": ".."
-  },
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
   "features": {
     "ghcr.io/devcontainers/features/python:1": {
       "version": "3.11"
@@ -21,8 +18,7 @@
         "ms-azuretools.vscode-docker",
         "iterative.dvc",
         "GitHub.copilot",
-        "eamodio.gitlens",
-        "Google.geminicodeassist"
+        "eamodio.gitlens"
       ],
       "settings": {
         "python.defaultInterpreter": "/usr/local/bin/python",
@@ -35,7 +31,7 @@
       }
     }
   },
-  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postCreateCommand": "pip install poetry && poetry install && pip install dvc[s3,gs,azure,ssh,gdrive] black isort pylint pytest pytest-cov pytest-asyncio pre-commit",
   "remoteUser": "vscode",
   "mounts": [
     "source=clara-ssot-dvc-cache,target=/home/vscode/.dvc/cache,type=volume"
