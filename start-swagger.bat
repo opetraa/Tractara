@@ -64,7 +64,7 @@ start http://localhost:8000/docs
 echo.
 echo Swagger UI가 브라우저에서 열렸습니다!
 echo.
-echo 서비스 종료하려면 아무 키나 누르세요...
+echo 서비스 종료하려면 아무 키나 누르세요..
 pause > nul
 
 echo.
