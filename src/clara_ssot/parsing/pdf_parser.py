@@ -1,7 +1,26 @@
 # src/clara_ssot/parsing/pdf_parser.py
+from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional
+
+
+@dataclass
+class BoundingBox:
+    """PDF 좌표 정보 (첫 번째 문서 전략: bbox 보존 필수)"""
+    x0: float
+    y0: float
+    x1: float
+    y1: float
+    page: int
+
+    def to_dict(self) -> Dict[str, float]:
+        return {
+            "x0": self.x0,
+            "y0": self.y0,
+            "x1": self.x1,
+            "y1": self.y1,
+            "page": self.page
+        }
 
 
 @dataclass
@@ -9,12 +28,16 @@ class ParsedBlock:
     page: int
     block_type: str  # "text" | "table" | "image" | "ocr"
     text: Optional[str] = None
+    bbox: Optional[BoundingBox] = None  # 추가!
+    table_data: Optional[Dict] = None   # 표 데이터용
+    confidence: float = 1.0             # 추출 신뢰도
 
 
 @dataclass
 class ParsedDocument:
     source_path: str
     blocks: List[ParsedBlock]
+    metadata: Dict = None
 
 
 def parse_pdf(path: Path) -> ParsedDocument:

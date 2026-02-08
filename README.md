@@ -35,6 +35,7 @@ CLARA-SSoT-main/
 ├── docker-compose.yml
 ├── Makefile
 ├── pyproject.toml
+├── start-swagger.bat     # SwaggerUI 창과 VS code 실행
 ├── data/
 │   ├── landing/          # Ingestion 결과 원본(로우) JSON 저장
 │   └── ssot/

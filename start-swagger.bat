@@ -30,13 +30,17 @@ echo [1/3] Docker Compose로 서비스 시작 중...
 echo      사용 명령어: %DOCKER_COMPOSE%
 echo.
 %DOCKER_COMPOSE% up -d --build
-if %errorlevel% neq 0 (
+set EXIT_CODE=%errorlevel%
+if %EXIT_CODE% neq 0 (
     echo.
-    echo [ERROR] Docker Compose 실행에 실패했습니다.
+    echo [ERROR] Docker Compose 실행 중 오류가 감지되었습니다. (Exit Code: %EXIT_CODE%)
     echo 위 로그에서 빌드 오류 내용을 확인하세요. (Docker Desktop 실행 여부 포함)
-    pause
-    exit /b 1
+    echo.
+    echo [CHECK] 컨테이너가 'Running' 상태라면(단순 경고 등), 계속 진행할 수 있습니다.
+    set /p PROCEED="오류를 무시하고 계속 진행하시겠습니까? (Y/N): "
 )
+
+if %EXIT_CODE% neq 0 if /i "%PROCEED%" neq "Y" exit /b %EXIT_CODE%
 
 echo.
 echo [2/3] 서비스가 준비될 때까지 대기 중...
@@ -60,6 +64,10 @@ goto wait_loop
 echo.
 echo [3/3] Swagger UI 열기...
 start http://localhost:8000/docs
+
+echo.
+echo [INFO] VS Code를 실행합니다...
+code .
 
 echo.
 echo Swagger UI가 브라우저에서 열렸습니다!
