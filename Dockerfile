@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     g++ \
     git \
     poppler-utils \
+    libgl1-mesa-glx \
     tesseract-ocr \
     tesseract-ocr-kor \
     && apt-get clean \

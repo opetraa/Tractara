@@ -29,7 +29,8 @@ def ingest_single_document(pdf_path: Path) -> Dict[str, Any]:
     """
 
     # LLM API 키 가져오기
-    llm_api_key = os.getenv("ANTHROPIC_API_KEY") or os.getenv("OPENAI_API_KEY")
+    llm_api_key = os.getenv("GOOGLE_API_KEY") or os.getenv(
+        "ANTHROPIC_API_KEY") or os.getenv("OPENAI_API_KEY")
 
     # 1) Parsing (이제 Docling+PyMuPDF 사용!)
     parsed = parse_pdf(pdf_path)

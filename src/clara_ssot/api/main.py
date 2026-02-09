@@ -3,6 +3,7 @@ import shutil
 import tempfile
 import traceback
 from pathlib import Path
+import logging
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse, RedirectResponse
@@ -16,6 +17,7 @@ from ..validation.json_schema_validator import (
 )
 from .pipeline import ingest_single_document
 
+logger = logging.getLogger(__name__)
 app = FastAPI(title="CLARA-SSoT Ingestion API")
 
 
@@ -79,7 +81,9 @@ async def ingest_document(file: UploadFile = File(...)):
             shutil.copyfileobj(file.file, f)
 
         try:
+            logger.info(f"Starting ingestion for file: {file.filename}")
             result = ingest_single_document(tmp_path)
+            logger.info(f"Ingestion completed for file: {file.filename}")
         except SchemaValidationException as exc:
             # ✅ 스키마 에러는 전역 핸들러에게 맡긴다
             raise exc

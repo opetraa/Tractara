@@ -4,7 +4,7 @@ from typing import Any, Dict, List
 import logging
 
 import instructor
-from anthropic import Anthropic
+import google.generativeai as genai
 from pydantic import BaseModel, Field
 
 from ..parsing.pdf_parser import ParsedDocument
@@ -48,8 +48,12 @@ class LLMTermExtractor:
     """
 
     def __init__(self, api_key: str):
-        # Instructor로 Claude 래핑
-        self.client = instructor.from_anthropic(Anthropic(api_key=api_key))
+        # Gemini 설정
+        genai.configure(api_key=api_key)
+        self.client = instructor.from_gemini(
+            client=genai.GenerativeModel(model_name="gemini-1.5-flash"),
+            mode=instructor.Mode.GEMINI_JSON,
+        )
 
     def extract(self, text_chunks: List[str]) -> List[TermCandidate]:
         """
@@ -124,12 +128,10 @@ class LLMTermExtractor:
 
         # Instructor로 구조화된 출력 강제
         response = self.client.messages.create(
-            model="claude-sonnet-4-20250514",
-            max_tokens=2000,
             messages=[
                 {"role": "user", "content": prompt}
             ],
-            response_model=TermExtractionResult  # Pydantic 모델로 강제
+            response_model=TermExtractionResult,
         )
 
         return response
@@ -164,7 +166,7 @@ def extract_term_candidates(
 
     # LLM 추출
     extractor = LLMTermExtractor(api_key=llm_api_key)
-    candidates = extractor.extract(text_chunks[:10])  # 처음 10개 청크만 (비용 절감)
+    candidates = extractor.extract(text_chunks[:3])  # 테스트를 위해 3개로 제한 (속도 향상)
 
     logger.info(f"Extracted {len(candidates)} TERM candidates")
     return candidates

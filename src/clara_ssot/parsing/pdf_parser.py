@@ -56,7 +56,7 @@ class DoclingParser:
     def __init__(self):
         # TableFormer 활성화 옵션
         self.converter = DocumentConverter()
-        
+
         # 기본적으로 표 구조 추출은 끄고 시작 (안전 모드)
         self.converter.format_to_options[InputFormat.PDF].pipeline_options.do_table_structure = False
 
@@ -65,7 +65,8 @@ class DoclingParser:
             import cv2  # noqa: F401
             self.converter.format_to_options[InputFormat.PDF].pipeline_options.do_table_structure = True
         except ImportError:
-            logger.warning("OpenCV(cv2) 로드 실패. libGL.so.1 누락으로 인해 표 구조 추출(TableFormer)을 비활성화합니다.")
+            logger.warning(
+                "OpenCV(cv2) 로드 실패. libGL.so.1 누락으로 인해 표 구조 추출(TableFormer)을 비활성화합니다.")
 
     def parse(self, pdf_path: Path) -> ParsedDocument:
         """Docling으로 PDF 파싱"""
@@ -80,9 +81,10 @@ class DoclingParser:
             label = str(getattr(item, "label", "")).lower()
 
             # 텍스트 블록
-            if "text" in label or "header" in label or "paragraph" in label or "title" in label:
+            if any(x in label for x in ["text", "header", "paragraph", "title", "list_item", "caption", "footnote", "form"]):
                 bbox = self._extract_bbox(item)
-                page = item.prov[0].page_no if hasattr(item, "prov") and item.prov else 1
+                page = item.prov[0].page_no if hasattr(
+                    item, "prov") and item.prov else 1
                 blocks.append(ParsedBlock(
                     page=page,
                     block_type="paragraph",
@@ -95,7 +97,8 @@ class DoclingParser:
             elif "table" in label:
                 bbox = self._extract_bbox(item)
                 table_data = self._extract_table_data(item)
-                page = item.prov[0].page_no if hasattr(item, "prov") and item.prov else 1
+                page = item.prov[0].page_no if hasattr(
+                    item, "prov") and item.prov else 1
                 blocks.append(ParsedBlock(
                     page=page,
                     block_type="table",
@@ -119,7 +122,7 @@ class DoclingParser:
             b = p.bbox
             # Docling uses l,r,t,b. Mapping to x0,y0,x1,y1.
             return BoundingBox(
-                x0=getattr(b, "l", 0), y0=getattr(b, "b", 0), 
+                x0=getattr(b, "l", 0), y0=getattr(b, "b", 0),
                 x1=getattr(b, "r", 0), y1=getattr(b, "t", 0),
                 page=p.page_no
             )
@@ -137,7 +140,7 @@ class DoclingParser:
                 }
             except Exception as e:
                 logger.warning(f"Table export failed: {e}")
-        
+
         return {"headers": [], "rows": []}
 
     def _table_to_markdown(self, table_data: Dict) -> str:
