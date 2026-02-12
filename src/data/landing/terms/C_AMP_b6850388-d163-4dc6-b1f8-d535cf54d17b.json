@@ -1,6 +1,6 @@
 {
   "type": "term_entry",
-  "termId": "286ed0d3-a9c5-4d4d-af14-bc856f20ea52",
+  "termId": "b6850388-d163-4dc6-b1f8-d535cf54d17b",
   "term": "AMP",
   "lang": "bilingual",
   "headword_en": "AMP",
@@ -21,11 +21,11 @@
   "provenance": {
     "sources": [
       {
-        "docId": "DOC_4c6e12ff92484bb4b358e3ed59d00573"
+        "docId": "DOC_18e49e833ff64f81a93265373ed9982c"
       }
     ],
     "curationStatus": "candidate",
-    "trace_id": "b4bfa34cb0c24f2899e0879137fe9fb1"
+    "trace_id": "07495bfe1d834e3b96db3c958de2bf60"
   },
   "status": "candidate"
 }

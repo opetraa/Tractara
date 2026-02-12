@@ -24,6 +24,9 @@ services:
       - ./dvc-storage:/app/dvc-storage # DVC 로컬 저장소를 컨테이너에 마운트
       - dvc-cache:/root/.dvc/cache # DVC 캐시를 명명된 볼륨으로 연결하여 유지
     # 컨테이너 내에서 사용할 환경 변수를 설정합니다.
+    # .env 파일의 내용을 환경 변수로 주입
+    env_file:
+      - .env
     environment:
       - PYTHONPATH=/app # 파이썬이 모듈을 찾을 수 있도록 경로를 추가합니다.
       - DVC_REMOTE=myremote # DVC 원격 저장소 이름을 설정합니다.

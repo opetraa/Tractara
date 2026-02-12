@@ -16,3 +16,6 @@ __pycache__/
 
 # DVC local storage
 /dvc-storage/
+
+# Environment variables
+.env

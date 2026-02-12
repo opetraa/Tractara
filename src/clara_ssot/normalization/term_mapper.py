@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from typing import Any, Dict, List
 import logging
+import os
 import uuid
 
 import instructor
@@ -96,27 +97,50 @@ class LLMTermExtractor:
         """
         # Few-shot 예제
         few_shot_example = """
-예시:
-텍스트: "경년열화 관리 프로그램(AMP)은 원자력 발전소의 장기 운전을 위해 필수적이다."
+예시 1:
+텍스트: "경년열화 관리 프로그램(AMP)은 원자력 발전소의 장기 운전을 위해 필수적이다. 또한 1차 계통의 응력부식균열(SCC) 및 피로(Fatigue) 손상을 감시해야 한다."
 
 추출:
-- term: AMP
-- headword_en: Aging Management Program
-- headword_ko: 경년열화 관리 프로그램
-- definition_en: A program to manage aging effects in nuclear power plants
-- definition_ko: 원자력 발전소의 경년 열화 영향을 관리하는 프로그램
-- domain: ["nuclear", "LTO", "safety"]
-- context: "경년열화 관리 프로그램(AMP)은..."
+[
+  {
+    "term": "AMP",
+    "headword_en": "Aging Management Program",
+    "headword_ko": "경년열화 관리 프로그램",
+    "definition_en": "A program to manage aging effects in nuclear power plants.",
+    "definition_ko": "원자력 발전소의 경년 열화 영향을 관리하는 프로그램.",
+    "domain": ["nuclear", "LTO", "safety"],
+    "context": "경년열화 관리 프로그램(AMP)은..."
+  },
+  {
+    "term": "SCC",
+    "headword_en": "Stress Corrosion Cracking",
+    "headword_ko": "응력부식균열",
+    "definition_en": "Cracking induced from the combined influence of tensile stress and a corrosive environment.",
+    "definition_ko": "인장 응력과 부식성 환경의 복합적인 영향으로 발생하는 균열.",
+    "domain": ["nuclear", "materials"],
+    "context": "또한 1차 계통의 응력부식균열(SCC) 및..."
+  },
+  {
+    "term": "Fatigue",
+    "headword_en": "Fatigue",
+    "headword_ko": "피로",
+    "definition_en": "Weakening of a material caused by cyclic loading.",
+    "definition_ko": "반복적인 하중으로 인해 재료가 약해지는 현상.",
+    "domain": ["nuclear", "materials", "mechanics"],
+    "context": "...및 피로(Fatigue) 손상을 감시해야 한다."
+  }
+]
 """
 
         prompt = f"""당신은 원자력 기술 문서에서 전문 용어를 추출하는 전문가입니다.
+문서에 등장하는 '모든' 주요 기술 용어, 약어, 시스템 명칭, 고유한 개념을 추출하세요.
+단순히 특정 단어만 찾는 것이 아니라, 문서 내의 다양한 전문 용어를 포괄적으로 찾아야 합니다.
 
-다음 단계를 따라 용어를 추출하세요:
-
-1. 텍스트를 읽고 약어와 전문 용어를 찾으세요
-2. 각 용어의 정식 명칭을 확인하세요
-3. 맥락에서 정의를 추론하세요
-4. 도메인 태그를 할당하세요 (nuclear, safety, LTO, PSR, FSAR 등)
+다음 단계를 따르세요:
+1. 텍스트를 정독하고 약어(예: LOCA, RPV), 한글 전문 용어(예: 냉각재상실사고), 영문 전문 용어(예: Fatigue Monitoring)를 모두 식별하세요.
+2. 각 용어의 정식 명칭(Full Name)을 영문과 한글로 최대한 복원하세요.
+3. 문맥(Context)을 바탕으로 해당 용어의 정의를 요약하세요.
+4. 적절한 도메인 태그를 할당하세요 (nuclear, safety, LTO, PSR, FSAR 등).
 
 {few_shot_example}
 
@@ -149,6 +173,10 @@ def extract_term_candidates(
     - LLM 기반 추출 (CoT + Few-shot)
     - Instructor로 구조화된 출력 보장
     """
+    # 인자로 키가 안 넘어왔으면 환경 변수에서 조회
+    if not llm_api_key:
+        llm_api_key = os.environ.get("GEMINI_API_KEY")
+
     if not llm_api_key:
         logger.warning("No LLM API key provided, using dummy extractor")
         return [
@@ -167,7 +195,8 @@ def extract_term_candidates(
 
     # LLM 추출
     extractor = LLMTermExtractor(api_key=llm_api_key)
-    candidates = extractor.extract(text_chunks[:3])  # 테스트를 위해 3개로 제한 (속도 향상)
+    # 더 많은 용어를 찾기 위해 청크 수 증가 (테스트용 10개)
+    candidates = extractor.extract(text_chunks[:10])
 
     logger.info(f"Extracted {len(candidates)} TERM candidates")
     return candidates

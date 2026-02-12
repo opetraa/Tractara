@@ -1,18 +1,18 @@
 {
-  "documentId": "DOC_4c6e12ff92484bb4b358e3ed59d00573",
+  "documentId": "DOC_18e49e833ff64f81a93265373ed9982c",
   "$schema": "https://clara-ssot.org/schemas/doc-baseline/v1.0.0",
   "version": "1.0.0",
-  "lastUpdated": "2026-02-12T06:10:24.643158Z",
+  "lastUpdated": "2026-02-12T07:34:41.542034Z",
   "metadata": {
     "dc:title": "Unknown title (from PDF)",
     "dc:type": "TechnicalReport",
     "dc:language": "ko"
   },
   "provenance": {
-    "sourceFile": "/tmp/tmprbl7xax3/sample.pdf",
+    "sourceFile": "/tmp/tmpex77vud4/sample.pdf",
     "extractionMetadata": {
       "parserVersion": "0.1.0",
-      "extractionDate": "2026-02-12T06:10:24.643158Z",
+      "extractionDate": "2026-02-12T07:34:41.542034Z",
       "ocrApplied": false,
       "confidence": 0.5
     },

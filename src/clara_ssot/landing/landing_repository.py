@@ -37,11 +37,18 @@ def save_term_candidates_landing(doc_id: str, terms: List[Dict[str, Any]]) -> No
 
     for term in terms:
         # 파일명 생성: C_{TERM}_{TERM_ID}.json
-        # TERM에서 특수문자 제거 및 대문자화
-        clean_term = re.sub(r"[^a-zA-Z0-9_-]", "",
-                            term.get("term", "")).upper()
-        if not clean_term:
-            clean_term = "UNKNOWN"
+        # 한글 용어일 경우 파일명 호환성을 위해 영문 표제어(headword_en)를 우선 사용하고,
+        # 영문이 전혀 없으면 "TEMP"로 설정하여 추후 확정되도록 함.
+        clean_term = "TEMP"
+        # 1순위: headword_en (영문 정식 명칭), 2순위: term (약어 등)
+        name_candidates = [term.get("headword_en"), term.get("term")]
+
+        for cand in name_candidates:
+            if cand:
+                extracted = re.sub(r"[^a-zA-Z0-9_-]", "", cand).upper()
+                if extracted:
+                    clean_term = extracted
+                    break
 
         term_id_val = term.get("termId", "unknown")
         filename = f"C_{clean_term}_{term_id_val}.json"

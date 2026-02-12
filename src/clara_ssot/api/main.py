@@ -1,21 +1,24 @@
 # src/clara_ssot/api/main.py
+from .pipeline import ingest_single_document
+from ..validation.json_schema_validator import (
+    SchemaValidationException,
+    schema_registry,
+)
+from ..tracing import get_trace_id, new_child_span
+from ..problem_details import MachineReadableError, ProblemDetails
+from ..logging_setup import configure_logging
+from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi import FastAPI, File, UploadFile
 import shutil
 import tempfile
 import traceback
 from pathlib import Path
 import logging
 
-from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import JSONResponse, RedirectResponse
+from dotenv import load_dotenv
 
-from ..logging_setup import configure_logging
-from ..problem_details import MachineReadableError, ProblemDetails
-from ..tracing import get_trace_id, new_child_span
-from ..validation.json_schema_validator import (
-    SchemaValidationException,
-    schema_registry,
-)
-from .pipeline import ingest_single_document
+load_dotenv()  # .env 파일 로드
+
 
 logger = logging.getLogger(__name__)
 app = FastAPI(title="CLARA-SSoT Ingestion API")
