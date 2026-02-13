@@ -64,9 +64,11 @@ class LLMTermExtractor:
         all_candidates = []
 
         for chunk in text_chunks:
-            if len(chunk.strip()) < 50:  # 너무 짧은 텍스트는 스킵
+            if len(chunk.strip()) < 20:  # 너무 짧은 텍스트는 스킵 (기준 완화: 50 -> 20)
                 continue
 
+            logger.info(
+                f"Sending chunk to LLM (len={len(chunk)}): {chunk[:50].replace(chr(10), ' ')}...")
             try:
                 result = self._extract_from_chunk(chunk)
                 candidates = [
@@ -87,7 +89,7 @@ class LLMTermExtractor:
                 logger.debug(f"CoT reasoning: {result.reasoning}")
 
             except Exception as e:
-                logger.error(f"TERM extraction failed: {e}")
+                logger.error(f"❌ TERM extraction failed: {e}", exc_info=True)
 
         return all_candidates
 
@@ -132,7 +134,7 @@ class LLMTermExtractor:
 ]
 """
 
-        prompt = f"""당신은 원자력 기술 문서에서 전문 용어를 추출하는 전문가입니다.
+        prompt = f"""당신은 기술 문서(원자력, 엔지니어링, IT, 환경 등)에서 전문 용어를 추출하는 전문가입니다.
 문서에 등장하는 '모든' 주요 기술 용어, 약어, 시스템 명칭, 고유한 개념을 추출하세요.
 단순히 특정 단어만 찾는 것이 아니라, 문서 내의 다양한 전문 용어를 포괄적으로 찾아야 합니다.
 
@@ -152,11 +154,12 @@ class LLMTermExtractor:
 """
 
         # Instructor로 구조화된 출력 강제
-        response = self.client.messages.create(
+        response = self.client.chat.completions.create(
             messages=[
                 {"role": "user", "content": prompt}
             ],
             response_model=TermExtractionResult,
+            max_retries=3,
         )
 
         return response
@@ -175,7 +178,8 @@ def extract_term_candidates(
     """
     # 인자로 키가 안 넘어왔으면 환경 변수에서 조회
     if not llm_api_key:
-        llm_api_key = os.environ.get("GEMINI_API_KEY")
+        llm_api_key = os.environ.get(
+            "GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
 
     if not llm_api_key:
         logger.warning("No LLM API key provided, using dummy extractor")
@@ -190,12 +194,12 @@ def extract_term_candidates(
     # 텍스트 청크 준비
     text_chunks = [
         block.text for block in parsed.blocks
-        if block.text and len(block.text) > 50
+        if block.text and len(block.text) > 20
     ]
 
     if not text_chunks:
         logger.warning(
-            "⚠️ No text chunks > 50 chars found in document. Term extraction skipped.")
+            "⚠️ No text chunks > 20 chars found in document. Term extraction skipped.")
 
     # LLM 추출
     extractor = LLMTermExtractor(api_key=llm_api_key)

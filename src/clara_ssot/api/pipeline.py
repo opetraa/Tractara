@@ -32,8 +32,7 @@ def ingest_single_document(pdf_path: Path) -> Dict[str, Any]:
     """
 
     # LLM API 키 가져오기
-    llm_api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY") or os.getenv(
-        "ANTHROPIC_API_KEY") or os.getenv("OPENAI_API_KEY")
+    llm_api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
 
     warnings = []
     if not llm_api_key:
