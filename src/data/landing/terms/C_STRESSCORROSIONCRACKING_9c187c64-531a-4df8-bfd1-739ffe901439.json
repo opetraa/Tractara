@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "9c187c64-531a-4df8-bfd1-739ffe901439",
+  "term": "SCC",
+  "lang": "bilingual",
+  "headword_en": "Stress Corrosion Cracking",
+  "headword_ko": "응력부식균열",
+  "definition_en": "A type of material degradation involving the initiation and propagation of cracks due to the combined effects of tensile stress and a corrosive environment.",
+  "definition_ko": "인장 응력과 부식성 환경의 복합적인 영향으로 인해 균열이 발생하고 전파되는 재료 열화 현상.",
+  "slots": {
+    "context_ko": "...특히 NDE 보고서는 모델의 정답 레이블인 'SCC 발견 여부 ' 를 결정하는 핵심 정보를 담고 있으나..."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "materials",
+    "safety",
+    "degradation"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

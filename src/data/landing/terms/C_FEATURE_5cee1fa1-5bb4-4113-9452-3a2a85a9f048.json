@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "5cee1fa1-5bb4-4113-9452-3a2a85a9f048",
+  "term": "피처",
+  "lang": "bilingual",
+  "headword_en": "Feature",
+  "headword_ko": "피처 (또는 특성)",
+  "definition_en": "An individual measurable property or characteristic of a phenomenon being observed, used as an input variable for a machine learning model.",
+  "definition_ko": "관찰되는 현상의 개별적으로 측정 가능한 속성 또는 특성으로, 기계 학습 모델의 입력 변수로 사용된다.",
+  "slots": {
+    "context_ko": "...물리적 의미를 갖는 피처를 창조하고..."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data science",
+    "machine learning"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

@@ -15,6 +15,7 @@
         "ms-python.vscode-pylance",
         "ms-python.black-formatter",
         "ms-python.isort",
+        "Google.gemini-code-assist",
         "ms-azuretools.vscode-docker",
         "iterative.dvc",
         "GitHub.copilot",

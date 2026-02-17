@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "3fb04127-f3f0-41fd-84a3-d7378b26d019",
+  "term": "가동중 검사규정",
+  "lang": "bilingual",
+  "headword_en": "In-service Inspection Code",
+  "headword_ko": "가동중 검사규정",
+  "definition_en": "Regulations that define the scope, frequency, and methods for inspecting components in nuclear power plants while they are in operation.",
+  "definition_ko": "운전 중인 원자력 발전소의 구성품에 대한 검사 대상, 주기, 방법을 정의하는 규정.",
+  "slots": {
+    "context_ko": "원자력발전소 구성품의가동중 검사규정"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "inspection",
+    "regulation",
+    "safety"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

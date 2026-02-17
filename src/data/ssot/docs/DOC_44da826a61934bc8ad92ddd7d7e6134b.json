@@ -1,0 +1,493 @@
+{
+  "documentId": "DOC_44da826a61934bc8ad92ddd7d7e6134b",
+  "$schema": "https://clara-ssot.org/schemas/doc-baseline/v1.0.0",
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-17T14:04:39.279792Z",
+  "metadata": {
+    "dc:title": "Unknown title (from PDF)",
+    "dc:type": "TechnicalReport",
+    "dc:language": "ko"
+  },
+  "provenance": {
+    "sourceFile": "/tmp/tmp3imqpmzs/sample.pdf",
+    "extractionMetadata": {
+      "parserVersion": "0.1.0",
+      "extractionDate": "2026-02-17T14:04:39.279792Z",
+      "ocrApplied": false,
+      "confidence": 0.5
+    },
+    "validationStatus": "draft",
+    "curationHistory": []
+  },
+  "content": [
+    {
+      "blockId": "block-0001",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "역량에 달려있다 .",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 705.936,
+        "x1": 165.216,
+        "y1": 717.632,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "block-0002",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "PI System (OSIsoft): 온도 , 압력 , 유량 등 고주파 운전 데이터를 저장하는 시계열 데이터베이스이다 . 특정 부품의 운전 온도 이력 , 압력 변동 등을 추출하여 ' 열 이력 ' 및 ' 운전 응력 ' 피처를 생성하는 데 필수적이다 .",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 650.436,
+        "x1": 539.898,
+        "y1": 695.132,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "block-0003",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "전산화된 유지보수 관리 시스템 (CMMS, e.g., SAP PM, Maximo): 작업 지시서 (Work Order), 부품 교체 이력 , 비파괴검사 (NDE) 보고서 등이 저장된다 . 특히 NDE 보고서는 모델의 정답 레이블인 'SCC 발견 여부 ' 를 결정하는 핵심 정보를 담고 있으나 , 종종 비정형 텍스트나 스캔된 PDF 형태로 존재하여 정보 추출에 어려움이 따른다 .",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 567.936,
+        "x1": 532.23,
+        "y1": 645.632,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "block-0004",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "문서 관리 시스템 (e.g., Documentum): 재료 시험 성적서 (MTR), 용접 절차 시방서 (WPS), 배관 및 계장도 (P&ID) 등 설계 및 제작 단계의 문서가 보관된다 . MTR 에서 탄소 함량을 , WPS 에서 용접 조건 및 후열처리 여부를 , P&ID 에서 데드레그 (Dead-leg) 와 같은 기하학적 정보를 추출할 수 있다 .",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 501.936,
+        "x1": 504.21,
+        "y1": 563.132,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "block-0005",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "공개 데이터 : 특정 발전소의 데이터가 부족할 경우 , NUREG 의 'SCRAM' 사건 데이터베이스나 국제 운영 경험 정보 교환 기구 (WANO 등 ) 의 데이터를 활용하여 모델을 사전 훈련 (pre-training) 하거나 , 다른 플랜트 모델의 지식을 전이학습 (transfer learning) 하는 방안도 고려할 수 있다 .",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 435.936,
+        "x1": 514.89,
+        "y1": 497.132,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "block-0006",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "이처럼 SCC 예측에 필요한 핵심 조건들 , 즉 재료 , 열 이력 , 기하학적 구조 , 운전 온도 , 응력 상태에 대한 데이터는 각각 별개의 시스템에 저장되어 있다 . 예를 들어 , 특정 용접부의 잔류 응력 계산서 ( 엔지니어링 보고서 ) 와 해당 용접부의 운전 온도 이력 (PI 시스템 ), 그리고 최종 검사 결과 (CMMS) 를 연결하기 위해서는 모든 시스템에서 일관되게 사용되는 고유 식별자 ( 예 : Component ID) 가 필요하지만 , 실제 현장에서는 이러한 식별 체계가 완벽하게 구축되어 있지 않은 경우가 많다 . 따라서 프로젝트의 가장 중요한 초기 과업은 이러한 이종 데이터를 통합하여 각 분석 대상 ( 예 : 용접부 ) 에 대한 ' 디지털 스레드 (Digital Thread)' 를 구축하는 것이며 , 이는 머신러닝 알고리즘 선택보다 훨씬 더 중요하고 자원 집약적인 작업이 될 것이다 .",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 275.4359999999999,
+        "x1": 539.832,
+        "y1": 419.132,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "block-0007",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "표 1: SCC 예측을 위한 핵심 참고 자료 목록",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 230.43600000000004,
+        "x1": 298.44,
+        "y1": 242.13200000000006,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "block-0008",
+      "parentId": null,
+      "blockType": "table",
+      "text": "| 0 | 1 | 2 | 3 | 4 |\n| --- | --- | --- | --- | --- |\n| 자료명및 ID | 발행기관 | 링크 / 참조 | 내용요약 | 머신러닝 모델과의관련성 |\n| NUREG-0313 Rev. 2 | US NRC | N/A | BWR 배관의 SCC 에대한 기술적해결책및 검사 / 수리기준 제시 | SCC 민감성재료 정의 , 검사 우선순위결정 로직제공 . ' 재료 ' 및 ' 위험등급 ' 피처 |",
+      "bbox": {
+        "x0": 71.73375701904297,
+        "y0": 75.935546875,
+        "x1": 541.283447265625,
+        "y1": 216.43695068359375,
+        "page": 1
+      },
+      "extractionConfidence": 0.979,
+      "tableData": {
+        "headers": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "rows": [
+          [
+            "자료명및 ID",
+            "발행기관",
+            "링크 / 참조",
+            "내용요약",
+            "머신러닝 모델과의관련성"
+          ],
+          [
+            "NUREG-0313 Rev. 2",
+            "US NRC",
+            "N/A",
+            "BWR 배관의 SCC 에대한 기술적해결책및 검사 / 수리기준 제시",
+            "SCC 민감성재료 정의 , 검사 우선순위결정 로직제공 . ' 재료 ' 및 ' 위험등급 ' 피처"
+          ]
+        ]
+      }
+    },
+    {
+      "blockId": "block-0009",
+      "parentId": null,
+      "blockType": "table",
+      "text": "|  |  |  |  | 엔지니어링의 직접적근거 . |\n| --- | --- | --- | --- | --- |\n| EPRI MRP-139 | EPRI | N/A | 1 차계통배관 맞대기용접부의 검사및평가 가이드라인 | 모델의종속 변수 (Target Variable) 가되는 비파괴검사 (NDE) 결과의판정 기준을정의 . 'SCC 발견여부 ' 레이블링의근거 . |\n| ASME Sec. XI | ASME | N/A | 원자력발전소 구성품의가동중 검사규정 | 검사대상 , 주기 , 방법정의 . 모델의예측대상 범위 (Scope) 와 데이터수집주기 결정에영향 . |\n| ASTM A262 | ASTM | N/A | 오스테나이트계 스테인리스강의 입계부식민감도 평가시험법 | ' 예민화 ' 정도를 정량화하는표준 방법 . 과거시험 데이터가있다면 매우강력한예측 피처로활용 가능 . |\n| Macdonald, D. D. (J. Solid State Electrochem.) | 학계 | DOI | 금속부동태에 대한점결함 모델 (Point Defect Model) 의 역사와미래 | SCC 의근본적인 전기화학적 메커니즘을설명 . 모델이근사해야 할물리현상을 이해하고 , 수화학 관련피처 (pH, 전도도등 ) 의 중요성을 파악하는데 도움 . |",
+      "bbox": {
+        "x0": 71.27606964111328,
+        "y0": 165.72900390625,
+        "x1": 541.9506225585938,
+        "y1": 720.3242416381836,
+        "page": 2
+      },
+      "extractionConfidence": 0.979,
+      "tableData": {
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "엔지니어링의 직접적근거 ."
+        ],
+        "rows": [
+          [
+            "EPRI MRP-139",
+            "EPRI",
+            "N/A",
+            "1 차계통배관 맞대기용접부의 검사및평가 가이드라인",
+            "모델의종속 변수 (Target Variable) 가되는 비파괴검사 (NDE) 결과의판정 기준을정의 . 'SCC 발견여부 ' 레이블링의근거 ."
+          ],
+          [
+            "ASME Sec. XI",
+            "ASME",
+            "N/A",
+            "원자력발전소 구성품의가동중 검사규정",
+            "검사대상 , 주기 , 방법정의 . 모델의예측대상 범위 (Scope) 와 데이터수집주기 결정에영향 ."
+          ],
+          [
+            "ASTM A262",
+            "ASTM",
+            "N/A",
+            "오스테나이트계 스테인리스강의 입계부식민감도 평가시험법",
+            "' 예민화 ' 정도를 정량화하는표준 방법 . 과거시험 데이터가있다면 매우강력한예측 피처로활용 가능 ."
+          ],
+          [
+            "Macdonald, D. D. (J. Solid State Electrochem.)",
+            "학계",
+            "DOI",
+            "금속부동태에 대한점결함 모델 (Point Defect Model) 의 역사와미래",
+            "SCC 의근본적인 전기화학적 메커니즘을설명 . 모델이근사해야 할물리현상을 이해하고 , 수화학 관련피처 (pH, 전도도등 ) 의 중요성을 파악하는데 도움 ."
+          ]
+        ]
+      }
+    },
+    {
+      "blockId": "block-0010",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "2. SCC 결함 예측 데이터셋 구축",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 123.41999999999996,
+        "x1": 282.75,
+        "y1": 138.03999999999996,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "block-0011",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "머신러닝 모델의 성능은 데이터의 질과 양에 의해 결정된다 . 특히 SCC 예측과 같이 복잡한 물리적 현상을 다루는 경우 , 원시 데이터를 모델이 학습할 수 있는 정형화된 형태로 변환하는 데이터셋 구축 과정이 프로젝트 성공의 90% 를 차지한다고 해도 과언이 아니다 . 이 과정은 단순히 데이터를 모으는 것을 넘어 , 도메인 지식을 바탕으로 물리적 의미를 갖는 피처를 창조하고 , 데이터의 한계 ( 결측치 , 불균형 ) 를 극복하는 체계적인 접근을 요구한다 .",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 623.436,
+        "x1": 535.872,
+        "y1": 717.632,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "block-0012",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "2.1. 데이터 수집 , 통합 및 분석 단위 정의",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 566.436,
+        "x1": 281.568,
+        "y1": 578.132,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "block-0013",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "SCC 예측의 첫 단계는 \" 무엇을 예측할 것인가 ?\" 를 명확히 정의하는 것이다 . ' 배관 ' 이나 ' 펌프 ' 와 같이 큰 단위를 예측 대상으로 삼으면 예측 결과가 너무 모호하여 실제적인 조치로 이어지기 어렵다 . SCC 는 주로 용접부 열영향부 (HAZ, Heat-Affected Zone) 와 같이 국소적인 영역에서 발생하므로 , 예측의 분석 단위 (Unit of Analysis) 는 개별 **' 부품 -용접부 (Component-Weld)'** 로 정의하는 것이 가장 효과적이다 .",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 449.436,
+        "x1": 523.164,
+        "y1": 527.132,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "block-0014",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "이를 위해 , P&ID 와 Isometric 도면을 기반으로 예측 대상이 되는 모든 용접부의 마스터 목록을 생성하는 작업이 선행되어야 한다 . 각 용접부에는 플랜트 내에서 유일하게 식별 가능한 ID( 예 : WELD-123-A) 를 부여한다 . 이 고유 ID 를 기본 키 (Primary Key) 로 사용하여 , 1.4 절에서 언급된 PI 시스템 , CMMS, 문서 관리 시스템 등 파편화된 데이터 소스들을 쿼리하고 , 각 용접부에 해당하는 모든 정보를 하나의 넓은 테이블 (wide-format table) 형태로 통합한다 . 이 통합 데이터 테이블이 머신러닝 모델을 위한 최종 데이터셋의 기반이 된다 . 이 과정 자체가 플랜트의 자산 정보를 체계적으로 디지털화하는 중요한 단계이며 , 모델 개발 이전에 이미 그 자체로 큰 가치를 지닌다 .",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 305.436,
+        "x1": 536.604,
+        "y1": 432.632,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "block-0015",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "2.2. 피처 엔지니어링 : 물리 현상의 정량화",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 248.43600000000004,
+        "x1": 289.56,
+        "y1": 260.13200000000006,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "block-0016",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "피처 엔지니어링은 도메인 전문가의 지식을 머신러닝 모델이 이해할 수 있는 숫자 형태의 입력 변수 ( 피처 ) 로 변환하는 핵심적인 과정이다 . 사용자가 제시한 SCC 발생 조건 ( 고탄소강 , 고온 노출 , 데드레그 , 운전 조건 , 잔류 응력 ) 을 기반으로 다음과 같은 구체적인 피처를 생성할 수 있다 .",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 147.93600000000004,
+        "x1": 537.792,
+        "y1": 209.13200000000006,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "block-0017",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "2.2.1. 재료 및 야금학적 피처",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 90.93600000000004,
+        "x1": 219.792,
+        "y1": 102.63200000000006,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "block-0018",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "Material_Grade: 재료의 종류를 나타내는 범주형 변수 . 304, 304L, 316, 316L 등의 등급을 원 -핫 인코딩 (One-hot encoding) 방식으로 변환한다 . ( 예 :",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 666.936,
+        "x1": 520.05,
+        "y1": 695.132,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0019",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "Material_Grade_304=1, Material_Grade_316=0)",
+      "bbox": {
+        "x0": 95.25,
+        "y0": 650.436,
+        "x1": 351.391,
+        "y1": 661.572,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0020",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "Carbon_Content_pct: 재료 시험 성적서 (MTR) 에서 추출한 탄소 함량 (%). 이는 예민화 가능성을 직접적으로 나타내는 매우 중요한 연속형 변수이다 .",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 617.436,
+        "x1": 502.554,
+        "y1": 645.632,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0021",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "Is_L_Grade: 저탄소강 ('L' grade) 여부를 나타내는 이진 변수 (0/1). 탄소 함량이 낮아 예민화 저항성이 크므로 , 강력한 음의 예측 변수 (negative predictor) 로 작용할 것이다 .",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 567.936,
+        "x1": 530.43,
+        "y1": 612.632,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0022",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "Degree_of_Sensitization: ASTM A262 와 같은 시험 결과가 있다면 , 이를 정량적 또는 정성적 ( 예 : 'High', 'Medium', 'Low') 피처로 변환하여 사용한다 .",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 534.936,
+        "x1": 534.582,
+        "y1": 563.132,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0023",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "2.2.2. 열 이력 및 예민화 피처",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 477.936,
+        "x1": 224.208,
+        "y1": 489.632,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0024",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "Time_In_Sensitization_Range_hrs: 예민화를 정량화하는 가장 강력한 프록시 (proxy) 피처 . PI 시스템의 온도 데이터를 활용하여 , 해당 용접부가 전체 수명 동안 예민화 온도 범위 (450°C ~ 850°C) 에 머무른 누적 시간을 시간 단위로 계산한다 . 이 피처는",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 399.936,
+        "x1": 538.723,
+        "y1": 444.632,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0025",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "운전 이력을 동적으로 반영하는 핵심 변수이다 .",
+      "bbox": {
+        "x0": 95.25,
+        "y0": 383.436,
+        "x1": 344.754,
+        "y1": 395.132,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0026",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "Heat_Treatment_History: 용접 절차 시방서 (WPS) 나 제작 기록에서 용접 후 열처리 (PWHT) 여부 및 종류 ( 예 : 'Solution Annealed', 'As-Welded') 를 추출하여 범주형 피처로 만든다 . 용접 후 고용화 열처리는 예민화를 해소하므로 SCC 발생",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 333.936,
+        "x1": 512.61,
+        "y1": 378.632,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0027",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "확률을 크게 낮춘다 .",
+      "bbox": {
+        "x0": 95.25,
+        "y0": 317.436,
+        "x1": 203.538,
+        "y1": 329.132,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0028",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "2.2.3. 응력 상태 피처",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 260.4359999999999,
+        "x1": 182.88,
+        "y1": 272.13200000000006,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0029",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "잔류 응력은 직접 측정이 어렵고 데이터 확보가 가장 까다로운 피처 중 하나이다 . 따라서 데이터 가용성에 따라 다음과 같은 계층적 접근법을 제안한다 .",
+      "bbox": {
+        "x0": 72.0,
+        "y0": 192.93600000000004,
+        "x1": 531.936,
+        "y1": 221.13200000000006,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0030",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "Tier 1 ( 고신뢰도 ): 해당 용접부에 대해 수행된 유한요소해석 (FEA) 시뮬레이션 결과가 있다면 , 그 결과에서 최대 주응력 (max principal stress) 값을 직접 사용한다 . 이것이 가장 정확한 방법이다 .",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 137.43600000000004,
+        "x1": 533.634,
+        "y1": 182.13200000000006,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "block-0031",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "Tier 2 ( 중신뢰도 ): FEA 데이터가 없는 경우 , 배관 직경 , 두께 , 용접 절차 ( 예 : 용접 패스 수 ) 등을 기반으로 잔류 응력을 추정하는 경험적 모델이나 간이식을 사용한다 . 예를 들어 , 두꺼운 배관일수록 , 다층 용접을 할수록 잔류 응력이 크다는 경험적 지식을",
+      "bbox": {
+        "x0": 77.25,
+        "y0": 87.93600000000004,
+        "x1": 539.442,
+        "y1": 132.63200000000006,
+        "page": 4
+      }
+    }
+  ]
+}

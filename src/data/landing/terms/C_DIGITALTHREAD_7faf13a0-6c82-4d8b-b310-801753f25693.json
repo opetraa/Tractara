@@ -1,0 +1,35 @@
+{
+  "type": "term_entry",
+  "termId": "7faf13a0-6c82-4d8b-b310-801753f25693",
+  "term": "디지털 스레드",
+  "lang": "bilingual",
+  "headword_en": "Digital Thread",
+  "headword_ko": "디지털 스레드",
+  "definition_en": "A connected data flow that integrates heterogeneous data from various systems throughout the lifecycle of an asset (e.g., a weldment), enabling comprehensive analysis and decision-making.",
+  "definition_ko": "자산(예: 용접부)의 수명 주기 동안 여러 시스템의 이종 데이터를 통합하여 연결된 데이터 흐름을 생성하고, 포괄적인 분석 및 의사 결정을 가능하게 하는 개념이다.",
+  "slots": {
+    "context_ko": "따라서 프로젝트의 가장 중요한 초기 과업은 이러한 이종 데이터를 통합하여 각 분석 대상 ( 예 : 용접부 ) 에 대한 ' 디지털 스레드 (Digital Thread)' 를 구축하는 것이며..."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data integration",
+    "engineering",
+    "digital transformation",
+    "nuclear engineering"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

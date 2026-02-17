@@ -1,0 +1,32 @@
+{
+  "type": "term_entry",
+  "termId": "cf7d1928-abd7-4e08-9478-036b2f1be605",
+  "term": "Work Order",
+  "lang": "bilingual",
+  "headword_en": "Work Order",
+  "headword_ko": "작업 지시서",
+  "definition_en": "A document or electronic record used to authorize and track maintenance tasks or services within a management system like CMMS.",
+  "definition_ko": "CMMS와 같은 관리 시스템 내에서 유지보수 작업이나 서비스를 승인하고 추적하는 데 사용되는 문서 또는 전자 기록.",
+  "slots": {
+    "context_ko": "...작업 지시서 (Work Order)..."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "maintenance",
+    "management"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

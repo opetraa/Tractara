@@ -1,0 +1,35 @@
+{
+  "type": "term_entry",
+  "termId": "b3943fe4-3b48-40dd-908f-ce80f153f748",
+  "term": "EPRI MRP-139",
+  "lang": "bilingual",
+  "headword_en": "Inspection and Evaluation Guidelines for Primary System Piping Butt Welds",
+  "headword_ko": "1차 계통 배관 맞대기 용접부의 검사 및 평가 가이드라인",
+  "definition_en": "A guideline that defines acceptance criteria for Non-Destructive Examination (NDE) results, which serve as the target variable for models, and forms the basis for 'SCC detection' labeling.",
+  "definition_ko": "모델의 종속 변수(Target Variable)가 되는 비파괴검사(NDE) 결과의 판정 기준을 정의하며, 'SCC 발견 여부' 레이블링의 근거를 제공하는 가이드라인.",
+  "slots": {
+    "context_ko": "EPRI MRP-139 | 1차계통배관 맞대기용접부의 검사및평가 가이드라인 | 모델의종속 변수 (Target Variable) 가되는 비파괴검사 (NDE) 결과의판정 기준을정의 . 'SCC 발견여부 ' 레이블링의근거 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "materials",
+    "NDE",
+    "guideline",
+    "inspection"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

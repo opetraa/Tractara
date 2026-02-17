@@ -131,3 +131,10 @@ ingest:
 # 2. 뒤에 오는 인자들이 '존재하지 않는 명령어'라고 에러가 나지 않게 방지합니다.
 %:
 	@:
+
+.PHONY: stop
+stop:
+	@echo "Stopping uvicorn server..."
+	-pkill -f uvicorn
+	@echo "Server stopped."
+# 서버를 끈다.

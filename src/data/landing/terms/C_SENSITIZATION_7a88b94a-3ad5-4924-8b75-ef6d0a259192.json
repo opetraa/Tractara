@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "7a88b94a-3ad5-4924-8b75-ef6d0a259192",
+  "term": "예민화",
+  "lang": "bilingual",
+  "headword_en": "Sensitization",
+  "headword_ko": "예민화",
+  "definition_en": "A metallurgical phenomenon in stainless steels where chromium carbides precipitate at grain boundaries, leading to a chromium-depleted zone that makes the material susceptible to intergranular corrosion.",
+  "definition_ko": "스테인리스강에서 크롬 탄화물이 결정립계에 석출되어 크롬 고갈 영역을 형성함으로써, 재료가 입계부식에 취약해지는 야금학적 현상.",
+  "slots": {
+    "context_ko": "' 예민화 ' 정도를 정량화하는표준 방법 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "materials",
+    "metallurgy",
+    "corrosion"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

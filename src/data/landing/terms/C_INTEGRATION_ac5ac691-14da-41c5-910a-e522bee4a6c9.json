@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "ac5ac691-14da-41c5-910a-e522bee4a6c9",
+  "term": "통합",
+  "lang": "bilingual",
+  "headword_en": "Integration",
+  "headword_ko": "통합",
+  "definition_en": "The process of combining different systems, components, or datasets into a single, unified system or view.",
+  "definition_ko": "서로 다른 시스템, 구성요소 또는 데이터셋을 하나의 통일된 시스템이나 관점으로 결합하는 과정.",
+  "slots": {
+    "context_ko": "통합"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "engineering",
+    "systems"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "2d73b0e7-b9e5-4025-b9a7-088f5c1a15f2",
+  "term": "pre-training",
+  "lang": "bilingual",
+  "headword_en": "Pre-training",
+  "headword_ko": "사전 훈련",
+  "definition_en": "In machine learning, the initial training of a model on a large dataset before fine-tuning it for a specific task or smaller dataset.",
+  "definition_ko": "기계 학습에서, 특정 작업이나 더 작은 데이터셋에 맞춰 미세 조정하기 전에 대규모 데이터셋으로 모델을 초기 훈련하는 과정.",
+  "slots": {
+    "context_ko": "모델을 사전 훈련 (pre-training) 하거나"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "AI",
+    "machine learning",
+    "data"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

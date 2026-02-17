@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "77da0e6f-41ea-4000-8062-5433d4283458",
+  "term": "피처",
+  "lang": "bilingual",
+  "headword_en": "Feature",
+  "headword_ko": "피처",
+  "definition_en": "In machine learning, an individual measurable property or characteristic of a phenomenon being observed, used as an input to a model.",
+  "definition_ko": "머신러닝에서 관찰되는 현상의 개별적으로 측정 가능한 속성 또는 특성으로, 모델의 입력으로 사용된다.",
+  "slots": {
+    "context_ko": "' 재료 ' 및 ' 위험등급 ' 피처"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "machine_learning",
+    "data_science"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

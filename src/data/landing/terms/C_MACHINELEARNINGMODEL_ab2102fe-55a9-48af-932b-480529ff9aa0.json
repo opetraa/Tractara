@@ -1,0 +1,32 @@
+{
+  "type": "term_entry",
+  "termId": "ab2102fe-55a9-48af-932b-480529ff9aa0",
+  "term": "머신러닝 모델",
+  "lang": "bilingual",
+  "headword_en": "Machine Learning Model",
+  "headword_ko": "머신러닝 모델",
+  "definition_en": "A computational model that learns patterns from data to make predictions or decisions without being explicitly programmed.",
+  "definition_ko": "명시적인 프로그래밍 없이 데이터로부터 패턴을 학습하여 예측이나 결정을 내리는 계산 모델.",
+  "slots": {
+    "context_ko": "머신러닝 모델의 성능은 데이터의 질과 양에 의해 결정된다."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "machine learning"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "c5947adf-c5f3-4894-8433-34a37c5f3a0b",
+  "term": "금속부동태",
+  "lang": "bilingual",
+  "headword_en": "Metal Passivation",
+  "headword_ko": "금속부동태",
+  "definition_en": "The formation of a protective film on the surface of a metal that prevents or slows down its corrosion.",
+  "definition_ko": "금속 표면에 보호막이 형성되어 부식을 방지하거나 늦추는 현상.",
+  "slots": {
+    "context_ko": "금속부동태에 대한점결함 모델 (Point Defect Model) 의 역사와미래"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "materials",
+    "corrosion",
+    "electrochemistry"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

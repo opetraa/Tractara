@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "153b3fae-34c4-4c1b-92dd-425d5d7e6a6a",
+  "term": "위험등급",
+  "lang": "bilingual",
+  "headword_en": "Risk grade",
+  "headword_ko": "위험 등급",
+  "definition_en": "A classification assigned to an item, component, or system based on its potential for causing harm or failure, used in risk assessment and prioritization.",
+  "definition_ko": "품목, 부품 또는 시스템에 잠재적인 해를 끼치거나 고장을 일으킬 가능성에 따라 할당된 분류 등급으로, 위험 평가 및 우선순위 결정에 사용된다.",
+  "slots": {
+    "context_ko": "' 재료 ' 및 ' 위험등급 ' 피처"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "safety",
+    "risk_management"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

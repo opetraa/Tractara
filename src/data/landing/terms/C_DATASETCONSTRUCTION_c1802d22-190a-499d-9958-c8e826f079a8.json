@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "c1802d22-190a-499d-9958-c8e826f079a8",
+  "term": "데이터셋 구축",
+  "lang": "bilingual",
+  "headword_en": "Dataset Construction",
+  "headword_ko": "데이터셋 구축",
+  "definition_en": "The comprehensive process of preparing data for machine learning models, which includes collecting, transforming raw data into a structured format, and engineering features.",
+  "definition_ko": "기계 학습 모델을 위한 데이터를 준비하는 포괄적인 과정으로, 원시 데이터를 정형화된 형태로 변환하고 피처를 엔지니어링하는 것을 포함한다.",
+  "slots": {
+    "context_ko": "원시 데이터를 모델이 학습할 수 있는 정형화된 형태로 변환하는 데이터셋 구축 과정이 프로젝트 성공의 90% 를 차지한다고 해도 과언이 아니다."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data science",
+    "machine learning"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

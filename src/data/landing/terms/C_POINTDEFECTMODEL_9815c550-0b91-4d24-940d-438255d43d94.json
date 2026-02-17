@@ -1,0 +1,35 @@
+{
+  "type": "term_entry",
+  "termId": "9815c550-0b91-4d24-940d-438255d43d94",
+  "term": "점결함 모델",
+  "lang": "bilingual",
+  "headword_en": "Point Defect Model",
+  "headword_ko": "점결함 모델",
+  "definition_en": "A model explaining the fundamental electrochemical mechanism of SCC and metal passivation, aiding in understanding the physical phenomena a model should approximate and the importance of water chemistry-related features (e.g., pH, conductivity).",
+  "definition_ko": "SCC의 근본적인 전기화학적 메커니즘을 설명하는 모델로, 모델이 근사해야 할 물리 현상을 이해하고 수화학 관련 피처(pH, 전도도 등)의 중요성을 파악하는 데 도움을 준다.",
+  "slots": {
+    "context_ko": "금속부동태에 대한점결함 모델 (Point Defect Model) 의 역사와미래 | SCC 의근본적인 전기화학적 메커니즘을설명 . 모델이근사해야 할물리현상을 이해하고 , 수화학 관련피처 (pH, 전도도등 ) 의 중요성을 파악하는데 도움 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "electrochemistry",
+    "materials",
+    "corrosion",
+    "physics",
+    "SCC"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

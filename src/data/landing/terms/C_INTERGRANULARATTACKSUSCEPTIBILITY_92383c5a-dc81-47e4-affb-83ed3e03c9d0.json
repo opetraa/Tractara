@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "92383c5a-dc81-47e4-affb-83ed3e03c9d0",
+  "term": "입계부식민감도",
+  "lang": "bilingual",
+  "headword_en": "Intergranular Attack Susceptibility",
+  "headword_ko": "입계부식민감도",
+  "definition_en": "The susceptibility of a material, particularly stainless steel, to corrosion preferentially along grain boundaries.",
+  "definition_ko": "재료, 특히 스테인리스강이 결정립계를 따라 우선적으로 부식될 수 있는 민감도.",
+  "slots": {
+    "context_ko": "오스테나이트계 스테인리스강의 입계부식민감도 평가시험법"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "materials",
+    "corrosion",
+    "metallurgy"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

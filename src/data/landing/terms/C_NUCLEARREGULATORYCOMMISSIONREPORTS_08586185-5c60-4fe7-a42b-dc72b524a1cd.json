@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "08586185-5c60-4fe7-a42b-dc72b524a1cd",
+  "term": "NUREG",
+  "lang": "bilingual",
+  "headword_en": "Nuclear Regulatory Commission Reports",
+  "headword_ko": "미국 원자력 규제 위원회 보고서",
+  "definition_en": "A series of technical reports and regulatory guides published by the U.S. Nuclear Regulatory Commission, often containing safety-related information and data.",
+  "definition_ko": "미국 원자력 규제 위원회(NRC)에서 발행하는 기술 보고서 및 규제 지침 시리즈로, 원자력 안전 관련 정보 및 데이터를 포함한다.",
+  "slots": {
+    "context_ko": "NUREG 의 'SCRAM' 사건 데이터베이스나"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "regulation",
+    "data"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

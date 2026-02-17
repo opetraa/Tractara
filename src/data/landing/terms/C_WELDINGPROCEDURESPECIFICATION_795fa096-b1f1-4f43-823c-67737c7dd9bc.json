@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "795fa096-b1f1-4f43-823c-67737c7dd9bc",
+  "term": "WPS",
+  "lang": "bilingual",
+  "headword_en": "Welding Procedure Specification",
+  "headword_ko": "용접 절차 시방서",
+  "definition_en": "A document from the design and manufacturing stage, from which information such as welding conditions and post-weld heat treatment can be extracted.",
+  "definition_ko": "설계 및 제작 단계의 문서로, 용접 조건 및 후열처리 여부와 같은 정보를 추출할 수 있다.",
+  "slots": {
+    "context_ko": "용접 절차 시방서 (WPS)... WPS 에서 용접 조건 및 후열처리 여부를 ... 추출할 수 있다."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "engineering",
+    "welding",
+    "documentation"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

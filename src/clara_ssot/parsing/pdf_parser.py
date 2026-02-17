@@ -4,10 +4,6 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 import logging
 
-# Docling 임포트
-from docling.document_converter import DocumentConverter
-from docling.datamodel.base_models import InputFormat
-
 # PyMuPDF 임포트
 import pymupdf
 
@@ -50,10 +46,85 @@ class ParsedDocument:
     metadata: Dict = None
 
 
+class PyMuPDFParser:
+    """
+    Docling(AI 파서)을 사용할 수 없는 환경(CUDA 에러 등)에서
+    기본적인 텍스트 추출을 수행하는 Fallback 파서
+    """
+
+    def parse(self, pdf_path: Path) -> ParsedDocument:
+        doc = pymupdf.open(pdf_path)
+        blocks = []
+
+        for page_index, page in enumerate(doc):
+            # get_text("blocks") returns list of (x0, y0, x1, y1, "lines", block_no, block_type)
+            raw_blocks = page.get_text("blocks")
+
+            for b in raw_blocks:
+                x0, y0, x1, y1, text, block_no, block_type = b
+
+                # block_type 0 is text, 1 is image
+                if block_type != 0 or not text.strip():
+                    continue
+
+                blocks.append(ParsedBlock(
+                    page=page_index + 1,
+                    block_type="paragraph",
+                    text=text.strip(),
+                    bbox=BoundingBox(x0=x0, y0=y0, x1=x1,
+                                     y1=y1, page=page_index + 1),
+                    confidence=0.5  # Rule-based라 신뢰도는 낮게 설정
+                ))
+
+        doc.close()
+
+        return ParsedDocument(
+            source_path=str(pdf_path),
+            blocks=blocks,
+            metadata={"parser": "pymupdf_fallback", "version": "1.0.0"}
+        )
+
+
 class DoclingParser:
     """Docling 기반 파서 (표 + 레이아웃 전문)"""
 
     def __init__(self):
+        # 0) 필수 의존성 체크 (Torch)
+        try:
+            import torch  # noqa: F401
+        except ImportError as e:
+            # CUDA 라이브러리 누락 에러 핸들링 (libcusparse.so.12 등)
+            if "libcusparse.so" in str(e) or "libcublas.so" in str(e):
+                msg = (
+                    "❌ PyTorch CUDA 라이브러리 로드 실패 (libcusparse/libcublas).\n"
+                    "현재 환경에 GPU 라이브러리가 없거나 호환되지 않습니다.\n"
+                    "CPU 환경이라면 다음 명령어로 PyTorch를 CPU 버전으로 재설치하세요:\n"
+                    "👉 pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu --force-reinstall"
+                )
+                logger.error(msg)
+                raise ImportError(msg) from e
+
+            msg = "PyTorch(torch)가 설치되지 않았습니다. 'make install'을 실행하여 의존성을 설치해주세요."
+            logger.error(msg)
+            raise ImportError(msg) from e
+
+        # Docling Lazy Import (CUDA 라이브러리 에러 방지)
+        try:
+            from docling.document_converter import DocumentConverter
+            from docling.datamodel.base_models import InputFormat
+        except ImportError as e:
+            # CUDA 라이브러리 누락 에러 핸들링 (libcusparse.so.12 등)
+            if "libcusparse.so" in str(e) or "libcublas.so" in str(e):
+                msg = (
+                    "❌ PyTorch CUDA 라이브러리 로드 실패 (libcusparse/libcublas).\n"
+                    "현재 환경에 GPU 라이브러리가 없거나 호환되지 않습니다.\n"
+                    "CPU 환경이라면 다음 명령어로 PyTorch를 CPU 버전으로 재설치하세요:\n"
+                    "👉 pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu --force-reinstall"
+                )
+                logger.error(msg)
+                raise ImportError(msg) from e
+            raise e
+
         # TableFormer 활성화 옵션
         self.converter = DocumentConverter()
 
@@ -204,14 +275,24 @@ def parse_pdf(path: Path) -> ParsedDocument:
     """
     logger.info(f"Parsing PDF with Docling+PyMuPDF: {path}")
 
-    # 1) Docling 파싱
-    docling_parser = DoclingParser()
-    parsed = docling_parser.parse(path)
+    try:
+        # 1) Docling 파싱 (AI 기반, GPU 권장되나 CPU도 가능해야 함)
+        docling_parser = DoclingParser()
+        parsed = docling_parser.parse(path)
 
-    # 2) PyMuPDF 좌표 보강
-    coord_extractor = PyMuPDFCoordinateExtractor()
-    parsed.blocks = coord_extractor.enhance_with_coordinates(
-        path, parsed.blocks)
+        # 2) PyMuPDF 좌표 보강
+        coord_extractor = PyMuPDFCoordinateExtractor()
+        parsed.blocks = coord_extractor.enhance_with_coordinates(
+            path, parsed.blocks)
 
-    logger.info(f"Parsed {len(parsed.blocks)} blocks from {path}")
-    return parsed
+        logger.info(f"Parsed {len(parsed.blocks)} blocks from {path}")
+        return parsed
+
+    except (ImportError, Exception) as e:
+        # 3) Fallback: 환경 문제로 Docling 실패 시 PyMuPDF 단독 사용
+        logger.warning(
+            f"⚠️ Docling AI 파서 실행 실패 ({e}).\n"
+            "범용 호환성을 위해 PyMuPDF Fallback 모드로 전환합니다."
+        )
+        fallback_parser = PyMuPDFParser()
+        return fallback_parser.parse(path)

@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "cfd0478e-6530-41f5-9fcb-f88423ab21aa",
+  "term": "비파괴검사",
+  "lang": "bilingual",
+  "headword_en": "Non-Destructive Examination",
+  "headword_ko": "비파괴검사",
+  "definition_en": "A method of evaluating the properties of a material, component, or system without causing damage.",
+  "definition_ko": "재료, 부품 또는 시스템을 손상시키지 않고 특성을 평가하는 방법.",
+  "slots": {
+    "context_ko": "비파괴검사 (NDE) 결과의판정 기준을정의 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "NDE",
+    "engineering",
+    "quality control"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

@@ -1,0 +1,35 @@
+{
+  "type": "term_entry",
+  "termId": "5334ab9f-8300-4536-b117-99c105946d71",
+  "term": "SCC",
+  "lang": "bilingual",
+  "headword_en": "Stress Corrosion Cracking",
+  "headword_ko": "응력부식균열",
+  "definition_en": "A degradation mechanism where cracking in a material is induced from the combined influence of tensile stress and a corrosive environment, particularly relevant in BWR piping.",
+  "definition_ko": "인장 응력과 부식성 환경의 복합적인 영향으로 재료에 균열이 발생하는 열화 메커니즘으로, 특히 BWR 배관에서 중요한 문제이다.",
+  "slots": {
+    "context_ko": "BWR 배관의 SCC 에대한 기술적해결책및 검사 / 수리기준 제시 | SCC 민감성재료 정의"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "materials",
+    "degradation",
+    "safety",
+    "BWR"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

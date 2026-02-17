@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "b1ed8b63-5118-4fc0-8426-3dedac052310",
+  "term": "Target Variable",
+  "lang": "bilingual",
+  "headword_en": "Target Variable",
+  "headword_ko": "종속 변수",
+  "definition_en": "In machine learning or statistics, the output variable that is being predicted or explained by other variables.",
+  "definition_ko": "머신러닝 또는 통계에서 다른 변수들에 의해 예측되거나 설명되는 결과 변수.",
+  "slots": {
+    "context_ko": "모델의종속 변수 (Target Variable) 가되는 비파괴검사 (NDE) 결과의판정 기준을정의 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data science",
+    "statistics"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "8d51b966-1f19-46d3-9619-2c98bf072715",
+  "term": "WANO",
+  "lang": "bilingual",
+  "headword_en": "World Association of Nuclear Operators",
+  "headword_ko": "세계 원자력 사업자 협회",
+  "definition_en": "An international organization that helps nuclear power plant operators around the world to maximize the safety and reliability of their operations.",
+  "definition_ko": "전 세계 원자력 발전소 운영자들이 운영의 안전성과 신뢰성을 극대화할 수 있도록 돕는 국제 기구.",
+  "slots": {
+    "context_ko": "국제 운영 경험 정보 교환 기구 (WANO 등 ) 의 데이터를 활용하여"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "safety",
+    "organization",
+    "data"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "1e3c844b-a957-4fd3-8b7f-62847223db3c",
+  "term": "도메인 지식",
+  "lang": "bilingual",
+  "headword_en": "Domain Knowledge",
+  "headword_ko": "도메인 지식",
+  "definition_en": "Specialized knowledge about a specific field or area, which is crucial for tasks like creating meaningful features in data science and machine learning projects.",
+  "definition_ko": "특정 분야나 영역에 대한 전문 지식으로, 데이터 과학 및 기계 학습 프로젝트에서 의미 있는 피처를 생성하는 등의 작업에 필수적이다.",
+  "slots": {
+    "context_ko": "이 과정은 단순히 데이터를 모으는 것을 넘어, 도메인 지식을 바탕으로 물리적 의미를 갖는 피처를 창조하고..."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data science",
+    "machine learning"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

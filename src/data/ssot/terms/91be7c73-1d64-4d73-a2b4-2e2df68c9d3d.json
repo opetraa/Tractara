@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "91be7c73-1d64-4d73-a2b4-2e2df68c9d3d",
+  "term": "NDE",
+  "lang": "bilingual",
+  "headword_en": "Nondestructive Examination",
+  "headword_ko": "비파괴검사",
+  "definition_en": "Methods for evaluating the properties or condition of a material, component, or system without causing permanent damage to the part being inspected.",
+  "definition_ko": "검사 대상 부품에 영구적인 손상을 주지 않고 재료, 부품 또는 시스템의 특성이나 상태를 평가하는 방법.",
+  "slots": {
+    "context_ko": "...비파괴검사 (NDE) 보고서 등이 저장된다 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "engineering",
+    "inspection",
+    "materials",
+    "safety"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "81b753c9-f70f-46ac-acb8-425dea15f30e",
+  "term": "Scope",
+  "lang": "bilingual",
+  "headword_en": "Scope",
+  "headword_ko": "범위",
+  "definition_en": "The extent of the area or subject matter that something deals with or to which it is relevant.",
+  "definition_ko": "어떤 것이 다루거나 관련되는 영역 또는 주제의 한계.",
+  "slots": {
+    "context_ko": "모델의예측대상 범위 (Scope) 와 데이터수집주기 결정에영향 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "general",
+    "engineering",
+    "IT"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

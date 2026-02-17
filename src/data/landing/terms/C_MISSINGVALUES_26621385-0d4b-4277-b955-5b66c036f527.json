@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "26621385-0d4b-4277-b955-5b66c036f527",
+  "term": "결측치",
+  "lang": "bilingual",
+  "headword_en": "Missing Values",
+  "headword_ko": "결측치",
+  "definition_en": "Data points where no value is recorded for a particular variable or observation, representing an incompleteness in the dataset.",
+  "definition_ko": "특정 변수나 관측치에 값이 기록되지 않은 데이터 포인트로, 데이터셋의 불완전성을 나타낸다.",
+  "slots": {
+    "context_ko": "...데이터의 한계 ( 결측치 , 불균형 ) 를 극복하는 체계적인 접근을 요구한다."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data science",
+    "machine learning"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

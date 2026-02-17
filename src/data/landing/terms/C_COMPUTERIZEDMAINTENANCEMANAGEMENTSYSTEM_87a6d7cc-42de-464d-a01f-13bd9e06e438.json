@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "87a6d7cc-42de-464d-a01f-13bd9e06e438",
+  "term": "CMMS",
+  "lang": "bilingual",
+  "headword_en": "Computerized Maintenance Management System",
+  "headword_ko": "컴퓨터화된 유지보수 관리 시스템",
+  "definition_en": "A software system used to manage maintenance operations, assets, and work orders, including the tracking of inspection results.",
+  "definition_ko": "유지보수 작업, 자산 및 작업 지시를 관리하고 추적하는 데 사용되는 소프트웨어 시스템으로, 검사 결과 추적을 포함한다.",
+  "slots": {
+    "context_ko": "...해당 용접부의 운전 온도 이력 (PI 시스템 ), 그리고 최종 검사 결과 (CMMS) 를 연결하기 위해서는..."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "maintenance",
+    "asset management",
+    "nuclear engineering"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

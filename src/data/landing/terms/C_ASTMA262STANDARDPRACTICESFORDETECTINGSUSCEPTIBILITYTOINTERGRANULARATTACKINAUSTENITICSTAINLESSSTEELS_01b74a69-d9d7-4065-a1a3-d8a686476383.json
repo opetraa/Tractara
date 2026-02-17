@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "01b74a69-d9d7-4065-a1a3-d8a686476383",
+  "term": "ASTM A262",
+  "lang": "bilingual",
+  "headword_en": "ASTM A262 Standard Practices for Detecting Susceptibility to Intergranular Attack in Austenitic Stainless Steels",
+  "headword_ko": "ASTM A262 오스테나이트계 스테인리스강의 입계부식 민감도 평가 시험법",
+  "definition_en": "A standard method for quantifying the degree of 'sensitization' in austenitic stainless steels. If past test data is available, it can be used as a very powerful predictive feature.",
+  "definition_ko": "오스테나이트계 스테인리스강의 '예민화' 정도를 정량화하는 표준 방법. 과거 시험 데이터가 있다면 매우 강력한 예측 피처로 활용 가능하다.",
+  "slots": {
+    "context_ko": "ASTM A262 | 오스테나이트계 스테인리스강의 입계부식민감도 평가시험법 | ' 예민화 ' 정도를 정량화하는표준 방법 . 과거시험 데이터가있다면 매우강력한예측 피처로활용 가능 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "materials",
+    "standard",
+    "corrosion",
+    "testing"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

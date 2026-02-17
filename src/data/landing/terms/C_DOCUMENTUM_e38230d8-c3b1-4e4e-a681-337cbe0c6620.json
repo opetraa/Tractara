@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "e38230d8-c3b1-4e4e-a681-337cbe0c6620",
+  "term": "Documentum",
+  "lang": "bilingual",
+  "headword_en": "Documentum",
+  "headword_ko": "Documentum",
+  "definition_en": "A specific example of a Document Management System used for storing design and manufacturing documents.",
+  "definition_ko": "설계 및 제작 문서를 보관하는 데 사용되는 문서 관리 시스템의 특정 예시.",
+  "slots": {
+    "context_ko": "문서 관리 시스템 (e.g., Documentum)"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "software",
+    "documentation"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "3b7a9409-cac4-45d5-a9d6-ca694546f939",
+  "term": "MTR",
+  "lang": "bilingual",
+  "headword_en": "Material Test Report",
+  "headword_ko": "재료 시험 성적서",
+  "definition_en": "A document from the design and manufacturing stage, from which information such as carbon content can be extracted.",
+  "definition_ko": "설계 및 제작 단계의 문서로, 탄소 함량과 같은 정보를 추출할 수 있다.",
+  "slots": {
+    "context_ko": "재료 시험 성적서 (MTR), 용접 절차 시방서 (WPS), 배관 및 계장도 (P&ID) 등 설계 및 제작 단계의 문서가 보관된다 . MTR 에서 탄소 함량을 ... 추출할 수 있다."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "engineering",
+    "materials",
+    "documentation"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

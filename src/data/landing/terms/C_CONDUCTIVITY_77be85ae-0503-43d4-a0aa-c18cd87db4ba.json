@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "77be85ae-0503-43d4-a0aa-c18cd87db4ba",
+  "term": "전도도",
+  "lang": "bilingual",
+  "headword_en": "Conductivity",
+  "headword_ko": "전도도",
+  "definition_en": "A measure of a material's ability to conduct an electric current, often used in water chemistry to indicate the concentration of dissolved ions.",
+  "definition_ko": "물질이 전류를 얼마나 잘 전도하는지를 나타내는 척도로, 수화학에서는 용해된 이온의 농도를 나타내는 데 사용된다.",
+  "slots": {
+    "context_ko": "수화학 관련피처 (pH, 전도도등 ) 의 중요성을 파악하는데 도움 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "chemistry",
+    "physics",
+    "water chemistry"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

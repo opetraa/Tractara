@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "5556dae7-f272-418b-ab69-4bdf3793564f",
+  "term": "PI System",
+  "lang": "bilingual",
+  "headword_en": "PI System",
+  "headword_ko": "PI System",
+  "definition_en": "A time-series database developed by OSIsoft, designed to store high-frequency operational data such as temperature, pressure, and flow rate.",
+  "definition_ko": "OSIsoft에서 개발한 시계열 데이터베이스로, 온도, 압력, 유량 등 고주파 운전 데이터를 저장한다.",
+  "slots": {
+    "context_ko": "PI System (OSIsoft): 온도 , 압력 , 유량 등 고주파 운전 데이터를 저장하는 시계열 데이터베이스이다 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "database",
+    "data management",
+    "engineering"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

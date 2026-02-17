@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "1919b7fc-a929-418a-8ece-90a8759ca4fa",
+  "term": "Dead-leg",
+  "lang": "bilingual",
+  "headword_en": "Dead-leg",
+  "headword_ko": "데드레그",
+  "definition_en": "A section of piping with no or very little flow, considered a type of geometric information extractable from P&ID.",
+  "definition_ko": "유체가 거의 흐르지 않거나 전혀 흐르지 않는 배관 부분으로, P&ID에서 추출 가능한 기하학적 정보의 일종.",
+  "slots": {
+    "context_ko": "데드레그 (Dead-leg)"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "engineering",
+    "piping",
+    "design"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

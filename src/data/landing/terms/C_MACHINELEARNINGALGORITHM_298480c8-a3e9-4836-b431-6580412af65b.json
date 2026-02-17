@@ -1,0 +1,35 @@
+{
+  "type": "term_entry",
+  "termId": "298480c8-a3e9-4836-b431-6580412af65b",
+  "term": "머신러닝 알고리즘",
+  "lang": "bilingual",
+  "headword_en": "Machine Learning Algorithm",
+  "headword_ko": "머신러닝 알고리즘",
+  "definition_en": "A set of computational procedures that enable a system to learn from data, make predictions, or discover patterns, often requiring well-integrated data for optimal performance.",
+  "definition_ko": "시스템이 데이터로부터 학습하고, 예측을 수행하거나 패턴을 발견할 수 있게 하는 일련의 계산 절차로, 최적의 성능을 위해서는 잘 통합된 데이터가 요구된다.",
+  "slots": {
+    "context_ko": "...이는 머신러닝 알고리즘 선택보다 훨씬 더 중요하고 자원 집약적인 작업이 될 것이다 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "AI",
+    "machine learning",
+    "data science",
+    "nuclear engineering"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

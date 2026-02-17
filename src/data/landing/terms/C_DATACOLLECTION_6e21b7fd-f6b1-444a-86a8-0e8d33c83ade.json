@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "6e21b7fd-f6b1-444a-86a8-0e8d33c83ade",
+  "term": "데이터 수집",
+  "lang": "bilingual",
+  "headword_en": "Data Collection",
+  "headword_ko": "데이터 수집",
+  "definition_en": "The process of gathering and measuring information from various sources to answer research questions or for a specific purpose.",
+  "definition_ko": "특정 목적이나 연구 질문에 답하기 위해 다양한 출처로부터 정보를 모으고 측정하는 과정.",
+  "slots": {
+    "context_ko": "데이터 수집"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data science",
+    "engineering"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

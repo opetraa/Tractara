@@ -1,6 +1,6 @@
 # src/clara_ssot/normalization/term_mapper.py
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple
 import logging
 import os
 import uuid
@@ -52,23 +52,77 @@ class LLMTermExtractor:
     def __init__(self, api_key: str):
         # Gemini 설정
         genai.configure(api_key=api_key)
+
+        # 사용 가능한 모델 중 최적의 모델 자동 선택
+        model_name = self._select_best_model()
+        logger.info(f"🤖 Initializing Gemini with model: {model_name}")
+
         self.client = instructor.from_gemini(
-            client=genai.GenerativeModel(model_name="gemini-1.5-flash"),
+            client=genai.GenerativeModel(model_name=model_name),
             mode=instructor.Mode.GEMINI_JSON,
         )
 
-    def extract(self, text_chunks: List[str]) -> List[TermCandidate]:
+    def _select_best_model(self) -> str:
+        """API 키로 접근 가능한 모델 중 최적의 모델을 자동으로 선택"""
+        target_model = os.getenv("GEMINI_MODEL")
+
+        try:
+            # 1. 사용 가능한 모델 목록 조회
+            all_models = list(genai.list_models())
+            # generateContent 기능을 지원하는 모델만 필터링
+            available_models = [
+                m.name.replace("models/", "")
+                for m in all_models
+                if "generateContent" in m.supported_generation_methods
+            ]
+
+            logger.info(f"📋 Available Gemini models: {available_models}")
+
+            # 2. 환경변수로 지정된 모델이 유효한지 확인
+            if target_model:
+                if target_model in available_models:
+                    return target_model
+                logger.warning(
+                    f"⚠️ Configured model '{target_model}' not found. Attempting auto-selection.")
+
+            # 3. 선호하는 모델 순서대로 확인 (최신 버전 우선)
+            preferences = [
+                "gemini-1.5-flash-002",
+                "gemini-1.5-flash-001",
+                "gemini-1.5-flash",
+                "gemini-1.5-pro-002",
+                "gemini-1.5-pro-001",
+                "gemini-1.5-pro",
+            ]
+
+            for pref in preferences:
+                if pref in available_models:
+                    return pref
+
+            # 4. 선호 모델이 없으면 목록의 첫 번째 모델 사용
+            if available_models:
+                return available_models[0]
+
+        except Exception as e:
+            logger.error(f"⚠️ Failed to list models: {e}")
+
+        # 실패 시 기본값 반환
+        return target_model or "gemini-1.5-flash"
+
+    def extract(self, text_chunks: List[str]) -> Tuple[List[TermCandidate], List[str]]:
         """
         여러 텍스트 청크에서 TERM 추출
+        Returns: (candidates, error_messages)
         """
         all_candidates = []
+        errors = []
 
-        for chunk in text_chunks:
+        for i, chunk in enumerate(text_chunks):
             if len(chunk.strip()) < 20:  # 너무 짧은 텍스트는 스킵 (기준 완화: 50 -> 20)
                 continue
 
             logger.info(
-                f"Sending chunk to LLM (len={len(chunk)}): {chunk[:50].replace(chr(10), ' ')}...")
+                f"Sending chunk {i+1}/{len(text_chunks)} to LLM (len={len(chunk)})...")
             try:
                 result = self._extract_from_chunk(chunk)
                 candidates = [
@@ -89,9 +143,21 @@ class LLMTermExtractor:
                 logger.debug(f"CoT reasoning: {result.reasoning}")
 
             except Exception as e:
-                logger.error(f"❌ TERM extraction failed: {e}", exc_info=True)
+                msg = f"Chunk {i+1} failed: {str(e)}"
+                logger.error(f"❌ TERM extraction failed: {msg}", exc_info=True)
 
-        return all_candidates
+                # 404 모델 에러인 경우 사용 가능한 모델 목록 출력 (디버깅용)
+                if "404" in str(e) and "models/" in str(e):
+                    try:
+                        available_models = [
+                            m.name for m in genai.list_models()]
+                        logger.error(f"Available models: {available_models}")
+                    except Exception as list_err:
+                        logger.error(f"Failed to list models: {list_err}")
+
+                errors.append(msg)
+
+        return all_candidates, errors
 
     def _extract_from_chunk(self, text: str) -> TermExtractionResult:
         """
@@ -168,7 +234,7 @@ class LLMTermExtractor:
 def extract_term_candidates(
     parsed: ParsedDocument,
     llm_api_key: str = None
-) -> List[TermCandidate]:
+) -> Tuple[List[TermCandidate], List[str]]:
     """
     ParsedDocument에서 TERM 후보 추출
 
@@ -189,7 +255,7 @@ def extract_term_candidates(
                 definition_en=None,
                 definition_ko="경년열화 관리 프로그램",
             )
-        ]
+        ], ["No LLM API Key provided."]
 
     # 텍스트 청크 준비
     text_chunks = [
@@ -200,16 +266,18 @@ def extract_term_candidates(
     if not text_chunks:
         logger.warning(
             "⚠️ No text chunks > 20 chars found in document. Term extraction skipped.")
+        return [], ["No text chunks found in document (OCR might be needed)."]
 
     # LLM 추출
     extractor = LLMTermExtractor(api_key=llm_api_key)
     # 더 많은 용어를 찾기 위해 청크 수 증가 (테스트용 10개)
     chunks_to_process = text_chunks[:10]
     logger.info(f"Sending {len(chunks_to_process)} text chunks to LLM...")
-    candidates = extractor.extract(chunks_to_process)
+    candidates, errors = extractor.extract(chunks_to_process)
 
-    logger.info(f"Extracted {len(candidates)} TERM candidates")
-    return candidates
+    logger.info(
+        f"Extracted {len(candidates)} TERM candidates. Errors: {len(errors)}")
+    return candidates, errors
 
 
 def build_term_baseline_candidates(

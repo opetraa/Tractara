@@ -1,0 +1,32 @@
+{
+  "type": "term_entry",
+  "termId": "91ccd4dc-14b5-4729-a81a-e10aaf6ad346",
+  "term": "BWR",
+  "lang": "bilingual",
+  "headword_en": "Boiling Water Reactor",
+  "headword_ko": "비등형 원자로",
+  "definition_en": "A type of light-water nuclear reactor where water is heated and turns into steam within the reactor core, directly driving a turbine.",
+  "definition_ko": "경수로형 원자로의 일종으로, 원자로 노심 내에서 물이 가열되어 증기로 변환되고, 이 증기가 터빈을 직접 구동한다.",
+  "slots": {
+    "context_ko": "BWR 배관의 SCC 에대한 기술적해결책및 검사 / 수리기준 제시"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "reactor_type"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

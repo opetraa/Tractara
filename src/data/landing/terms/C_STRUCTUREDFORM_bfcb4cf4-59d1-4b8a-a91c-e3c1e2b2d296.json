@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "bfcb4cf4-59d1-4b8a-a91c-e3c1e2b2d296",
+  "term": "정형화된 형태",
+  "lang": "bilingual",
+  "headword_en": "Structured Form",
+  "headword_ko": "정형화된 형태",
+  "definition_en": "A standardized format of data, typically organized in tables with defined rows and columns, suitable for machine learning model training.",
+  "definition_ko": "기계 학습 모델 훈련에 적합하도록 일반적으로 정의된 행과 열을 가진 테이블 형태로 구성된 표준화된 데이터 형식.",
+  "slots": {
+    "context_ko": "원시 데이터를 모델이 학습할 수 있는 정형화된 형태로 변환하는 데이터셋 구축 과정이..."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data science",
+    "machine learning"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

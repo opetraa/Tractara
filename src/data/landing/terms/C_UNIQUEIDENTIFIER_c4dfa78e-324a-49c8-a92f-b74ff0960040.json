@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "c4dfa78e-324a-49c8-a92f-b74ff0960040",
+  "term": "고유 식별자",
+  "lang": "bilingual",
+  "headword_en": "Unique Identifier",
+  "headword_ko": "고유 식별자",
+  "definition_en": "A unique label or code, such as a Component ID, used to precisely identify a specific entity (e.g., a weldment) across different data systems to ensure consistent data linkage.",
+  "definition_ko": "시스템 간 일관된 데이터 연결을 위해 특정 엔티티(예: 용접부)를 정확히 식별하는 데 사용되는 Component ID와 같은 고유한 레이블 또는 코드이다.",
+  "slots": {
+    "context_ko": "...모든 시스템에서 일관되게 사용되는 고유 식별자 ( 예 : Component ID) 가 필요하지만 , 실제 현장에서는 이러한 식별 체계가 완벽하게 구축되어 있지 않은 경우가 많다 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data management",
+    "engineering"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

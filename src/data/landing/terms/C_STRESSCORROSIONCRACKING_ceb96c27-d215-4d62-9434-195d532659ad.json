@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "ceb96c27-d215-4d62-9434-195d532659ad",
+  "term": "SCC",
+  "lang": "bilingual",
+  "headword_en": "Stress Corrosion Cracking",
+  "headword_ko": "응력부식균열",
+  "definition_en": "Cracking induced from the combined influence of tensile stress and a corrosive environment.",
+  "definition_ko": "인장 응력과 부식성 환경의 복합적인 영향으로 발생하는 균열.",
+  "slots": {
+    "context_ko": "표 1: SCC 예측을 위한 핵심 참고 자료 목록"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "materials",
+    "corrosion"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

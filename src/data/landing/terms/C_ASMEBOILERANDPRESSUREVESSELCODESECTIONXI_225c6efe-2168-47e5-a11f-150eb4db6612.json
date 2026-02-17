@@ -1,0 +1,35 @@
+{
+  "type": "term_entry",
+  "termId": "225c6efe-2168-47e5-a11f-150eb4db6612",
+  "term": "ASME Sec. XI",
+  "lang": "bilingual",
+  "headword_en": "ASME Boiler and Pressure Vessel Code, Section XI",
+  "headword_ko": "ASME 보일러 및 압력 용기 코드, 제11편",
+  "definition_en": "A regulation for in-service inspection of nuclear power plant components, defining inspection scope, frequency, and methods. It influences the model's prediction scope and data collection cycle.",
+  "definition_ko": "원자력발전소 구성품의 가동중 검사 규정으로, 검사 대상, 주기, 방법을 정의하며, 모델의 예측 대상 범위와 데이터 수집 주기 결정에 영향을 미친다.",
+  "slots": {
+    "context_ko": "ASME Sec. XI | 원자력발전소 구성품의가동중 검사규정 | 검사대상 , 주기 , 방법정의 . 모델의예측대상 범위 (Scope) 와 데이터수집주기 결정에영향 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "regulation",
+    "inspection",
+    "safety",
+    "standard"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

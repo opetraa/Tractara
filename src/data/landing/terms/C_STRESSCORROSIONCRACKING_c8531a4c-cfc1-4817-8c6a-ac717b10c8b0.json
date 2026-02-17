@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "c8531a4c-cfc1-4817-8c6a-ac717b10c8b0",
+  "term": "SCC",
+  "lang": "bilingual",
+  "headword_en": "Stress Corrosion Cracking",
+  "headword_ko": "응력부식균열",
+  "definition_en": "A form of material degradation where cracks develop under the combined influence of tensile stress and a corrosive environment, critical for prediction in engineering contexts.",
+  "definition_ko": "인장 응력과 부식성 환경의 복합적인 영향으로 균열이 발생하는 재료 열화 현상으로, 엔지니어링 예측에 중요한 요소이다.",
+  "slots": {
+    "context_ko": "이처럼 SCC 예측에 필요한 핵심 조건들 , 즉 재료 , 열 이력 , 기하학적 구조 , 운전 온도 , 응력 상태에 대한 데이터는 각각 별개의 시스템에 저장되어 있다 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "materials",
+    "degradation",
+    "safety"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

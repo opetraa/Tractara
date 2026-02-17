@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "c122e124-3881-4063-9e43-63f26af59564",
+  "term": "SCC",
+  "lang": "bilingual",
+  "headword_en": "Stress Corrosion Cracking",
+  "headword_ko": "응력부식균열",
+  "definition_en": "A type of material degradation involving cracking induced by the combined influence of tensile stress and a corrosive environment, mentioned as a complex physical phenomenon to be predicted.",
+  "definition_ko": "인장 응력과 부식성 환경의 복합적인 영향으로 발생하는 균열의 한 종류로, 문맥상 예측 대상이 되는 복잡한 물리적 현상.",
+  "slots": {
+    "context_ko": "특히 SCC 예측과 같이 복잡한 물리적 현상을 다루는 경우..."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "materials",
+    "safety",
+    "machine learning"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

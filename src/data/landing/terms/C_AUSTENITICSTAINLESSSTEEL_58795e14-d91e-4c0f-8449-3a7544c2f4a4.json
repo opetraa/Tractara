@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "58795e14-d91e-4c0f-8449-3a7544c2f4a4",
+  "term": "오스테나이트계 스테인리스강",
+  "lang": "bilingual",
+  "headword_en": "Austenitic Stainless Steel",
+  "headword_ko": "오스테나이트계 스테인리스강",
+  "definition_en": "A type of stainless steel characterized by its austenitic microstructure, high corrosion resistance, and good ductility, often used in nuclear and chemical industries.",
+  "definition_ko": "오스테나이트 미세 조직을 특징으로 하는 스테인리스강의 한 종류로, 높은 내식성과 우수한 연성을 가지며 원자력 및 화학 산업에서 자주 사용된다.",
+  "slots": {
+    "context_ko": "오스테나이트계 스테인리스강의 입계부식민감도 평가시험법"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "materials",
+    "metallurgy",
+    "nuclear"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

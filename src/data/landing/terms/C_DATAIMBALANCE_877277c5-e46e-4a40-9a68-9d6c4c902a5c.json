@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "877277c5-e46e-4a40-9a68-9d6c4c902a5c",
+  "term": "불균형",
+  "lang": "bilingual",
+  "headword_en": "Data Imbalance",
+  "headword_ko": "데이터 불균형",
+  "definition_en": "A condition in a dataset where the distribution of classes or categories is not equal, often leading to challenges in training machine learning models.",
+  "definition_ko": "데이터셋 내에서 클래스 또는 범주의 분포가 균등하지 않은 상태로, 종종 기계 학습 모델 훈련에 어려움을 초래한다.",
+  "slots": {
+    "context_ko": "...데이터의 한계 ( 결측치 , 불균형 ) 를 극복하는 체계적인 접근을 요구한다."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data science",
+    "machine learning"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

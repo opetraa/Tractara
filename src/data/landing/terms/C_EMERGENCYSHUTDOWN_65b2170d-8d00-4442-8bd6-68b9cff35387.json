@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "65b2170d-8d00-4442-8bd6-68b9cff35387",
+  "term": "SCRAM",
+  "lang": "bilingual",
+  "headword_en": "Emergency Shutdown",
+  "headword_ko": "원자로 비상 정지",
+  "definition_en": "An emergency shutdown of a nuclear reactor, typically initiated rapidly to prevent damage or dangerous conditions.",
+  "definition_ko": "원자로의 손상이나 위험한 상태를 방지하기 위해 신속하게 시작되는 비상 정지.",
+  "slots": {
+    "context_ko": "'SCRAM' 사건 데이터베이스"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "safety",
+    "operation"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

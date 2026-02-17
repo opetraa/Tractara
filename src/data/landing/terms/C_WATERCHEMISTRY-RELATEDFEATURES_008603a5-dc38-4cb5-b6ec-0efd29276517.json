@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "008603a5-dc38-4cb5-b6ec-0efd29276517",
+  "term": "수화학 관련 피처",
+  "lang": "bilingual",
+  "headword_en": "Water Chemistry-related Features",
+  "headword_ko": "수화학 관련 피처",
+  "definition_en": "Parameters related to the chemical composition of water, such as pH and conductivity, which are important factors influencing corrosion and material degradation.",
+  "definition_ko": "pH, 전도도 등 물의 화학적 조성과 관련된 매개변수로, 부식 및 재료 열화에 영향을 미치는 중요한 요소.",
+  "slots": {
+    "context_ko": "수화학 관련피처 (pH, 전도도등 ) 의 중요성을 파악하는데 도움 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "chemistry",
+    "nuclear",
+    "materials",
+    "corrosion"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

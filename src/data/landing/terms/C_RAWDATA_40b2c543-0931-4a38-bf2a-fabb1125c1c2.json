@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "40b2c543-0931-4a38-bf2a-fabb1125c1c2",
+  "term": "원시 데이터",
+  "lang": "bilingual",
+  "headword_en": "Raw Data",
+  "headword_ko": "원시 데이터",
+  "definition_en": "Data that has not yet been processed, cleaned, or transformed into a structured format suitable for analysis or machine learning model input.",
+  "definition_ko": "아직 처리, 정제 또는 분석 및 머신러닝 모델 입력에 적합한 정형화된 형태로 변환되지 않은 초기 데이터.",
+  "slots": {
+    "context_ko": "원시 데이터를 모델이 학습할 수 있는 정형화된 형태로 변환하는 데이터셋 구축 과정이 프로젝트 성공의 90% 를 차지한다고 해도 과언이 아니다."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data science",
+    "machine learning"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

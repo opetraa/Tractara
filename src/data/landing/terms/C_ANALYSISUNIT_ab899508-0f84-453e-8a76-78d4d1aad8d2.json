@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "ab899508-0f84-453e-8a76-78d4d1aad8d2",
+  "term": "분석 단위",
+  "lang": "bilingual",
+  "headword_en": "Analysis Unit",
+  "headword_ko": "분석 단위",
+  "definition_en": "A specific entity, scope, or component that serves as the basis for data analysis or investigation.",
+  "definition_ko": "데이터 분석 또는 조사의 기초가 되는 특정 개체, 범위 또는 구성 요소.",
+  "slots": {
+    "context_ko": "분석 단위"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data science",
+    "analytics"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "d3723282-1480-4346-af0f-d38fe2c5072d",
+  "term": "시계열 데이터베이스",
+  "lang": "bilingual",
+  "headword_en": "Time-series database",
+  "headword_ko": "시계열 데이터베이스",
+  "definition_en": "A type of database optimized for storing and retrieving data points that are indexed by time, typically used for managing high-frequency operational data.",
+  "definition_ko": "시간 순서에 따라 인덱싱된 데이터 포인트를 저장하고 검색하는 데 최적화된 데이터베이스 유형으로, 고주파 운전 데이터 관리에 주로 사용된다.",
+  "slots": {
+    "context_ko": "고주파 운전 데이터를 저장하는 시계열 데이터베이스이다 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "database",
+    "data management"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

@@ -1,0 +1,32 @@
+{
+  "type": "term_entry",
+  "termId": "99dc82eb-413c-4be7-9148-bb3c91066d05",
+  "term": "pH",
+  "lang": "bilingual",
+  "headword_en": "pH",
+  "headword_ko": "수소이온농도 지수",
+  "definition_en": "A measure of the acidity or alkalinity of a solution, ranging from 0 to 14, where 7 is neutral.",
+  "definition_ko": "용액의 산성 또는 알칼리성 정도를 나타내는 척도로, 0에서 14까지의 범위를 가지며 7이 중성이다.",
+  "slots": {
+    "context_ko": "수화학 관련피처 (pH, 전도도등 ) 의 중요성을 파악하는데 도움 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "chemistry",
+    "water chemistry"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

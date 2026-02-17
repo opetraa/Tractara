@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "ec35d5b5-ca5f-4bec-88b8-f735ca8c859f",
+  "term": "예측 피처",
+  "lang": "bilingual",
+  "headword_en": "Predictive Feature",
+  "headword_ko": "예측 피처",
+  "definition_en": "A measurable property or characteristic of a phenomenon being observed, used as an input to a predictive model to forecast an outcome.",
+  "definition_ko": "관찰되는 현상의 측정 가능한 속성이나 특징으로, 결과를 예측하기 위한 예측 모델의 입력으로 사용된다.",
+  "slots": {
+    "context_ko": "매우강력한예측 피처로활용 가능 ."
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "IT",
+    "data science",
+    "machine learning"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

@@ -55,8 +55,12 @@ def ingest_single_document(pdf_path: Path) -> Dict[str, Any]:
 
     # 4) TERM 후보 생성 (이제 LLM 사용!)
     logger.info("🚀 Starting TERM extraction (after DOC creation)...")
-    term_candidates = extract_term_candidates(parsed, llm_api_key=llm_api_key)
+    term_candidates, extraction_errors = extract_term_candidates(
+        parsed, llm_api_key=llm_api_key)
     logger.info(f"🔍 Extracted {len(term_candidates or [])} term candidates.")
+
+    if extraction_errors:
+        warnings.extend(extraction_errors)
 
     if not term_candidates and llm_api_key:
         warnings.append("LLM API Key was present, but 0 terms were extracted.")

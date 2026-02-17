@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "9aa62fda-9236-473d-ab45-16d9e8fc923e",
+  "term": "SCC 민감성재료",
+  "lang": "bilingual",
+  "headword_en": "SCC susceptible materials",
+  "headword_ko": "SCC 민감성 재료",
+  "definition_en": "Materials that are particularly prone to stress corrosion cracking under specific environmental and stress conditions.",
+  "definition_ko": "특정 환경 및 응력 조건 하에서 응력부식균열에 특히 취약한 재료.",
+  "slots": {
+    "context_ko": "SCC 민감성재료 정의"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "materials",
+    "SCC",
+    "safety"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}

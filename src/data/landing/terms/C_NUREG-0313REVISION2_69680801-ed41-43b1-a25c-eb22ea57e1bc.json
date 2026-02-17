@@ -1,0 +1,35 @@
+{
+  "type": "term_entry",
+  "termId": "69680801-ed41-43b1-a25c-eb22ea57e1bc",
+  "term": "NUREG-0313 Rev. 2",
+  "lang": "bilingual",
+  "headword_en": "NUREG-0313 Revision 2",
+  "headword_ko": "NUREG-0313 개정판 2",
+  "definition_en": "A specific NUREG document issued by the US NRC that provides technical solutions and inspection/repair criteria for SCC in BWR piping.",
+  "definition_ko": "미국 원자력규제위원회(US NRC)가 발행한 NUREG 문서 중 하나로, 비등형 원자로(BWR) 배관의 응력부식균열(SCC)에 대한 기술적 해결책 및 검사/수리 기준을 제시한다.",
+  "slots": {
+    "context_ko": "NUREG-0313 Rev. 2 | US NRC | N/A | BWR 배관의 SCC 에대한 기술적해결책및 검사 / 수리기준 제시"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "regulation",
+    "BWR",
+    "materials",
+    "safety"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0ba26ec8a823497596af33948b0a85b6"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "bbf99637000c4d7b9fb639b3f609ea4b"
+  },
+  "status": "candidate"
+}
