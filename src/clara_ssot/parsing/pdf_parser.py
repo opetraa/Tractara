@@ -124,7 +124,6 @@ class PyMuPDFParser:
                 block_id = str(uuid.uuid4())
 
                 # 2. 스택 조정 (Pop): 현재 레벨보다 깊거나 같은 이전 섹션 닫기
-                # 제목(Header)이 나오면, 그보다 하위 레벨(숫자가 큰)의 컨텍스트는 종료됨
                 while context_stack and context_stack[-1]["level"] >= level:
                     context_stack.pop()
 
@@ -154,7 +153,6 @@ class PyMuPDFParser:
                 )
 
                 # 5. 스택 푸시 (Push): 섹션인 경우 스택에 추가하여 하위 블록의 부모가 됨
-                # 단, 본문(Level 999)은 스택에 넣지 않음 (본문은 부모가 될 수 없음)
                 if level < 999:
                     context_stack.append(
                         {"level": level, "id": block_id, "title": clean_text}
@@ -172,7 +170,6 @@ class PyMuPDFParser:
         self, text: str, font_size: float, is_bold: bool, body_size: float
     ) -> Tuple[int, str]:
         """텍스트 패턴과 폰트 스타일로 레벨과 타입을 결정"""
-        # 1. 목차/제목 (Level 0) - 정규식 강화
         if re.match(
             r"^\s*(목\s*차|table of contents|contents|abstract|introduction|서\s*론)\s*$",
             text,
@@ -180,18 +177,12 @@ class PyMuPDFParser:
         ):
             return 0, "title"
 
-        # 2. 섹션 번호 패턴 (Level 1~N)
-        # 예: "1. 서론" -> Level 1, "1.1 배경" -> Level 2, "1.1.1 상세" -> Level 3
-        # NUREG 보고서 등에서 흔한 "2." 또는 "2.1" 패턴 인식
         match = re.match(r"^(\d+(?:\.\d+)*)\.?\s+\w+", text)
         if match:
             depth = match.group(1).count(".") + 1
             return depth, "section"
 
-        # 3. 폰트 기반 헤더 추론 (번호가 없는 대제목)
-        # 본문보다 20% 이상 크거나, 10% 이상 크면서 Bold인 경우
         if font_size > body_size * 1.2:
-            # 아주 큰 폰트는 상위 레벨 (예: 1.5배 이상 -> Level 1)
             if font_size > body_size * 1.5:
                 return 1, "section"
             return 2, "section"
@@ -199,7 +190,6 @@ class PyMuPDFParser:
         if is_bold and font_size > body_size * 1.05:
             return 3, "section"
 
-        # 4. 일반 본문
         return 999, "paragraph"
 
 
@@ -221,7 +211,6 @@ class DoclingParser:
             )
             from docling.document_converter import DocumentConverter, PdfFormatOption
 
-            # GPU 가용성 체크 및 디바이스 설정
             if torch.cuda.is_available():
                 logger.info(
                     f"🚀 GPU detected (CUDA: {torch.cuda.get_device_name(0)}). Using CUDA for Docling."
@@ -229,7 +218,6 @@ class DoclingParser:
                 device = AcceleratorDevice.CUDA
             elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
                 logger.info("🚀 GPU detected (Apple MPS). Using MPS for Docling.")
-                # Docling 버전에 따라 MPS 상수가 없을 수 있으므로 안전하게 처리
                 device = getattr(AcceleratorDevice, "MPS", AcceleratorDevice.CPU)
             else:
                 logger.info(
@@ -237,7 +225,6 @@ class DoclingParser:
                 )
                 device = AcceleratorDevice.CPU
 
-            # 파이프라인 옵션 구성
             pipeline_options = PdfPipelineOptions()
             pipeline_options.accelerator_options = AcceleratorOptions(
                 num_threads=4, device=device
@@ -249,7 +236,6 @@ class DoclingParser:
                 }
             )
 
-            # 표 구조 추출 활성화 (OpenCV 필요)
             try:
                 import cv2  # noqa: F401
 
@@ -270,11 +256,8 @@ class DoclingParser:
         doc = result.document
         blocks = []
 
-        # 계층 구조 추적을 위한 스택
         context_stack = []
 
-        # Docling은 iterate_items()에서 (item, level)을 반환함
-        # level: 0(Title), 1(H1), 2(H2)...
         for item, level in doc.iterate_items():
             label = str(getattr(item, "label", "")).lower()
             text = getattr(item, "text", "").strip()
@@ -282,7 +265,6 @@ class DoclingParser:
             if not text and "table" not in label:
                 continue
 
-            # 1. 타입 매핑
             block_type = "paragraph"
             if "title" in label:
                 block_type = "title"
@@ -293,18 +275,14 @@ class DoclingParser:
             elif "list" in label:
                 block_type = "list"
 
-            # 2. 스택 조정 (Pop): 현재 레벨보다 깊거나 같은 상위 섹션 닫기
-            # Docling level이 None인 경우(본문 등)는 스택 유지
             if block_type in ["title", "section"] and level is not None:
                 while context_stack and context_stack[-1]["level"] >= level:
                     context_stack.pop()
 
-            # 3. 부모 연결 및 컨텍스트 상속
             parent_id = context_stack[-1]["id"] if context_stack else None
             current_context_path = [item["title"] for item in context_stack]
             block_id = str(uuid.uuid4())
 
-            # 4. 블록 데이터 구성
             bbox = self._extract_bbox(item)
 
             parsed_block = ParsedBlock(
@@ -319,7 +297,6 @@ class DoclingParser:
                 block_id=block_id,
             )
 
-            # 표 데이터 처리
             if block_type == "table" and hasattr(item, "export_to_dataframe"):
                 try:
                     df = item.export_to_dataframe()
@@ -327,14 +304,12 @@ class DoclingParser:
                         "headers": [str(h) for h in df.columns.tolist()],
                         "rows": [[str(c) for c in row] for row in df.values.tolist()],
                     }
-                    # 텍스트 필드에는 마크다운 형태 저장
                     parsed_block.text = df.to_markdown(index=False)
                 except Exception:
                     pass
 
             blocks.append(parsed_block)
 
-            # 5. 스택 푸시 (Push): 섹션인 경우 스택에 추가
             if block_type in ["title", "section"] and level is not None:
                 context_stack.append({"level": level, "id": block_id, "title": text})
 
@@ -348,7 +323,6 @@ class DoclingParser:
         if hasattr(item, "prov") and item.prov:
             p = item.prov[0]
             b = p.bbox
-            # Docling uses l,r,t,b. Mapping to x0,y0,x1,y1.
             return BoundingBox(
                 x0=getattr(b, "l", 0),
                 y0=getattr(b, "b", 0),
@@ -366,7 +340,7 @@ class GeminiVisionParser:
     """
 
     def __init__(self, api_key: str = None):
-        from google import genai # pylint: disable=no-name-in-module
+        from google import genai  # pylint: disable=no-name-in-module
 
         self.api_key = (
             api_key or os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
@@ -375,26 +349,22 @@ class GeminiVisionParser:
             raise ValueError("Gemini API Key is missing for Vision Parser.")
 
         self.client = genai.Client(api_key=self.api_key)
-        self.model_name = "gemini-1.5-flash" 
+        self.model_name = "gemini-1.5-flash"
 
-    def parse(self, pdf_path: Path) -> ParsedDocument:
+    # 수정 1: max_pages 파라미터 추가로 하드코딩 제거
+    def parse(self, pdf_path: Path, max_pages: Optional[int] = None) -> ParsedDocument:
         """PDF를 이미지로 변환 후 Gemini에게 구조화 요청"""
         doc = pymupdf.open(pdf_path)
         blocks = []
 
-        # 비용 절감을 위해 첫 3페이지만 예시로 처리 (실제 운영시 전체 루프)
-        # for page_index, page in enumerate(doc):
         for page_index, page in enumerate(doc):
-            if page_index >= 3:
+            if max_pages is not None and page_index >= max_pages:
                 break
 
-            # PDF 페이지 -> 이미지 변환
             pix = page.get_pixmap(dpi=150)
             img_data = pix.tobytes("png")
             image = Image.open(io.BytesIO(img_data))
 
-            # TODO: 실제 구현 시에는 Instructor 등을 사용하여 JSON 스키마를 강제해야 함
-            # 여기서는 개념 증명용 텍스트 추출만 수행
             prompt = "Extract all text from this page. Return raw text."
 
             response = self.client.models.generate_content(
@@ -419,13 +389,23 @@ class GeminiVisionParser:
         )
 
 
-def parse_pdf(path: Path) -> ParsedDocument:
+# 수정 3: Docling 인스턴스 지연 초기화 (싱글톤 패턴 응용)를 위한 전역 변수
+_DOCLING_PARSER_INSTANCE = None
+
+def get_docling_parser() -> DoclingParser:
+    global _DOCLING_PARSER_INSTANCE
+    if _DOCLING_PARSER_INSTANCE is None:
+        _DOCLING_PARSER_INSTANCE = DoclingParser()
+    return _DOCLING_PARSER_INSTANCE
+
+
+def parse_pdf(path: Path, max_vision_pages: Optional[int] = None) -> ParsedDocument:
     """
     하이브리드 파싱 전략: Docling (최우선) -> PyMuPDF (백업) -> Gemini Vision (스캔본)
 
     1. Docling 시도: 표, 레이아웃, 계층 구조 완벽 지원
     2. 실패 시 PyMuPDF: 빠르고 안정적인 텍스트 추출 (스택 기반 구조화 적용)
-    2. 텍스트가 없거나 깨진 경우(스캔 문서) Gemini Vision으로 전환 (강력함, 비용 발생)
+    3. 텍스트가 없거나 깨진 경우(스캔 문서) Gemini Vision으로 전환 (강력함, 비용 발생)
     """
     logger.info(f"Parsing PDF with Hybrid Strategy (PyMuPDF + Gemini): {path}")
 
@@ -443,7 +423,8 @@ def parse_pdf(path: Path) -> ParsedDocument:
             # 1순위: Docling
             try:
                 logger.info("🚀 Docling 파서 시도 (표/구조 최적화)")
-                parser = DoclingParser()
+                # 수정 3 적용: 함수 호출 시마다 인스턴스를 만들지 않고 재사용합니다.
+                parser = get_docling_parser()
                 return parser.parse(path)
             except Exception as e:
                 logger.warning(f"⚠️ Docling 실패 ({e}). PyMuPDF로 전환합니다.")
@@ -452,14 +433,11 @@ def parse_pdf(path: Path) -> ParsedDocument:
                 return parser.parse(path)
         else:
             logger.info("🖼️ Scanned PDF 감지: Gemini Vision(VLM) 사용")
-            # API 키 확인
-            if not (os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")):
-                logger.warning("⚠️ Gemini API Key 없음. PyMuPDF로 강제 진행 (결과 품질 저하 가능)")
-                parser = PyMuPDFParser()
-                return parser.parse(path)
-
+            # 수정 2: 불필요한 API 키 체크 로직 삭제. 
+            # API 키가 없으면 GeminiVisionParser에서 알아서 ValueError를 발생시키고,
+            # 아래의 예외 처리(except Exception as e:)가 잡아서 PyMuPDF로 넘겨줍니다.
             parser = GeminiVisionParser()
-            return parser.parse(path)
+            return parser.parse(path, max_pages=max_vision_pages)
 
     except Exception as e:
         logger.warning(f"⚠️ 파싱 중 에러 발생 ({e}). PyMuPDF Fallback 모드로 전환합니다.")
