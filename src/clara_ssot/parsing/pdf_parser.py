@@ -366,7 +366,7 @@ class GeminiVisionParser:
     """
 
     def __init__(self, api_key: str = None):
-        from google import genai
+        from google import genai # pylint: disable=no-name-in-module
 
         self.api_key = (
             api_key or os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
@@ -375,7 +375,7 @@ class GeminiVisionParser:
             raise ValueError("Gemini API Key is missing for Vision Parser.")
 
         self.client = genai.Client(api_key=self.api_key)
-        self.model_name = "gemini-1.5-flash"
+        self.model_name = "gemini-1.5-flash" 
 
     def parse(self, pdf_path: Path) -> ParsedDocument:
         """PDF를 이미지로 변환 후 Gemini에게 구조화 요청"""
@@ -407,7 +407,6 @@ class GeminiVisionParser:
                     block_type="paragraph",
                     text=response.text,
                     confidence=0.8,
-                    metadata={"source": "gemini_vision"},
                 )
             )
 
