@@ -19,8 +19,7 @@ def save_doc_landing(doc: Dict[str, Any]) -> str:
     docs_dir = LANDING_DIR / "docs"
     docs_dir.mkdir(parents=True, exist_ok=True)
     path = docs_dir / f"{doc_id}.json"
-    path.write_text(json.dumps(doc, ensure_ascii=False,
-                    indent=2), encoding="utf-8")
+    path.write_text(json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
     return doc_id
 
 
@@ -55,5 +54,6 @@ def save_term_candidates_landing(doc_id: str, terms: List[Dict[str, Any]]) -> No
         path = terms_dir / filename
 
         # 파일별로 분리되므로 병합 로직 없이 바로 저장
-        path.write_text(json.dumps(term, ensure_ascii=False,
-                        indent=2), encoding="utf-8")
+        path.write_text(
+            json.dumps(term, ensure_ascii=False, indent=2), encoding="utf-8"
+        )

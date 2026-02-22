@@ -3,7 +3,12 @@
 import pytest
 from unittest.mock import patch, MagicMock
 from pathlib import Path
-from clara_ssot.parsing.pdf_parser import parse_pdf, ParsedDocument, ParsedBlock, BoundingBox
+from clara_ssot.parsing.pdf_parser import (
+    parse_pdf,
+    ParsedDocument,
+    ParsedBlock,
+    BoundingBox,
+)
 from clara_ssot.normalization.term_mapper import extract_term_candidates, TermCandidate
 
 
@@ -31,17 +36,17 @@ def test_docling_pymupdf_parsing(MockPyMuPDF, MockDocling):
                 page=1,
                 block_type="paragraph",
                 text="Sample text",
-                bbox=BoundingBox(10, 10, 100, 20, 1)
+                bbox=BoundingBox(10, 10, 100, 20, 1),
             ),
             ParsedBlock(
                 page=1,
                 block_type="table",
                 text="| col1 | col2 |",
                 table_data={"headers": ["col1"], "rows": [["val1"]]},
-                bbox=BoundingBox(10, 30, 100, 50, 1)
-            )
+                bbox=BoundingBox(10, 30, 100, 50, 1),
+            ),
         ],
-        metadata={"parser": "docling"}
+        metadata={"parser": "docling"},
     )
 
     parsed = parse_pdf(pdf_path)
@@ -74,10 +79,10 @@ def test_llm_term_extraction(MockLLMExtractor):
                 headword_en="Aging Management Program",
                 headword_ko="경년열화 관리 프로그램",
                 domain=["nuclear"],
-                context="경년열화 관리 프로그램(AMP)은..."
+                context="경년열화 관리 프로그램(AMP)은...",
             )
         ],
-        []  # errors
+        [],  # errors
     )
 
     # 더미 문서
@@ -87,9 +92,9 @@ def test_llm_term_extraction(MockLLMExtractor):
             ParsedBlock(
                 page=1,
                 block_type="paragraph",
-                text="경년열화 관리 프로그램(AMP)은 원자력 발전소의 장기 운전을 위해 필수적이다."
+                text="경년열화 관리 프로그램(AMP)은 원자력 발전소의 장기 운전을 위해 필수적이다.",
             )
-        ]
+        ],
     )
 
     api_key = "test_key"  # 실제 테스트에서는 환경변수 사용

@@ -92,8 +92,7 @@ async def ingest_document(file: UploadFile = File(...)):
             raise exc
         except Exception as e:
             # ✅ 나머지는 "internal-error"로 래핑하되, errors[]도 채워서 LLM-friendly 하게
-            tb_str = "".join(traceback.format_exception(
-                type(e), e, e.__traceback__))
+            tb_str = "".join(traceback.format_exception(type(e), e, e.__traceback__))
             problem = ProblemDetails(
                 type="https://clara-ssot.org/problems/internal-error",
                 title="Unexpected error during ingestion",

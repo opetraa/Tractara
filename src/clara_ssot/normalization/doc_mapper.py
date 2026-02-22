@@ -16,9 +16,11 @@ def _blocks_to_content(blocks: List[ParsedBlock]) -> List[Dict[str, Any]]:
         item: Dict[str, Any] = {
             "blockId": f"block-{i:04d}",
             "parentId": None,
-            "blockType": b.block_type if b.block_type in [
-                "paragraph", "table", "section", "title"
-            ] else "paragraph",
+            "blockType": (
+                b.block_type
+                if b.block_type in ["paragraph", "table", "section", "title"]
+                else "paragraph"
+            ),
             "text": b.text or "",
         }
 

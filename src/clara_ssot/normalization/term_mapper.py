@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 # Pydantic 모델로 TERM 구조 정의
 class ExtractedTerm(BaseModel):
     """LLM이 추출할 TERM 구조"""
+
     term: str = Field(description="용어 (약어 또는 전체 명칭)")
     headword_en: str = Field(description="영문 정식 명칭")
     headword_ko: str = Field(description="한글 정식 명칭")
@@ -29,6 +30,7 @@ class ExtractedTerm(BaseModel):
 
 class TermExtractionResult(BaseModel):
     """LLM 응답 전체 구조"""
+
     terms: List[ExtractedTerm] = Field(description="추출된 용어 목록")
     reasoning: str = Field(description="Chain of Thought 추론 과정")
 
@@ -92,8 +94,9 @@ class LLMTermExtractor:
 
         try:
             # 3. 실제 사용 가능한 모델 목록 조회
-            available_models = [m.name.replace(
-                "models/", "") for m in genai.list_models()]
+            available_models = [
+                m.name.replace("models/", "") for m in genai.list_models()
+            ]
             logger.info(f"📋 Available Gemini models: {available_models}")
 
             for pref in preferences:
@@ -129,7 +132,8 @@ class LLMTermExtractor:
                 continue
 
             logger.info(
-                f"Sending chunk {i+1}/{len(text_chunks)} to LLM (len={len(chunk)})...")
+                f"Sending chunk {i+1}/{len(text_chunks)} to LLM (len={len(chunk)})..."
+            )
             try:
                 result = self._extract_from_chunk(chunk)
                 candidates = [
@@ -140,7 +144,7 @@ class LLMTermExtractor:
                         headword_en=t.headword_en,
                         headword_ko=t.headword_ko,
                         domain=t.domain,
-                        context=t.context
+                        context=t.context,
                     )
                     for t in result.terms
                 ]
@@ -156,8 +160,7 @@ class LLMTermExtractor:
                 # 404 모델 에러인 경우 사용 가능한 모델 목록 출력 (디버깅용)
                 if "404" in str(e) and "models/" in str(e):
                     try:
-                        available_models = [
-                            m.name for m in genai.list_models()]
+                        available_models = [m.name for m in genai.list_models()]
                         logger.error(f"Available models: {available_models}")
                     except Exception as list_err:
                         logger.error(f"Failed to list models: {list_err}")
@@ -238,16 +241,20 @@ class LLMTermExtractor:
                 return response
             except Exception as e:
                 # 429 Quota Exceeded 에러 처리
-                if "429" in str(e) or "Quota exceeded" in str(e) or "ResourceExhausted" in str(e):
-                    logger.warning(
-                        f"⚠️ Quota exceeded for model {self.model_name}.")
+                if (
+                    "429" in str(e)
+                    or "Quota exceeded" in str(e)
+                    or "ResourceExhausted" in str(e)
+                ):
+                    logger.warning(f"⚠️ Quota exceeded for model {self.model_name}.")
 
                     # 다음 모델로 전환
                     self.current_model_idx += 1
                     if self.current_model_idx < len(self.model_candidates):
                         self.model_name = self.model_candidates[self.current_model_idx]
                         logger.info(
-                            f"🔄 Switching to fallback model: {self.model_name}")
+                            f"🔄 Switching to fallback model: {self.model_name}"
+                        )
                         self._init_client()
                         continue
                     else:
@@ -257,8 +264,7 @@ class LLMTermExtractor:
 
 
 def extract_term_candidates(
-    parsed: ParsedDocument,
-    llm_api_key: str = None
+    parsed: ParsedDocument, llm_api_key: str = None
 ) -> Tuple[List[TermCandidate], List[str]]:
     """
     ParsedDocument에서 TERM 후보 추출
@@ -269,8 +275,9 @@ def extract_term_candidates(
     """
     # 인자로 키가 안 넘어왔으면 환경 변수에서 조회
     if not llm_api_key:
-        llm_api_key = os.environ.get(
-            "GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+        llm_api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get(
+            "GOOGLE_API_KEY"
+        )
 
     if not llm_api_key:
         logger.warning("No LLM API key provided, using dummy extractor")
@@ -284,13 +291,13 @@ def extract_term_candidates(
 
     # 텍스트 청크 준비
     text_chunks = [
-        block.text for block in parsed.blocks
-        if block.text and len(block.text) > 20
+        block.text for block in parsed.blocks if block.text and len(block.text) > 20
     ]
 
     if not text_chunks:
         logger.warning(
-            "⚠️ No text chunks > 20 chars found in document. Term extraction skipped.")
+            "⚠️ No text chunks > 20 chars found in document. Term extraction skipped."
+        )
         return [], ["No text chunks found in document (OCR might be needed)."]
 
     # LLM 추출
@@ -300,8 +307,7 @@ def extract_term_candidates(
     logger.info(f"Sending {len(chunks_to_process)} text chunks to LLM...")
     candidates, errors = extractor.extract(chunks_to_process)
 
-    logger.info(
-        f"Extracted {len(candidates)} TERM candidates. Errors: {len(errors)}")
+    logger.info(f"Extracted {len(candidates)} TERM candidates. Errors: {len(errors)}")
     return candidates, errors
 
 

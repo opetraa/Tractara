@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class BoundingBox:
     """PDF 좌표 정보"""
+
     x0: float
     y0: float
     x1: float
@@ -31,7 +32,7 @@ class BoundingBox:
             "y0": self.y0,
             "x1": self.x1,
             "y1": self.y1,
-            "page": self.page
+            "page": self.page,
         }
 
 
@@ -118,65 +119,73 @@ class PyMuPDFParser:
 
                 # 1. 레벨 및 타입 판별 (Dynamic Heuristic)
                 level, inferred_type = self._determine_structure(
-                    clean_text, max_font_size, is_bold, body_font_size)
+                    clean_text, max_font_size, is_bold, body_font_size
+                )
                 block_id = str(uuid.uuid4())
 
                 # 2. 스택 조정 (Pop): 현재 레벨보다 깊거나 같은 이전 섹션 닫기
                 # 제목(Header)이 나오면, 그보다 하위 레벨(숫자가 큰)의 컨텍스트는 종료됨
-                while context_stack and context_stack[-1]['level'] >= level:
+                while context_stack and context_stack[-1]["level"] >= level:
                     context_stack.pop()
 
                 # 3. 부모 연결 및 컨텍스트 상속
-                parent_id = context_stack[-1]['id'] if context_stack else None
-                current_context_path = [item['title']
-                                        for item in context_stack]
+                parent_id = context_stack[-1]["id"] if context_stack else None
+                current_context_path = [item["title"] for item in context_stack]
 
                 # 4. 블록 생성
-                blocks.append(ParsedBlock(
-                    page=page_index + 1,
-                    block_type=inferred_type,
-                    text=clean_text,
-                    bbox=BoundingBox(
-                        x0=block["bbox"][0], y0=block["bbox"][1],
-                        x1=block["bbox"][2], y1=block["bbox"][3],
-                        page=page_index + 1
-                    ),
-                    confidence=1.0,
-                    level=level,
-                    context_path=current_context_path,
-                    parent_id=parent_id,
-                    block_id=block_id
-                ))
+                blocks.append(
+                    ParsedBlock(
+                        page=page_index + 1,
+                        block_type=inferred_type,
+                        text=clean_text,
+                        bbox=BoundingBox(
+                            x0=block["bbox"][0],
+                            y0=block["bbox"][1],
+                            x1=block["bbox"][2],
+                            y1=block["bbox"][3],
+                            page=page_index + 1,
+                        ),
+                        confidence=1.0,
+                        level=level,
+                        context_path=current_context_path,
+                        parent_id=parent_id,
+                        block_id=block_id,
+                    )
+                )
 
                 # 5. 스택 푸시 (Push): 섹션인 경우 스택에 추가하여 하위 블록의 부모가 됨
                 # 단, 본문(Level 999)은 스택에 넣지 않음 (본문은 부모가 될 수 없음)
                 if level < 999:
-                    context_stack.append({
-                        'level': level,
-                        'id': block_id,
-                        'title': clean_text
-                    })
+                    context_stack.append(
+                        {"level": level, "id": block_id, "title": clean_text}
+                    )
 
         doc.close()
 
         return ParsedDocument(
             source_path=str(pdf_path),
             blocks=blocks,
-            metadata={"parser": "pymupdf_dynamic_stack", "version": "2.1.0"}
+            metadata={"parser": "pymupdf_dynamic_stack", "version": "2.1.0"},
         )
 
-    def _determine_structure(self, text: str, font_size: float, is_bold: bool, body_size: float) -> Tuple[int, str]:
+    def _determine_structure(
+        self, text: str, font_size: float, is_bold: bool, body_size: float
+    ) -> Tuple[int, str]:
         """텍스트 패턴과 폰트 스타일로 레벨과 타입을 결정"""
         # 1. 목차/제목 (Level 0) - 정규식 강화
-        if re.match(r'^\s*(목\s*차|table of contents|contents|abstract|introduction|서\s*론)\s*$', text, re.IGNORECASE):
+        if re.match(
+            r"^\s*(목\s*차|table of contents|contents|abstract|introduction|서\s*론)\s*$",
+            text,
+            re.IGNORECASE,
+        ):
             return 0, "title"
 
         # 2. 섹션 번호 패턴 (Level 1~N)
         # 예: "1. 서론" -> Level 1, "1.1 배경" -> Level 2, "1.1.1 상세" -> Level 3
         # NUREG 보고서 등에서 흔한 "2." 또는 "2.1" 패턴 인식
-        match = re.match(r'^(\d+(?:\.\d+)*)\.?\s+\w+', text)
+        match = re.match(r"^(\d+(?:\.\d+)*)\.?\s+\w+", text)
         if match:
-            depth = match.group(1).count('.') + 1
+            depth = match.group(1).count(".") + 1
             return depth, "section"
 
         # 3. 폰트 기반 헤더 추론 (번호가 없는 대제목)
@@ -215,17 +224,17 @@ class DoclingParser:
             # GPU 가용성 체크 및 디바이스 설정
             if torch.cuda.is_available():
                 logger.info(
-                    f"🚀 GPU detected (CUDA: {torch.cuda.get_device_name(0)}). Using CUDA for Docling.")
+                    f"🚀 GPU detected (CUDA: {torch.cuda.get_device_name(0)}). Using CUDA for Docling."
+                )
                 device = AcceleratorDevice.CUDA
             elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
-                logger.info(
-                    "🚀 GPU detected (Apple MPS). Using MPS for Docling.")
+                logger.info("🚀 GPU detected (Apple MPS). Using MPS for Docling.")
                 # Docling 버전에 따라 MPS 상수가 없을 수 있으므로 안전하게 처리
-                device = getattr(AcceleratorDevice, "MPS",
-                                 AcceleratorDevice.CPU)
+                device = getattr(AcceleratorDevice, "MPS", AcceleratorDevice.CPU)
             else:
                 logger.info(
-                    "ℹ️ GPU not detected (CUDA/MPS unavailable). Using CPU for Docling.")
+                    "ℹ️ GPU not detected (CUDA/MPS unavailable). Using CPU for Docling."
+                )
                 device = AcceleratorDevice.CPU
 
             # 파이프라인 옵션 구성
@@ -235,17 +244,25 @@ class DoclingParser:
             )
 
             self.converter = DocumentConverter(
-                format_options={InputFormat.PDF: PdfFormatOption(
-                    pipeline_options=pipeline_options)}
+                format_options={
+                    InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)
+                }
             )
 
             # 표 구조 추출 활성화 (OpenCV 필요)
             try:
                 import cv2  # noqa: F401
-                self.converter.format_to_options[InputFormat.PDF].pipeline_options.do_table_structure = True
+
+                self.converter.format_to_options[
+                    InputFormat.PDF
+                ].pipeline_options.do_table_structure = True
             except ImportError:
-                logger.warning("OpenCV(cv2) 없음. 표 구조 추출 기능이 제한될 수 있습니다.")
-                self.converter.format_to_options[InputFormat.PDF].pipeline_options.do_table_structure = False
+                logger.warning(
+                    "OpenCV(cv2) 없음. 표 구조 추출 기능이 제한될 수 있습니다."
+                )
+                self.converter.format_to_options[
+                    InputFormat.PDF
+                ].pipeline_options.do_table_structure = False
 
         except ImportError as e:
             raise ImportError(f"Docling 라이브러리가 설치되지 않았습니다: {e}")
@@ -281,20 +298,19 @@ class DoclingParser:
             # 2. 스택 조정 (Pop): 현재 레벨보다 깊거나 같은 상위 섹션 닫기
             # Docling level이 None인 경우(본문 등)는 스택 유지
             if block_type in ["title", "section"] and level is not None:
-                while context_stack and context_stack[-1]['level'] >= level:
+                while context_stack and context_stack[-1]["level"] >= level:
                     context_stack.pop()
 
             # 3. 부모 연결 및 컨텍스트 상속
-            parent_id = context_stack[-1]['id'] if context_stack else None
-            current_context_path = [item['title'] for item in context_stack]
+            parent_id = context_stack[-1]["id"] if context_stack else None
+            current_context_path = [item["title"] for item in context_stack]
             block_id = str(uuid.uuid4())
 
             # 4. 블록 데이터 구성
             bbox = self._extract_bbox(item)
 
             parsed_block = ParsedBlock(
-                page=item.prov[0].page_no if hasattr(
-                    item, "prov") and item.prov else 1,
+                page=item.prov[0].page_no if hasattr(item, "prov") and item.prov else 1,
                 block_type=block_type,
                 text=text,
                 bbox=bbox,
@@ -302,7 +318,7 @@ class DoclingParser:
                 level=level if level is not None else 999,
                 context_path=current_context_path,
                 parent_id=parent_id,
-                block_id=block_id
+                block_id=block_id,
             )
 
             # 표 데이터 처리
@@ -311,7 +327,7 @@ class DoclingParser:
                     df = item.export_to_dataframe()
                     parsed_block.table_data = {
                         "headers": [str(h) for h in df.columns.tolist()],
-                        "rows": [[str(c) for c in row] for row in df.values.tolist()]
+                        "rows": [[str(c) for c in row] for row in df.values.tolist()],
                     }
                     # 텍스트 필드에는 마크다운 형태 저장
                     parsed_block.text = df.to_markdown(index=False)
@@ -322,16 +338,12 @@ class DoclingParser:
 
             # 5. 스택 푸시 (Push): 섹션인 경우 스택에 추가
             if block_type in ["title", "section"] and level is not None:
-                context_stack.append({
-                    'level': level,
-                    'id': block_id,
-                    'title': text
-                })
+                context_stack.append({"level": level, "id": block_id, "title": text})
 
         return ParsedDocument(
             source_path=str(pdf_path),
             blocks=blocks,
-            metadata={"parser": "docling", "version": "2.0.0"}
+            metadata={"parser": "docling", "version": "2.0.0"},
         )
 
     def _extract_bbox(self, item) -> Optional[BoundingBox]:
@@ -340,9 +352,11 @@ class DoclingParser:
             b = p.bbox
             # Docling uses l,r,t,b. Mapping to x0,y0,x1,y1.
             return BoundingBox(
-                x0=getattr(b, "l", 0), y0=getattr(b, "b", 0),
-                x1=getattr(b, "r", 0), y1=getattr(b, "t", 0),
-                page=p.page_no
+                x0=getattr(b, "l", 0),
+                y0=getattr(b, "b", 0),
+                x1=getattr(b, "r", 0),
+                y1=getattr(b, "t", 0),
+                page=p.page_no,
             )
         return None
 
@@ -356,13 +370,14 @@ class GeminiVisionParser:
     def __init__(self, api_key: str = None):
         from google import genai
 
-        self.api_key = api_key or os.getenv(
-            "GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+        self.api_key = (
+            api_key or os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+        )
         if not self.api_key:
             raise ValueError("Gemini API Key is missing for Vision Parser.")
 
         self.client = genai.Client(api_key=self.api_key)
-        self.model_name = 'gemini-1.5-flash'
+        self.model_name = "gemini-1.5-flash"
 
     def parse(self, pdf_path: Path) -> ParsedDocument:
         """PDF를 이미지로 변환 후 Gemini에게 구조화 요청"""
@@ -385,24 +400,25 @@ class GeminiVisionParser:
             prompt = "Extract all text from this page. Return raw text."
 
             response = self.client.models.generate_content(
-                model=self.model_name,
-                contents=[prompt, image]
+                model=self.model_name, contents=[prompt, image]
             )
 
-            blocks.append(ParsedBlock(
-                page=page_index + 1,
-                block_type="paragraph",
-                text=response.text,
-                confidence=0.8,
-                metadata={"source": "gemini_vision"}
-            ))
+            blocks.append(
+                ParsedBlock(
+                    page=page_index + 1,
+                    block_type="paragraph",
+                    text=response.text,
+                    confidence=0.8,
+                    metadata={"source": "gemini_vision"},
+                )
+            )
 
         doc.close()
 
         return ParsedDocument(
             source_path=str(pdf_path),
             blocks=blocks,
-            metadata={"parser": "gemini_vision", "version": "1.0.0"}
+            metadata={"parser": "gemini_vision", "version": "1.0.0"},
         )
 
 
@@ -423,8 +439,7 @@ def parse_pdf(path: Path) -> ParsedDocument:
         for page in doc:
             total_text_len += len(page.get_text())
 
-        is_scanned_document = (len(doc) > 0) and (
-            total_text_len / len(doc) < 50)
+        is_scanned_document = (len(doc) > 0) and (total_text_len / len(doc) < 50)
         doc.close()
 
         if not is_scanned_document:
@@ -443,7 +458,8 @@ def parse_pdf(path: Path) -> ParsedDocument:
             # API 키 확인
             if not (os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")):
                 logger.warning(
-                    "⚠️ Gemini API Key 없음. PyMuPDF로 강제 진행 (결과 품질 저하 가능)")
+                    "⚠️ Gemini API Key 없음. PyMuPDF로 강제 진행 (결과 품질 저하 가능)"
+                )
                 parser = PyMuPDFParser()
                 return parser.parse(path)
 

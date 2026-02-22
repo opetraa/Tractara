@@ -36,7 +36,9 @@ def ingest_single_document(pdf_path: Path) -> Dict[str, Any]:
 
     warnings = []
     if not llm_api_key:
-        msg = "⚠️ No LLM API Key found. Term extraction will likely return empty results."
+        msg = (
+            "⚠️ No LLM API Key found. Term extraction will likely return empty results."
+        )
         logger.warning(msg)
         warnings.append(msg)
 
@@ -56,7 +58,8 @@ def ingest_single_document(pdf_path: Path) -> Dict[str, Any]:
     # 4) TERM 후보 생성 (이제 LLM 사용!)
     logger.info("🚀 Starting TERM extraction (after DOC creation)...")
     term_candidates, extraction_errors = extract_term_candidates(
-        parsed, llm_api_key=llm_api_key)
+        parsed, llm_api_key=llm_api_key
+    )
     logger.info(f"🔍 Extracted {len(term_candidates or [])} term candidates.")
 
     if extraction_errors:
@@ -65,8 +68,7 @@ def ingest_single_document(pdf_path: Path) -> Dict[str, Any]:
     if not term_candidates and llm_api_key:
         warnings.append("LLM API Key was present, but 0 terms were extracted.")
 
-    term_baseline_candidates = build_term_baseline_candidates(
-        doc_id, term_candidates)
+    term_baseline_candidates = build_term_baseline_candidates(doc_id, term_candidates)
     save_term_candidates_landing(doc_id, term_baseline_candidates)
 
     # 5) TERM 병합 + 승격
