@@ -1,12 +1,12 @@
 {
   "type": "term_entry",
-  "termId": "45404f94-c4e5-416b-b065-b87282bc5384",
+  "termId": "d504346a-3934-454e-b62b-76ef9146369b",
   "term": "Coolant Environments",
   "lang": "bilingual",
   "headword_en": "Coolant Environments",
   "headword_ko": "냉각재 환경",
-  "definition_en": "The specific conditions and properties of the cooling medium (coolant) within a system, particularly its chemical composition, temperature, and pressure, which can influence material behavior.",
-  "definition_ko": "시스템 내 냉각 매체(냉각재)의 특정 조건 및 특성으로, 특히 재료의 거동에 영향을 미칠 수 있는 화학적 조성, 온도 및 압력 등을 포함한다.",
+  "definition_en": "The specific chemical and physical conditions (temperature, pressure, chemistry) of the coolant within a reactor system that can influence the degradation or performance of materials.",
+  "definition_ko": "원자로 계통 내 냉각재의 특정 화학적, 물리적 조건(온도, 압력, 화학 성분)으로, 재료의 열화 또는 성능에 영향을 미칠 수 있는 환경.",
   "slots": {
     "context_ko": "Effects of LWR Coolant Environments on Fatigue Design Curves of Austenitic Stainless Steels"
   },
@@ -23,11 +23,11 @@
   "provenance": {
     "sources": [
       {
-        "docId": "DOC_b258a6ae9bd34d2cb52a5593d80ebe38"
+        "docId": "DOC_83f0a6a3607d47a8bc4e29ec69509088"
       }
     ],
     "curationStatus": "candidate",
-    "trace_id": "8c60c6c8b98e4fd8ae93cb00353b23c5"
+    "trace_id": "fb1a0dc2214d44558548c619ddeb4dcb"
   },
   "status": "candidate"
 }

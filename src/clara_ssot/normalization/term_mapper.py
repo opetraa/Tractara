@@ -50,7 +50,10 @@ class LLMTermExtractor:
     """
 
     def __init__(self, api_key: str):
-        # Gemini 설정 (Instructor 호환용 구형 SDK 사용)
+        # Gemini 설정 (구형 SDK 사용 - 안정성 확보)
+        # TODO: [Migration] instructor 라이브러리가 google-genai(신형 SDK)를 완벽히 지원하면 마이그레이션 필요.
+        # 현재(2026.02) instructor 1.14.x 버전은 구형 SDK(google-generativeai)와 호환성이 더 좋음.
+        # 참조: https://github.com/google-gemini/deprecated-generative-ai-python
         genai.configure(api_key=api_key)
 
         # 사용 가능한 모델 후보군 설정 (Fallback을 위해 리스트로 관리)
@@ -63,6 +66,7 @@ class LLMTermExtractor:
 
     def _init_client(self):
         # Instructor 클라이언트 래핑 (표준화된 인터페이스 제공)
+        # 구형 SDK의 GenerativeModel 객체를 생성하여 전달
         self.client = instructor.from_gemini(
             client=genai.GenerativeModel(model_name=self.model_name),
             mode=instructor.Mode.GEMINI_JSON,
@@ -152,6 +156,14 @@ class LLMTermExtractor:
             except Exception as e:
                 msg = f"Chunk {i+1} failed: {str(e)}"
                 logger.error(f"❌ TERM extraction failed: {msg}", exc_info=True)
+
+                # 🚨 API 키 만료 또는 권한 에러 발생 시 즉시 중단
+                if "expired" in str(e).lower() or "400" in str(e) or "403" in str(e):
+                    logger.critical(
+                        "🛑 Critical API Error: API Key expired or invalid. Stopping.")
+                    errors.append(
+                        "Critical: API Key issue. Please check your .env file.")
+                    break
 
                 # 404 모델 에러인 경우 사용 가능한 모델 목록 출력 (디버깅용)
                 if "404" in str(e) and "models/" in str(e):
@@ -295,8 +307,8 @@ def extract_term_candidates(
 
     # LLM 추출
     extractor = LLMTermExtractor(api_key=llm_api_key)
-    # 더 많은 용어를 찾기 위해 청크 수 증가 (테스트용 10개)
-    chunks_to_process = text_chunks[:10]
+    # 더 많은 용어를 찾기 위해 청크 수 증가 (테스트용 1개)
+    chunks_to_process = text_chunks[:1]
     logger.info(f"Sending {len(chunks_to_process)} text chunks to LLM...")
     candidates, errors = extractor.extract(chunks_to_process)
 

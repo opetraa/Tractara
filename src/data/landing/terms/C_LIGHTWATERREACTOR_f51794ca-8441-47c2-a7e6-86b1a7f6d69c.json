@@ -1,0 +1,32 @@
+{
+  "type": "term_entry",
+  "termId": "f51794ca-8441-47c2-a7e6-86b1a7f6d69c",
+  "term": "LWR",
+  "lang": "bilingual",
+  "headword_en": "Light Water Reactor",
+  "headword_ko": "경수로",
+  "definition_en": "A type of nuclear reactor that uses ordinary water, as opposed to heavy water, as both its coolant and neutron moderator.",
+  "definition_ko": "중수가 아닌 일반 물을 냉각재와 중성자 감속재로 사용하는 원자로의 한 종류.",
+  "slots": {
+    "context_ko": "Effects of LWR Coolant Environments on Fatigue Design Curves of Austenitic Stainless Steels"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "reactor"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_83f0a6a3607d47a8bc4e29ec69509088"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "fb1a0dc2214d44558548c619ddeb4dcb"
+  },
+  "status": "candidate"
+}

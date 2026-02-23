@@ -1,0 +1,16 @@
+{
+    "name": "CLARA-SSoT Dev Container",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "clara-ssot-api",
+    "workspaceFolder": "/workspaces/CLARA-SSoT",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Google.geminicodeassist",
+                "ms-python.python",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    },
+    "remoteUser": "root"
+}

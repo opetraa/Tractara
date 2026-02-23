@@ -3,7 +3,7 @@ M ?= chore: sync changes
 
 .PHONY: help install test lint format clean run run-ui docker-build docker-up docker-down \
         dvc-repro dvc-push dvc-pull dvc-status git-push git-pull \
-        dvc-add-push sync-all ingest
+        dvc-add-push sync-all sync-rules ingest
 FILE ?=
 
 help:
@@ -24,6 +24,7 @@ help:
 	@echo "  make dvc-add-push file=\"...\" - Add a large file to DVC and push"
 	@echo ""
 	@echo "  make sync-all m=\"...\" - (RECOMMENDED) Add all changes to DVC/Git and push"
+	@echo "  make sync-rules       - AI 규칙 동기화 (.ai-rules/ → CLAUDE.md, GEMINI.md)"
 
 install:
 	poetry install
@@ -98,6 +99,11 @@ sync-all:
 	@echo "🔄 [3/3] Git 변경사항을 원격 저장소로 푸시합니다..."
 	@make git-push m='$(M)'
 	@echo "🚀 모든 동기화가 완료되었습니다!"
+
+sync-rules:
+	@echo "🔄 AI 규칙 파일 동기화 중..."
+	@python3 scripts/sync_ai_rules.py
+	@echo "✅ CLAUDE.md, GEMINI.md 업데이트 완료"
 
 git-push:
 	@git add .

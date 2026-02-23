@@ -15,10 +15,9 @@ BASE_DIR = "/workspaces/clara-ssot"
 
 def get_safe_path(filename: str) -> str:
     """
-    Claude가 무슨 경로를 넣든, 무조건 BASE_DIR 아래로 고정시킵니다.
-    파일명만 입력해도 알아서 경로를 찾아줍니다.
+    무조건 BASE_DIR 아래로 고정시킵니다. 파일명만 입력해도 알아서 경로를 찾아줍니다.
     """
-    # 1. 파일명만 남기고 경로 떼어내기 (Claude가 이상한 경로 붙이는 거 방지)
+    # 1. 파일명만 남기고 경로 떼어내기 
     clean_name = os.path.basename(filename)
 
     # 2. 진짜 경로 합치기

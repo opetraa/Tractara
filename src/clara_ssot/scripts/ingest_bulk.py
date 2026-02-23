@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import logging
-import os
 import sys
 from pathlib import Path
 
@@ -24,7 +23,7 @@ except ImportError as e:
     sys.exit(1)
 
 # .env 로드
-load_dotenv()
+load_dotenv(override=True)
 
 logger = logging.getLogger("bulk_ingest")
 
