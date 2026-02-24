@@ -25,8 +25,16 @@ from pydantic import BaseModel, Field
 logger = logging.getLogger(__name__)
 
 # ── 검증 상수 (스키마 enum과 동기화) ─────────────────────────────────────────
-_VALID_ROLES = frozenset({"author", "contributor", "reviewer", "approver"})
-_VALID_ORG_TYPES = frozenset({"utility", "vendor", "regulator", "research"})
+_VALID_ORG_TYPES = frozenset(
+    {"utility", "vendor", "regulator", "national_lab", "corporate_research"}
+)
+_VALID_ROLES = frozenset(
+    {"creator", "publisher", "sponsor", "project_manager", "reviewer", "approver", "contributor"}
+)
+# DC 필드 라우팅용 서브셋
+_CREATOR_ROLES = frozenset({"creator"})
+_CONTRIBUTOR_ROLES = frozenset({"reviewer", "approver", "project_manager", "contributor"})
+_PUBLISHER_ROLES = frozenset({"publisher", "sponsor"})
 _VALID_DOC_TYPES = frozenset(
     {
         "TechnicalReport",
@@ -45,23 +53,33 @@ _VALID_DOC_TYPES = frozenset(
     }
 )
 _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-# 문서 번호 패턴: 대문자로 시작 + 2자 이상 + 구분자(-/) + 영숫자 조합
+# 블록 전체 매칭용 (Track B 검증): 공백 없이 식별자 단독
 _IDENTIFIER_RE = re.compile(r"^[A-Z][A-Z0-9]{1,}[-/][A-Z0-9][-A-Z0-9/.-]*$")
+# 블록 내 부분 탐색용 (Track A findall): 앵커 없이 패턴만 추출
+# 예: "NUREG/CR-5704 ANL-98/31" → ["NUREG/CR-5704", "ANL-98/31"]
+_IDENTIFIER_INLINE_RE = re.compile(r"[A-Z][A-Z0-9]{1,}[-/][A-Z0-9][-A-Z0-9/.-]*")
+_VALID_SCHEMES = frozenset({"DOI", "URI", "ISBN", "ISSN", "DOCKET"})
 
 
 # ── Pydantic 모델 (Track B LLM 출력 구조) ─────────────────────────────────────
-class CreatorItem(BaseModel):
+class ContributorItem(BaseModel):
     name: str
-    role: str | None = Field(
-        None, description="author | contributor | reviewer | approver 중 하나"
+    entityType: str = Field(description="person | organization")
+    role: str = Field(
+        description=(
+            "creator | publisher | sponsor | project_manager | "
+            "reviewer | approver | contributor 중 하나"
+        )
     )
-    affiliation: str | None = None
-
-
-class PublisherInfo(BaseModel):
-    name: str
+    affiliation: str | None = Field(
+        None, description="소속 기관명 (entityType=person 일 때)"
+    )
     organizationType: str | None = Field(
-        None, description="utility | vendor | regulator | research 중 하나"
+        None,
+        description=(
+            "utility | vendor | regulator | national_lab | corporate_research 중 하나 "
+            "(entityType=organization 일 때)"
+        ),
     )
 
 
@@ -81,11 +99,22 @@ class CoverageInfo(BaseModel):
     temporalCoverage: str | None = None
 
 
+class IdentifierItem(BaseModel):
+    scheme: str | None = Field(
+        None, description="DOI | URI | ISBN | ISSN | DOCKET 중 하나"
+    )
+    value: str = Field(description="식별자 값 (공백 없음, 대문자+숫자+-/ 조합)")
+
+
 class LLMMetadata(BaseModel):
     dc_title: str | None = Field(None, description="문서 공식 제목")
-    dc_creator: list[CreatorItem] | None = Field(None, description="저자/관계자 목록")
-    dc_publisher: PublisherInfo | None = Field(
-        None, description="발행 기관 (단일 객체)")
+    dc_alternative_titles: list[str] | None = Field(
+        None, description="부제 또는 영문/국문 병기 제목 등")
+    dc_identifier: list[IdentifierItem] | None = Field(
+        None, description="문서 번호/식별자 목록")
+    contributors: list[ContributorItem] | None = Field(
+        None, description="모든 기여자·이해관계자 목록 (role로 dc:creator/dc:contributor/dc:publisher 구분)"
+    )
     dc_date: DateInfo | None = Field(None, description="날짜 정보")
     dc_language: str | None = Field(
         None, description="ISO 639-1 언어 코드 (ko, en 등)")
@@ -121,9 +150,11 @@ class _FrontBlock:
 @dataclass
 class ExtractedMetadata:
     dc_title: str | None = None
+    dc_alternative_titles: list[str] | None = None
     dc_identifier: list[dict[str, str]] | None = None
     dc_creator: list[dict[str, Any]] | None = None
-    dc_publisher: dict[str, Any] | None = None
+    dc_contributor: list[dict[str, Any]] | None = None
+    dc_publisher: list[dict[str, Any]] | None = None
     dc_date: dict[str, str] | None = None
     dc_language: str | None = None
     dc_type: str | None = None
@@ -178,7 +209,7 @@ def _extract_frontmatter_blocks(
                     if span["flags"] & 16:  # bit 4 = bold
                         is_bold = True
 
-            clean_text = " ".join(text_parts).strip()
+            clean_text = re.sub(r" {2,}", " ", " ".join(text_parts)).strip()
             if not clean_text:
                 continue
 
@@ -217,15 +248,15 @@ def _detect_primary_language(text: str, threshold: int = 50) -> str:
 
     h_count = 0
     e_count = 0
-    
+
     # 너무 긴 텍스트일 경우를 대비해 앞부분 2000자만 샘플링
     for char in text[:2000]:
         cp = ord(char)
-        if 0xAC00 <= cp <= 0xD7AF: # 한글 유니코드 범위
+        if 0xAC00 <= cp <= 0xD7AF:  # 한글 유니코드 범위
             h_count += 1
-            if h_count >= threshold: # 조기 종료: 이 정도면 한국어 문서가 확실함
+            if h_count >= threshold:  # 조기 종료: 이 정도면 한국어 문서가 확실함
                 return "ko"
-        elif (65 <= cp <= 90) or (97 <= cp <= 122): # 영문 A-Z, a-z
+        elif (65 <= cp <= 90) or (97 <= cp <= 122):  # 영문 A-Z, a-z
             e_count += 1
 
     return "ko" if h_count > e_count else "en"
@@ -278,26 +309,27 @@ def _extract_identifier(
     blocks: list[_FrontBlock],
 ) -> list[dict[str, str]] | None:
     """
-    헤더/푸터 여백(상단 10%, 하단 10%)에 고립된 문서 번호 패턴을 추출한다.
+    문서 번호 패턴을 추출한다.
 
-    여백 판정:
-      - 헤더: bbox_y0 < page_height × 0.10
-      - 푸터: bbox_y1 > page_height × 0.90
+    위치 판정:
+      - 표지(1페이지): 위치 무관하게 전체 허용
+      - 2페이지 이후: 헤더(상단 10%) 또는 푸터(하단 10%)만 허용
     """
     results: list[dict[str, str]] = []
     seen: set[str] = set()
 
     for b in blocks:
-        text = b.text.strip()
-        if not _IDENTIFIER_RE.match(text) or text in seen:
-            continue
-
+        on_cover = b.page == 1
         in_header = b.page_height > 0 and b.bbox_y0 < b.page_height * 0.10
         in_footer = b.page_height > 0 and b.bbox_y1 > b.page_height * 0.90
 
-        if in_header or in_footer:
-            results.append({"scheme": "DOCKET", "value": text})
-            seen.add(text)
+        if not (on_cover or in_header or in_footer):
+            continue
+
+        for match in _IDENTIFIER_INLINE_RE.findall(b.text):
+            if match not in seen:
+                results.append({"scheme": "DOCKET", "value": match})
+                seen.add(match)
 
     return results or None
 
@@ -319,14 +351,37 @@ def _build_llm_prompt(frontmatter_text: str) -> str:
 
 [추출 규칙]
 - dc_title: 문서의 공식 제목
-- dc_creator: 저자/관계자 목록. role은 반드시 아래 중 하나
-    author (Prepared by / 작성) | contributor | reviewer (Reviewed by / 검토) | approver (Approved by / 승인)
-- dc_publisher: 발행 기관 (단일 객체). organizationType은 반드시 아래 중 하나
-    utility (원전 운영자) | vendor (설계/엔지니어링사) | regulator (규제기관) | research (연구기관)
+- dc_alternative_titles: 부제(Subtitle)나 병기된 다른 언어 제목이 있다면 리스트로 추출
+- dc_identifier: 문서 번호/식별자 목록. 아래 조건을 모두 만족하는 것만 추출
+    조건: 공백 없음 / 대문자+숫자 조합이 - 또는 / 로 연결된 형태
+    예시(O): NUREG/CR-5704, ANS-58.14, DOI:10.1016/j.xxx
+    예시(X): DC 20555-0001 (공백 포함), Washington DC (문자만), 20555 (숫자만)
+    scheme은 반드시 아래 중 하나: DOI | URI | ISBN | ISSN | DOCKET
+    (일반 문서 번호는 DOCKET, 웹 주소는 URI, 학술 식별자는 DOI)
+- contributors: 문서에 등장하는 모든 기여자·이해관계자 목록. 각 항목에 아래 규칙을 적용하세요.
+    [entityType] 반드시 둘 중 하나:
+      person       — 개인 이름 (성명)
+      organization — 기관·단체 명칭
+    [role] 반드시 아래 중 하나 (이 값이 DC 필드 배치를 결정):
+      creator         → "Prepared by", "작성", "Written by" — 콘텐츠 실제 작성자 → dc:creator
+      publisher       → "Prepared for", "Submitted to", "Issued by" — 발행·발주 기관 → dc:publisher
+      sponsor         → "Funded by", "Sponsored by", "후원" — 재정 지원 기관 → dc:publisher
+      project_manager → "Project Manager", "과제책임자", "PM" → dc:contributor
+      reviewer        → "Reviewed by", "검토" → dc:contributor
+      approver        → "Approved by", "승인" → dc:contributor
+      contributor     → "In cooperation with", "협력", 그 외 간접 기여자 → dc:contributor
+    [entityType=person 일 때] affiliation: 소속 기관명 (문서에 명시된 경우)
+    [entityType=organization 일 때] organizationType: 반드시 아래 중 하나
+      utility          — 원전 운영자·발전사 (예: 한국수력원자력, KHNP)
+      vendor           — 설계·엔지니어링·제조사 (예: KEPCO E&C, Westinghouse)
+      regulator        — 규제기관 (예: NRC, 원자력안전위원회)
+      national_lab     — 국립·정부출연 연구소 (예: ANL, KAERI, ORNL)
+      corporate_research — 민간·운영사 부설 연구소 (예: KHNP 중앙연구원)
 - dc_language: 문서의 주된 서술 언어(Primary Language)를 ISO 639-1 코드로 선택 (한국어: ko, 영어: en). 
     기술 용어나 한자가 섞여 있어도 문장 구조를 이루는 주 언어를 선택하세요.
 - dc_date: 날짜는 YYYY-MM-DD 형식. 용도별 매핑:
     작성 완료일/Draft → created | 공식 발행/Issue → issued | 개정/Revision → modified
+    (주의: 날짜가 '2023년 11월' 처럼만 있으면 '2023-11-01'로 정규화하세요)
 - dc_language: ISO 639-1 (한국어: ko, 영어: en)
 - dc_type: 반드시 아래 중 하나
     TechnicalReport | RegulatoryDocument | SafetyAnalysisReport | PeriodicSafetyReview |
@@ -400,37 +455,66 @@ def _merge_results(
     # title: Track A 우선, 없으면 Track B
     result.dc_title = track_a_title or (track_b.dc_title if track_b else None)
 
-    # identifier: Track A 전담
+    # alternative titles: Track B 전담
+    if track_b and track_b.dc_alternative_titles:
+        result.dc_alternative_titles = track_b.dc_alternative_titles
+
+    # identifier: Track A 우선 (정규식 기반), Track B는 Track A 실패 시 fallback
     result.dc_identifier = track_a_identifier
 
     # language: Track B 우선, 실패 시 Track A(Heuristic)
-    result.dc_language = (track_b.dc_language.lower() if track_b and track_b.dc_language and len(track_b.dc_language) == 2 else fallback_lang)
+    result.dc_language = (track_b.dc_language.lower() if track_b and track_b.dc_language and len(
+        track_b.dc_language) == 2 else fallback_lang)
 
     if track_b is None:
         return result
 
-    # creator
-    if track_b.dc_creator:
+    # identifier Track B fallback: Track A가 아무것도 찾지 못했을 때만
+    if not result.dc_identifier and track_b.dc_identifier:
+        ids: list[dict[str, str]] = []
+        for i in track_b.dc_identifier:
+            if not i.value or not _IDENTIFIER_RE.match(i.value):
+                continue
+            scheme = i.scheme if i.scheme in _VALID_SCHEMES else "DOCKET"
+            ids.append({"scheme": scheme, "value": i.value})
+        if ids:
+            result.dc_identifier = ids
+
+    # contributors → dc:creator / dc:contributor / dc:publisher 분기
+    if track_b.contributors:
         creators: list[dict[str, Any]] = []
-        for c in track_b.dc_creator:
-            item: dict[str, Any] = {"name": c.name}
-            if c.role and c.role in _VALID_ROLES:
-                item["role"] = c.role
-            if c.affiliation:
+        contribs: list[dict[str, Any]] = []
+        publishers: list[dict[str, Any]] = []
+
+        for c in track_b.contributors:
+            if not c.name:
+                continue
+            role = c.role if c.role in _VALID_ROLES else None
+            if role is None:
+                continue
+            entity_type = c.entityType if c.entityType in {"person", "organization"} else "organization"
+
+            item: dict[str, Any] = {"name": c.name, "entityType": entity_type}
+            if entity_type == "person" and c.affiliation:
                 item["affiliation"] = c.affiliation
-            creators.append(item)
+            if entity_type == "organization" and c.organizationType in _VALID_ORG_TYPES:
+                item["organizationType"] = c.organizationType
+
+            if role in _CREATOR_ROLES:
+                creators.append(item)
+            elif role in _CONTRIBUTOR_ROLES:
+                item["role"] = role
+                contribs.append(item)
+            elif role in _PUBLISHER_ROLES:
+                item["role"] = role
+                publishers.append(item)
+
         if creators:
             result.dc_creator = creators
-
-    # publisher
-    if track_b.dc_publisher and track_b.dc_publisher.name:
-        pub: dict[str, Any] = {"name": track_b.dc_publisher.name}
-        if (
-            track_b.dc_publisher.organizationType
-            and track_b.dc_publisher.organizationType in _VALID_ORG_TYPES
-        ):
-            pub["organizationType"] = track_b.dc_publisher.organizationType
-        result.dc_publisher = pub
+        if contribs:
+            result.dc_contributor = contribs
+        if publishers:
+            result.dc_publisher = publishers
 
     # date (각 필드 형식 검증 후 유효한 것만 포함)
     if track_b.dc_date:

@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "6fea2468-5a66-4926-8232-76f75738327b",
+  "term": "Fatigue Design Curves",
+  "lang": "bilingual",
+  "headword_en": "Fatigue Design Curves",
+  "headword_ko": "피로 설계 곡선",
+  "definition_en": "Graphical representations showing the relationship between stress amplitude and the number of cycles to failure for a material, used in engineering design to prevent fatigue failure.",
+  "definition_ko": "재료의 응력 진폭과 파괴까지의 사이클 수 사이의 관계를 나타내는 그래프로, 피로 파괴를 방지하기 위한 엔지니어링 설계에 사용된다.",
+  "slots": {
+    "context_ko": "Effects of LWR Coolant Environments on Fatigue Design Curves of Austenitic Stainless Steels"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "materials",
+    "mechanics",
+    "engineering",
+    "design"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_0c31ab7ddb0c4e64b97ab224d7ca6d2f"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "d59d78353e774803b0290003d0311458"
+  },
+  "status": "candidate"
+}

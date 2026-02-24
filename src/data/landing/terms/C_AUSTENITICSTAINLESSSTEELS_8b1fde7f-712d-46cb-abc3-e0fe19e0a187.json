@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "8b1fde7f-712d-46cb-abc3-e0fe19e0a187",
+  "term": "Austenitic Stainless Steels",
+  "lang": "bilingual",
+  "headword_en": "Austenitic Stainless Steels",
+  "headword_ko": "오스테나이트계 스테인리스강",
+  "definition_en": "A class of non-magnetic stainless steels characterized by a face-centered cubic crystal structure (austenite) at room temperature. They are highly resistant to corrosion and widely used in nuclear power plants due to their excellent mechanical properties and weldability.",
+  "definition_ko": "실온에서 면심 입방 결정 구조(오스테나이트)를 특징으로 하는 비자성 스테인리스강의 한 종류. 내식성이 뛰어나고 우수한 기계적 특성 및 용접성으로 인해 원자력 발전소에서 널리 사용된다.",
+  "slots": {
+    "context_ko": "Effects of LWR Coolant Environments on Fatigue Design Curves of Austenitic Stainless Steels"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "materials",
+    "metallurgy"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_755b812f02e14e10b4cfd2d062bf1045"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "82388ee15cab4e67b35416c8aacb2753"
+  },
+  "status": "candidate"
+}

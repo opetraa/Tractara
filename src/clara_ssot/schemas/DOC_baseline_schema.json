@@ -62,24 +62,34 @@
         },
         "dc:creator": {
           "type": "array",
-          "description": "저자 또는 작성자 목록",
+          "description": "콘텐츠의 주요 지적 책임자 목록 (Prepared by / 작성자만 포함. 검토자·승인자·PM은 dc:contributor로)",
           "items": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "affiliation": {
-                "type": "string"
-              },
-              "role": {
+              "entityType": {
                 "type": "string",
                 "enum": [
-                  "author",
-                  "contributor",
-                  "reviewer",
-                  "approver"
+                  "person",
+                  "organization"
                 ]
+              },
+              "affiliation": {
+                "type": "string",
+                "description": "소속 기관명 (entityType=person 일 때)"
+              },
+              "organizationType": {
+                "type": "string",
+                "enum": [
+                  "utility",
+                  "vendor",
+                  "regulator",
+                  "national_lab",
+                  "corporate_research"
+                ],
+                "description": "기관 유형 (entityType=organization 일 때)"
               },
               "orcid": {
                 "type": "string",
@@ -87,26 +97,89 @@
               }
             },
             "required": [
-              "name"
+              "name",
+              "entityType"
+            ]
+          }
+        },
+        "dc:contributor": {
+          "type": "array",
+          "description": "검토자·승인자·PM·협력 기관 등 비창작 기여자 목록",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "entityType": {
+                "type": "string",
+                "enum": [
+                  "person",
+                  "organization"
+                ]
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "reviewer",
+                  "approver",
+                  "project_manager",
+                  "contributor"
+                ]
+              },
+              "affiliation": {
+                "type": "string",
+                "description": "소속 기관명 (entityType=person 일 때)"
+              },
+              "organizationType": {
+                "type": "string",
+                "enum": [
+                  "utility",
+                  "vendor",
+                  "regulator",
+                  "national_lab",
+                  "corporate_research"
+                ],
+                "description": "기관 유형 (entityType=organization 일 때)"
+              }
+            },
+            "required": [
+              "name",
+              "entityType"
             ]
           }
         },
         "dc:publisher": {
-          "type": "object",
-          "description": "발행 주체",
-          "properties": {
-            "name": {
-              "type": "string"
+          "type": "array",
+          "description": "발행 주체 목록 (Prepared for / Funded by / Sponsored by 포함, DC Dumb-Down 적용)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "publisher",
+                  "sponsor"
+                ],
+                "description": "publisher: 발행·발주 기관 | sponsor: 재정 지원 기관"
+              },
+              "organizationType": {
+                "type": "string",
+                "enum": [
+                  "utility",
+                  "vendor",
+                  "regulator",
+                  "national_lab",
+                  "corporate_research"
+                ]
+              }
             },
-            "organizationType": {
-              "type": "string",
-              "enum": [
-                "utility",
-                "vendor",
-                "regulator",
-                "research"
-              ]
-            }
+            "required": [
+              "name"
+            ]
           }
         },
         "dc:date": {

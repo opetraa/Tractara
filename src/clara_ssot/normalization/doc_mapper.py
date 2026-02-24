@@ -90,6 +90,8 @@ def build_doc_baseline(parsed: ParsedDocument) -> Dict[str, Any]:
 
     if extracted.dc_creator:
         metadata["dc:creator"] = extracted.dc_creator
+    if extracted.dc_contributor:
+        metadata["dc:contributor"] = extracted.dc_contributor
     if extracted.dc_publisher:
         metadata["dc:publisher"] = extracted.dc_publisher
     if extracted.dc_date:

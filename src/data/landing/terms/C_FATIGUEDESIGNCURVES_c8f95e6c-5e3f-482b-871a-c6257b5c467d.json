@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "c8f95e6c-5e3f-482b-871a-c6257b5c467d",
+  "term": "Fatigue Design Curves",
+  "lang": "bilingual",
+  "headword_en": "Fatigue Design Curves",
+  "headword_ko": "피로 설계 곡선",
+  "definition_en": "Graphical representations, often stress-number of cycles (S-N) curves, that provide allowable stress or strain amplitudes versus the number of cycles to failure for materials under cyclic loading, used to prevent fatigue failure in component design.",
+  "definition_ko": "반복 하중을 받는 재료의 허용 응력 또는 변형률 진폭 대 파손까지의 반복 횟수를 보여주는 그래픽 표현(종종 S-N 곡선)으로, 부품 설계에서 피로 파손을 방지하는 데 사용된다.",
+  "slots": {
+    "context_ko": "Effects of LWR Coolant Environments on Fatigue Design Curves of Austenitic Stainless Steels"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "design",
+    "materials",
+    "mechanics"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_755b812f02e14e10b4cfd2d062bf1045"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "82388ee15cab4e67b35416c8aacb2753"
+  },
+  "status": "candidate"
+}
