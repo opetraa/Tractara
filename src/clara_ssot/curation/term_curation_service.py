@@ -6,15 +6,19 @@ import re
 
 def merge_term_candidates(candidates: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
-    여러 문서에서 나온 TERM 후보들을 term(표제어) 기준으로 병합.
-    - definition_en / definition_ko / slots.* 와 같이 부분적으로만 채워진 필드를 합친다.
+    여러 문서에서 나온 TERM 후보들을 (term, termType) 복합 키 기준으로 병합.
+
+    그룹핑 키를 (term, termType)으로 사용하는 이유:
+    - 같은 단어가 CLASS(개념)와 REL(관계)로 다르게 분류될 수 있다.
+    - 타입이 다른 두 엔트리를 병합하면 termId prefix 불일치가 발생한다.
     """
-    grouped: dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    grouped: dict[tuple[str, str], List[Dict[str, Any]]] = defaultdict(list)
     for c in candidates:
-        grouped[c["term"]].append(c)
+        key = (c["term"], c.get("termType", "TERM-CLASS"))
+        grouped[key].append(c)
 
     merged_terms: List[Dict[str, Any]] = []
-    for term_id, items in grouped.items():
+    for _key, items in grouped.items():
         base = items[0].copy()
         for other in items[1:]:
             # definition_en/ko 가 비어있거나 [PENDING...]이면 다른 값으로 채워넣기
@@ -55,11 +59,9 @@ def generate_term_filename(term: Dict[str, Any]) -> str:
     status_code = status_map.get(status_str, "C")
 
     # 2. Term ID 정제
-    # "term:amp" -> "AMP", "term.stress-corrosion" -> "STRESS-CORROSION"
+    # "term:class:operating_temperature" → 마지막 세그먼트만 추출 → "OPERATING_TEMPERATURE"
     raw_id = term.get("termId", "unknown")
-    # term: 또는 term. 접두어 제거
-    clean_id = re.sub(r"^term[:.]", "", raw_id)
-    # 파일명에 부적합한 문자 제거 및 대문자화
+    clean_id = raw_id.split(":")[-1]
     clean_id = re.sub(r"[^a-zA-Z0-9_-]", "", clean_id).upper()
 
     if not clean_id:

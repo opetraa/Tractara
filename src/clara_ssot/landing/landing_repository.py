@@ -24,25 +24,35 @@ def save_doc_landing(doc: Dict[str, Any]) -> str:
     return doc_id
 
 
+# termType → 서브디렉토리 매핑
+_TYPE_SUBDIR: Dict[str, str] = {
+    "TERM-CLASS": "class",
+    "TERM-REL": "rel",
+    "TERM-RULE": "rule",
+}
+
+
 def save_term_candidates_landing(doc_id: str, terms: List[Dict[str, Any]]) -> None:
     """
     TERM baseline candidates 리스트를 Landing Zone에 저장.
-    파일명: C_{TERM}_{TERM_ID}.json
-    예시: C_AMP_550e8400-e29b-41d4-a716-446655440000.json
-    경로: data/landing/terms/
+    termType별 서브디렉토리로 분리:
+      data/landing/terms/class/  ← TERM-CLASS
+      data/landing/terms/rel/    ← TERM-REL
+      data/landing/terms/rule/   ← TERM-RULE
+
+    파일명: C_{TERM}_{termId 마지막 세그먼트}.json
+    예: term:class:aging_management_program → class/C_AGINGMANAGEMENTPROGRAM_aging_management_program.json
     """
-    # 문서별 폴더 대신 통합 폴더 사용 (TERM 중심 관리)
-    terms_dir = LANDING_DIR / "terms"
-    terms_dir.mkdir(parents=True, exist_ok=True)
-
     for term in terms:
-        # 파일명 생성: C_{TERM}_{TERM_ID}.json
-        # 한글 용어일 경우 파일명 호환성을 위해 영문 표제어(headword_en)를 우선 사용하고,
-        # 영문이 전혀 없으면 "TEMP"로 설정하여 추후 확정되도록 함.
-        clean_term = "TEMP"
-        # 1순위: headword_en (영문 정식 명칭), 2순위: term (약어 등)
-        name_candidates = [term.get("headword_en"), term.get("term")]
+        # termType 기반 서브디렉토리 결정
+        term_type = term.get("termType", "TERM-CLASS")
+        subdir_name = _TYPE_SUBDIR.get(term_type, "class")
+        terms_dir = LANDING_DIR / "terms" / subdir_name
+        terms_dir.mkdir(parents=True, exist_ok=True)
 
+        # 파일명용 짧은 레이블: headword_en > term 순서로 영문 알파벳만 추출
+        clean_term = "TEMP"
+        name_candidates = [term.get("headword_en"), term.get("term")]
         for cand in name_candidates:
             if cand:
                 extracted = re.sub(r"[^a-zA-Z0-9_-]", "", cand).upper()
@@ -50,10 +60,11 @@ def save_term_candidates_landing(doc_id: str, terms: List[Dict[str, Any]]) -> No
                     clean_term = extracted
                     break
 
-        term_id_val = term.get("termId", "unknown")
-        filename = f"C_{clean_term}_{term_id_val}.json"
+        # termId의 마지막 세그먼트 사용 (콜론 포함 문자를 파일명에서 배제)
+        term_id_val: str = term.get("termId", "unknown")
+        filename_stem = term_id_val.split(":")[-1]
+        filename = f"C_{clean_term}_{filename_stem}.json"
         path = terms_dir / filename
 
-        # 파일별로 분리되므로 병합 로직 없이 바로 저장
         path.write_text(json.dumps(term, ensure_ascii=False,
                         indent=2), encoding="utf-8")

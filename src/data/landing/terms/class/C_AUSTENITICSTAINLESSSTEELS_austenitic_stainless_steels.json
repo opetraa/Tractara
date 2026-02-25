@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "term:class:austenitic_stainless_steels",
+  "termType": "TERM-CLASS",
+  "term": "Austenitic Stainless Steels",
+  "lang": "bilingual",
+  "headword_en": "Austenitic Stainless Steels",
+  "headword_ko": "오스테나이트계 스테인리스강",
+  "definition_en": "A specific class of stainless steel alloys characterized by an austenitic crystalline structure, known for high corrosion resistance and formability.",
+  "definition_ko": "오스테나이트 결정 구조를 특징으로 하며 높은 부식 저항성과 성형성으로 알려진 스테인리스강 합금군.",
+  "slots": {
+    "context_ko": "Effects of LWR Coolant Environments on Fatigue Design Curves of Austenitic Stainless Steels"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "materials"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_261125aad5b3402db817671182896b92"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "415002e1198d49e2ad95e3efd62b8791"
+  },
+  "status": "candidate"
+}

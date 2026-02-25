@@ -7,6 +7,7 @@
   "required": [
     "type",
     "termId",
+    "termType",
     "term",
     "lang",
     "definition_en"
@@ -22,13 +23,25 @@
     },
     "termId": {
       "type": "string",
-      "description": "용어의 전역 고유 식별자 (기본 키). UUID 또는 정규화된 이름 형식",
-      "pattern": "^(term[:.][a-zA-Z0-9_-]+(\\.v\\d+\\.\\d+)?|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
+      "description": "용어의 전역 고유 식별자 (기본 키). 타입 prefix를 포함한 URN 형식 (term:class: | term:rel: | term:rule:). headword_en 기반 영문 소문자로 정규화",
+      "pattern": "^term:(class|rel|rule):[a-zA-Z0-9][a-zA-Z0-9_.-]*$",
       "examples": [
-        "term:amp",
-        "term.AMP.v1.1",
-        "term:stress-corrosion-cracking",
-        "550e8400-e29b-41d4-a716-446655440000"
+        "term:class:aging_management_program",
+        "term:class:stress_corrosion_cracking",
+        "term:rel:exceeds_threshold",
+        "term:rule:amp_inspection_interval_rule"
+      ]
+    },
+    "termType": {
+      "type": "string",
+      "description": "TERM 타입 분류. termId prefix와 반드시 일치해야 한다 (term:class:* → TERM-CLASS, term:rel:* → TERM-REL, term:rule:* → TERM-RULE)",
+      "enum": [
+        "TERM-CLASS",
+        "TERM-REL",
+        "TERM-RULE"
+      ],
+      "examples": [
+        "TERM-CLASS"
       ]
     },
     "term": {
@@ -339,11 +352,12 @@
           },
           "target": {
             "type": "string",
-            "description": "대상 TERM 엔트리의 termId (외래 키)",
+            "description": "대상 TERM 엔트리의 termId (외래 키). 강타입 URN 형식 필수",
+            "pattern": "^term:(class|rel|rule):[a-zA-Z0-9][a-zA-Z0-9_.-]*$",
             "examples": [
-              "term:amr",
-              "term.Program",
-              "term:inspection"
+              "term:class:aging_management_review",
+              "term:class:inspection",
+              "term:rel:requires"
             ]
           },
           "source": {

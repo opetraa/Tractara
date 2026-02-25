@@ -3,7 +3,7 @@ M ?= chore: sync changes
 
 .PHONY: help install test lint format clean run run-ui docker-build docker-up docker-down \
         dvc-repro dvc-push dvc-pull dvc-status git-push git-pull \
-        dvc-add-push sync-all sync-rules ingest
+        dvc-add-push sync-all sync-rules ingest clean-data
 FILE ?=
 
 help:
@@ -45,6 +45,9 @@ clean:
 	find . -type d -name "__pycache__" -delete
 	find . -type d -name ".pytest_cache" -exec rm -r {} +
 	find . -type d -name ".mypy_cache" -exec rm -r {} +
+
+clean:
+	@python3 scripts/clean_data.py
 
 run:
 	poetry run uvicorn src.clara_ssot.api.main:app --reload --host 0.0.0.0 --port 8000

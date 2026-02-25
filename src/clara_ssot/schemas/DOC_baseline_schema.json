@@ -681,7 +681,8 @@
               "properties": {
                 "termId": {
                   "type": "string",
-                  "description": "TERM baseline의 기본 키 참조"
+                  "description": "TERM baseline의 기본 키 참조. 강타입 URN 형식 필수 (term:class: | term:rel: | term:rule:)",
+                  "pattern": "^term:(class|rel|rule):[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
                 },
                 "mentionContext": {
                   "type": "string",

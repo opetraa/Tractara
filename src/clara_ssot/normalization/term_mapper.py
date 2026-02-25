@@ -1,14 +1,15 @@
 # src/clara_ssot/normalization/term_mapper.py
-from dataclasses import dataclass
+import re
+from dataclasses import dataclass, field
 from typing import Any, Dict, List, Tuple
 import logging
 import os
-import uuid
 
 import instructor
 import google.generativeai as genai
 from pydantic import BaseModel, Field
 
+from ..models.term_types import TermType
 from ..parsing.pdf_parser import ParsedDocument
 from ..tracing import get_trace_id
 
@@ -25,6 +26,10 @@ class ExtractedTerm(BaseModel):
     definition_ko: str = Field(description="한글 정의")
     domain: List[str] = Field(description="도메인 태그", default=["nuclear"])
     context: str = Field(description="원문 맥락 (출처 문장)")
+    term_type: TermType = Field(
+        description="TERM 타입 (현재 단계: 일반 문서 추출은 모두 TERM-CLASS로 고정)",
+        default=TermType.CLASS,
+    )
 
 
 class TermExtractionResult(BaseModel):
@@ -42,6 +47,7 @@ class TermCandidate:
     headword_ko: str | None = None
     domain: List[str] | None = None
     context: str | None = None
+    term_type: TermType = field(default=TermType.CLASS)
 
 
 class LLMTermExtractor:
@@ -144,7 +150,8 @@ class LLMTermExtractor:
                         headword_en=t.headword_en,
                         headword_ko=t.headword_ko,
                         domain=t.domain,
-                        context=t.context
+                        context=t.context,
+                        term_type=t.term_type,
                     )
                     for t in result.terms
                 ]
@@ -317,20 +324,59 @@ def extract_term_candidates(
     return candidates, errors
 
 
+def _normalize_term_id(headword_en: str | None, fallback: str, term_type: TermType) -> str:
+    """
+    강타입 URN 형식의 termId를 생성한다.
+
+    우선순위: headword_en > fallback(term 필드)
+    정규화 규칙:
+    - 영문 소문자로 변환
+    - 공백/특수문자 → 언더스코어
+    - ASCII 영숫자 + 언더스코어만 허용 (한글 등 비ASCII 제거)
+    - 빈 문자열이 되면 "unknown"으로 대체
+    """
+    prefix_map = {
+        TermType.CLASS: "term:class:",
+        TermType.REL: "term:rel:",
+        TermType.RULE: "term:rule:",
+    }
+    prefix = prefix_map[term_type]
+
+    source = (headword_en or "").strip() or fallback.strip()
+
+    # ASCII 영숫자와 공백만 남기고 제거
+    ascii_only = re.sub(r"[^a-zA-Z0-9 ]", " ", source)
+    # 소문자 변환 + 공백 연속 → 단일 언더스코어
+    normalized = re.sub(r"\s+", "_", ascii_only.lower().strip())
+    # 선행/후행 언더스코어 제거
+    normalized = normalized.strip("_")
+
+    if not normalized:
+        normalized = "unknown"
+
+    return prefix + normalized
+
+
 def build_term_baseline_candidates(
     doc_baseline_id: str,
     candidates: List[TermCandidate],
 ) -> List[Dict[str, Any]]:
     """
-    TermCandidate → TERM Baseline JSON 변환
+    TermCandidate → TERM Baseline JSON 변환.
+
+    termId는 headword_en 기반 강타입 URN으로 생성한다:
+    - TERM-CLASS: term:class:{normalized_headword_en}
+    - TERM-REL:   term:rel:{normalized_headword_en}
+    - TERM-RULE:  term:rule:{normalized_headword_en}
     """
     term_jsons: List[Dict[str, Any]] = []
 
     for c in candidates:
-        term_id = str(uuid.uuid4())
+        term_id = _normalize_term_id(c.headword_en, c.term, c.term_type)
         term_json = {
             "type": "term_entry",
             "termId": term_id,
+            "termType": c.term_type.value,
             "term": c.term,
             "lang": "bilingual",
             "headword_en": c.headword_en or c.term,

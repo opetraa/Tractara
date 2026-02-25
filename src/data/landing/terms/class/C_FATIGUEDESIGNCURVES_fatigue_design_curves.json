@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "term:class:fatigue_design_curves",
+  "termType": "TERM-CLASS",
+  "term": "Fatigue Design Curves",
+  "lang": "bilingual",
+  "headword_en": "Fatigue Design Curves",
+  "headword_ko": "피로 설계 곡선",
+  "definition_en": "Curves used in engineering design to predict the fatigue life of a material under cyclic loading conditions.",
+  "definition_ko": "반복 하중 조건에서 재료의 피로 수명을 예측하기 위해 공학 설계에 사용되는 곡선.",
+  "slots": {
+    "context_ko": "Effects of LWR Coolant Environments on Fatigue Design Curves of Austenitic Stainless Steels"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "mechanics",
+    "safety"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_261125aad5b3402db817671182896b92"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "415002e1198d49e2ad95e3efd62b8791"
+  },
+  "status": "candidate"
+}

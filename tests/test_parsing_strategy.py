@@ -57,20 +57,25 @@ def test_docling_pymupdf_parsing(MockPyMuPDF, MockDocling):
 @patch("clara_ssot.normalization.term_mapper.LLMTermExtractor")
 def test_llm_term_extraction(MockLLMExtractor):
     """LLM TERM 추출 테스트 (Mocked)"""
+    from clara_ssot.models.term_types import TermType
 
-    # Mock LLM behavior
+    # Mock은 (List[TermCandidate], List[str]) 튜플을 반환해야 한다
     mock_extractor_instance = MockLLMExtractor.return_value
-    mock_extractor_instance.extract.return_value = [
-        TermCandidate(
-            term="AMP",
-            definition_en="Aging Management Program",
-            definition_ko="경년열화 관리 프로그램",
-            headword_en="Aging Management Program",
-            headword_ko="경년열화 관리 프로그램",
-            domain=["nuclear"],
-            context="경년열화 관리 프로그램(AMP)은..."
-        )
-    ]
+    mock_extractor_instance.extract.return_value = (
+        [
+            TermCandidate(
+                term="AMP",
+                definition_en="Aging Management Program",
+                definition_ko="경년열화 관리 프로그램",
+                headword_en="Aging Management Program",
+                headword_ko="경년열화 관리 프로그램",
+                domain=["nuclear"],
+                context="경년열화 관리 프로그램(AMP)은...",
+                term_type=TermType.CLASS,
+            )
+        ],
+        [],  # errors
+    )
 
     # 더미 문서
     dummy_doc = ParsedDocument(
@@ -85,7 +90,8 @@ def test_llm_term_extraction(MockLLMExtractor):
     )
 
     api_key = "test_key"  # 실제 테스트에서는 환경변수 사용
-    candidates = extract_term_candidates(dummy_doc, llm_api_key=api_key)
+    candidates, errors = extract_term_candidates(dummy_doc, llm_api_key=api_key)
 
     assert len(candidates) > 0
     assert any("AMP" in c.term for c in candidates)
+    assert all(c.term_type == TermType.CLASS for c in candidates)
