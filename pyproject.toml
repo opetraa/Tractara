@@ -33,6 +33,7 @@ pylint = "^3.0.2"
 mypy = "^1.7.0"
 pre-commit = "^3.5.0"
 dvc = {extras = ["s3", "gdrive"], version = "^3.30.1"}
+types-jsonschema = "^4.26.0.20260202"
 
 [build-system]
 requires = ["poetry-core"]
@@ -53,3 +54,6 @@ addopts = "-ra -q --cov=src/tractara --cov-report=html --cov-report=term"
 markers = [
     "integration: marks tests as integration tests (deselect with '-m \"not integration\"')",
 ]
+
+[tool.mypy]
+ignore_missing_imports = true

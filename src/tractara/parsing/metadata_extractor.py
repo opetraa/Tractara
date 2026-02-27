@@ -439,7 +439,7 @@ def _run_track_b(blocks: list[_FrontBlock], api_key: str) -> LLMMetadata | None:
     )
 
     try:
-        result: LLMMetadata = client.chat.completions.create(
+        result: LLMMetadata = client.chat.completions.create(  # type: ignore[assignment]
             messages=[{"role": "user", "content": _build_llm_prompt(frontmatter_text)}],
             response_model=LLMMetadata,
             max_retries=2,

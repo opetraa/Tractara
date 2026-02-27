@@ -86,7 +86,8 @@ async def ingest_document(file: UploadFile = File(...)):
     span_id = new_child_span()
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        tmp_path = Path(tmpdir) / file.filename
+        filename = file.filename or "uploaded.pdf"
+        tmp_path = Path(tmpdir) / filename
         with tmp_path.open("wb") as f:
             shutil.copyfileobj(file.file, f)
 
