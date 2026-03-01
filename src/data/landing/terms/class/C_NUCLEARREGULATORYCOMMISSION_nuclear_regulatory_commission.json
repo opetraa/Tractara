@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "term:class:nuclear_regulatory_commission",
+  "termType": "TERM-CLASS",
+  "term": "Nuclear Regulatory Commission",
+  "lang": "bilingual",
+  "headword_en": "Nuclear Regulatory Commission",
+  "headword_ko": "원자력 규제 위원회",
+  "definition_en": "An independent agency of the United States government tasked with protecting public health and safety related to nuclear energy.",
+  "definition_ko": "원자력 에너지와 관련된 공중 보건 및 안전을 보호하는 임무를 맡은 미국 정부의 독립 기관.",
+  "slots": {
+    "context_ko": "U.S. Nuclear Regulatory Commission Office of Nuclear Regulatory Research Washington, DC 20555-0001"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "regulation",
+    "safety"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_9fff191d65b84981b52e8cbe9e9351d8"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "b542782a8de248f19d2e23fff8409a19"
+  },
+  "status": "candidate"
+}

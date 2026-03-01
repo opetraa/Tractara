@@ -78,6 +78,10 @@ def _blocks_to_content(blocks: List[ParsedBlock]) -> List[Dict[str, Any]]:
         if b.block_type == "table" and b.table_data:
             item["tableData"] = b.table_data
 
+        # 수식 데이터
+        if b.block_type == "equation" and b.equation_data:
+            item["equationData"] = b.equation_data
+
         content.append(item)
 
     return content

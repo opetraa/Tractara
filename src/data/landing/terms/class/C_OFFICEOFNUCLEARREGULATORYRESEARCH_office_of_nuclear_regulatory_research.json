@@ -1,0 +1,34 @@
+{
+  "type": "term_entry",
+  "termId": "term:class:office_of_nuclear_regulatory_research",
+  "termType": "TERM-CLASS",
+  "term": "Office of Nuclear Regulatory Research",
+  "lang": "bilingual",
+  "headword_en": "Office of Nuclear Regulatory Research",
+  "headword_ko": "원자력 규제 연구국",
+  "definition_en": "A specific office within the NRC that provides independent expertise and technical bases for regulatory decisions and identifies safety issues.",
+  "definition_ko": "규제 결정을 위한 독립적인 전문 지식과 기술적 토대를 제공하고 안전 문제를 식별하는 NRC 산하 부서.",
+  "slots": {
+    "context_ko": "U.S. Nuclear Regulatory Commission Office of Nuclear Regulatory Research Washington, DC 20555-0001"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "nuclear",
+    "research",
+    "regulation"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_9fff191d65b84981b52e8cbe9e9351d8"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "b542782a8de248f19d2e23fff8409a19"
+  },
+  "status": "candidate"
+}

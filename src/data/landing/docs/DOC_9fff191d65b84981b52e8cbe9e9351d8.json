@@ -1,0 +1,1220 @@
+{
+  "documentId": "DOC_9fff191d65b84981b52e8cbe9e9351d8",
+  "$schema": "https://tractara.org/schemas/doc-baseline/v1.0.0",
+  "version": "1.0.0",
+  "lastUpdated": "2026-03-01T01:55:05.762422Z",
+  "metadata": {
+    "dc:title": "Effects of LWR Coolant Environments on Fatigue Design Curves of Austenitic Stainless Steels",
+    "dc:type": "TechnicalReport",
+    "dc:language": "en",
+    "dc:creator": [
+      {
+        "name": "Argonne National Laboratory",
+        "entityType": "organization",
+        "organizationType": "national_lab"
+      }
+    ],
+    "dc:publisher": [
+      {
+        "name": "U.S. Nuclear Regulatory Commission",
+        "entityType": "organization",
+        "organizationType": "regulator",
+        "role": "publisher"
+      }
+    ],
+    "dc:identifier": [
+      {
+        "scheme": "DOCKET",
+        "value": "NUREG/CR-5704"
+      },
+      {
+        "scheme": "DOCKET",
+        "value": "ANL-98/3"
+      }
+    ],
+    "dc:subject": [
+      "LWR Coolant Environments",
+      "Fatigue Design Curves",
+      "Austenitic Stainless Steels",
+      "Nuclear Engineering",
+      "Structural Integrity"
+    ],
+    "dc:coverage": {
+      "system": "LWR Coolant",
+      "material": "Austenitic Stainless Steels"
+    }
+  },
+  "provenance": {
+    "sourceFile": "/home/kizarik/Tractara/data/NUREG_CR-5704_sample.pdf",
+    "extractionMetadata": {
+      "parserVersion": "2.0.0",
+      "extractionDate": "2026-03-01T01:55:05.762422Z",
+      "ocrApplied": false,
+      "confidence": 0.5
+    },
+    "validationStatus": "draft",
+    "curationHistory": []
+  },
+  "content": [
+    {
+      "blockId": "f4b17ce4-154a-4d9b-bd0f-260e2e963573",
+      "parentId": "b8b525cc-69d1-4ce0-9aba-f414bec3d74a",
+      "blockType": "paragraph",
+      "text": "U.S.  Nuclear Regulatory.Commission Offlce of Nuclear Regulatory Research Washington, DC  20555-0001",
+      "contextPath": [
+        "Effects of  LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 165.0,
+        "y0": 102.19100000000003,
+        "x1": 439.0,
+        "y1": 155.591,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "f0851e2a-60b5-43a4-8f69-9cea9d0ed205",
+      "parentId": "b8b525cc-69d1-4ce0-9aba-f414bec3d74a",
+      "blockType": "paragraph",
+      "text": "I  Argonne  National Laboratory",
+      "contextPath": [
+        "Effects of  LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 148.0,
+        "y0": 374.259,
+        "x1": 326.5,
+        "y1": 385.959,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "b8b525cc-69d1-4ce0-9aba-f414bec3d74a",
+      "parentId": null,
+      "blockType": "section",
+      "text": "Effects of  LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels",
+      "contextPath": [],
+      "level": 1,
+      "sectionTitle": "Effects of  LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels",
+      "bbox": {
+        "x0": 166.0,
+        "y0": 529.821,
+        "x1": 481.4,
+        "y1": 648.421,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "ded1d63d-9e23-42ae-a620-4a5e757855b9",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "-",
+      "contextPath": [],
+      "level": 1,
+      "bbox": {
+        "x0": 384.0,
+        "y0": 728.142,
+        "x1": 389.0,
+        "y1": 740.742,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "c986a20e-fcb5-4f9e-8a9e-dda798267ace",
+      "parentId": null,
+      "blockType": "paragraph",
+      "text": "-",
+      "contextPath": [],
+      "level": 1,
+      "bbox": {
+        "x0": 406.0,
+        "y0": 728.142,
+        "x1": 411.0,
+        "y1": 740.742,
+        "page": 1
+      }
+    },
+    {
+      "blockId": "44dce756-01d1-4667-b499-ed780ea70e25",
+      "parentId": "af28c3de-82b7-4650-a5a6-8bcb49ec497a",
+      "blockType": "paragraph",
+      "text": "This  report was  prepared as an  account  of  work sponsored by an agency of  the  United  States  Govemment Neither the  United States  Govemment nor  any agency thereof, nor  any  of their employees, makes any warranty, expressed  or implied, or  assumes any legal liability or  responsibility for any  third party's use,  or  the results of  such use,  of  any informiation, apparatus,  product, or process disclosed  in this report, or  represents  that  its use by such third party  would not  infringe privately owned rights.",
+      "contextPath": [
+        "lIC[AIMFR"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 87.0,
+        "y0": 58.210000000000036,
+        "x1": 311.4,
+        "y1": 96.25999999999999,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "414dc1ea-ec86-4e13-bd4f-d3e8f3ee692d",
+      "parentId": "4629f841-7f53-4470-acec-3c23b3f12248",
+      "blockType": "paragraph",
+      "text": "-",
+      "contextPath": [
+        "<http://www.nrc.gov>"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 287.0,
+        "y0": 102.11000000000001,
+        "x1": 292.0,
+        "y1": 111.36000000000001,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "af28c3de-82b7-4650-a5a6-8bcb49ec497a",
+      "parentId": null,
+      "blockType": "section",
+      "text": "lIC[AIMFR",
+      "contextPath": [],
+      "level": 1,
+      "sectionTitle": "lIC[AIMFR",
+      "bbox": {
+        "x0": 301.0,
+        "y0": 102.62400000000002,
+        "x1": 347.8,
+        "y1": 110.024,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "fb9c7bd8-8169-43db-95fc-8bce34c81a4a",
+      "parentId": "a55fc869-1080-4b12-9060-03c69432caec",
+      "blockType": "paragraph",
+      "text": "American National  Standards Institute 11  West  42nd Street New  York,  NY  10036-8002 <http://www.ansi.org> 212-642-4900",
+      "contextPath": [
+        "< http:llwww.nrc.gov/NRC/NUREGS/ SR1 350/V9/lpdr/html>"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 354.0,
+        "y0": 130.20299999999997,
+        "x1": 536.45,
+        "y1": 187.178,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "f0c4bb4d-75d9-4de5-ac7f-b3b195770a4e",
+      "parentId": "4629f841-7f53-4470-acec-3c23b3f12248",
+      "blockType": "paragraph",
+      "text": "All NRC  documents released  to the  public are  available  for. inspection or  copying  for  a  fee,  in  paper, microfiche, or,  in  some cases,  diskette, from the Public  Document Room (PDR):",
+      "contextPath": [
+        "<http://www.nrc.gov>"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 87.0,
+        "y0": 130.90300000000002,
+        "x1": 317.8,
+        "y1": 175.678,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "4629f841-7f53-4470-acec-3c23b3f12248",
+      "parentId": null,
+      "blockType": "section",
+      "text": "<http://www.nrc.gov>",
+      "contextPath": [],
+      "level": 1,
+      "sectionTitle": "<http://www.nrc.gov>",
+      "bbox": {
+        "x0": 107.0,
+        "y0": 184.00299999999993,
+        "x1": 211.0,
+        "y1": 194.178,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "1e461a1b-28c6-4fc4-9f2e-57cc3c834344",
+      "parentId": "a55fc869-1080-4b12-9060-03c69432caec",
+      "blockType": "paragraph",
+      "text": "Copies of  industry codes and standards  used in  a substantive manner in  the  NRC  regulatory process are  maintained  at  the  NRC Library, Two White Flint North,  11545 Rockville Pike,  Rockville,  MD 20852-2738. These standards  are  available in  the library for  reference  use by the  public. Codes  and standards are usually  copyrighted  and  may  be purchased from the  originating organization or,  if they  are  American National  Standards,  from-",
+      "contextPath": [
+        "< http:llwww.nrc.gov/NRC/NUREGS/ SR1 350/V9/lpdr/html>"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 336.0,
+        "y0": 196.40300000000002,
+        "x1": 567.0,
+        "y1": 298.778,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "0bfee2f5-f6f1-4f56-a343-2b6e1b74f1d2",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "paragraph",
+      "text": "A portion of NRC regulatory and technical information  is  available at  NRC's  World Wide Web  site:",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 87.0,
+        "y0": 202.20299999999997,
+        "x1": 314.2,
+        "y1": 224.178,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "31cf58b3-f70a-42cc-b644-eb82cf87482c",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "paragraph",
+      "text": "Facsimile:  301-415-2289",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 88.0,
+        "y0": 232.00299999999993,
+        "x1": 208.0,
+        "y1": 242.178,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "80ddf332-c875-4267-92fa-ea2fb45c95a9",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "paragraph",
+      "text": "E-mail:",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 88.0,
+        "y0": 243.70299999999997,
+        "x1": 132.8,
+        "y1": 253.87799999999993,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "5554f71f-24a5-4d72-857e-a38f8c043145",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "paragraph",
+      "text": "<DISTRIBUTION@nrc.gov>",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 140.0,
+        "y0": 243.70299999999997,
+        "x1": 250.0,
+        "y1": 253.87799999999993,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "0d797980-6913-4576-ad35-565160cc5c83",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "paragraph",
+      "text": "U.S. Nuclear  Regulatory  Commission Washington, DC  20555-0001",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 139.0,
+        "y0": 255.00299999999993,
+        "x1": 302.5,
+        "y1": 276.678,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "2aa962ca-9fcd-4870-a7a3-6423e4c7ab12",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "paragraph",
+      "text": "Office of  the  Chief  Information Officer Reproduction and Distribution Services  Section",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 139.0,
+        "y0": 278.203,
+        "x1": 311.95,
+        "y1": 310.978,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "ed3b02e8-b007-416c-8e28-d01c7b7c6b46",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "paragraph",
+      "text": "Address:",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 88.0,
+        "y0": 300.803,
+        "x1": 133.45,
+        "y1": 310.978,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "676e8b00-411b-4c53-a3e9-8b7da879c8ae",
+      "parentId": "a55fc869-1080-4b12-9060-03c69432caec",
+      "blockType": "paragraph",
+      "text": "Documents  available from  public and special technical libraries include all open literature items, such as  books,  journal articles, and transactions, Federal  Register notices, Federal-and  State  legislation, and congressional  reports. Such  documents as theses,  dissertations, foreign reports  and translations, and non-NRC  conference  proceedings  may be purchased from  their sponsoring  organization.",
+      "contextPath": [
+        "< http:llwww.nrc.gov/NRC/NUREGS/ SR1 350/V9/lpdr/html>"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 336.0,
+        "y0": 308.003,
+        "x1": 572.6,
+        "y1": 398.378,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "510d655b-d3de-4899-8041-dba944e8f97f",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "paragraph",
+      "text": "A single copy  of  each NRC  draft report is  available free, to  the  extent  of  supply,  upon written request as follows:",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 87.0,
+        "y0": 319.103,
+        "x1": 317.55,
+        "y1": 352.078,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "54789385-f6b0-4b84-b488-e4d268049bf1",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "paragraph",
+      "text": "The NUREG series comprises (1)  brochures (NUREGBR-X)XX), (2)  proceedings of conferences (NUREG/CP-XXXX), (3)  reports resulting from international agreements  (NUREG/IA-)OOXQ, (4) technical and administrative reports and books [(NUREG-XXXX) or (NUREG/CR-)00X], and  (5) compilations of  legal decisions  and orders  of  the Commission and  Atomic  and  Safety Licensing Boards  and of Office  Directors' decisions  under Section  2.206  of NRC's regulations  (NUREGXXO0X).",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 88.0,
+        "y0": 362.003,
+        "x1": 319.0,
+        "y1": 486.178,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "4033650b-1303-4406-932e-a105191c8001",
+      "parentId": "a55fc869-1080-4b12-9060-03c69432caec",
+      "blockType": "paragraph",
+      "text": "Publicly released documents  include, to  name  a few, NUREG-series reports; Federal  Register notices; applicant, licensee, and vendor documents and correspondence; NRC correspondence and internal memoranda; bulletins and information notices; inspection and investigation reports; licensee  event reports;  and  Commission papers and their attachments.",
+      "contextPath": [
+        "< http:llwww.nrc.gov/NRC/NUREGS/ SR1 350/V9/lpdr/html>"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 336.0,
+        "y0": 406.903,
+        "x1": 567.0,
+        "y1": 497.178,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "809d7f55-7396-4495-aac1-cb38d2df7b6c",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "list",
+      "text": "The  National  Technical  Information Service Springfield, VA  22161-0002 <http://www.ntis.gov/ordernow> 703-487-4650",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 88.0,
+        "y0": 495.703,
+        "x1": 302.0,
+        "y1": 540.478,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "a55fc869-1080-4b12-9060-03c69432caec",
+      "parentId": null,
+      "blockType": "section",
+      "text": "< http:llwww.nrc.gov/NRC/NUREGS/ SR1 350/V9/lpdr/html>",
+      "contextPath": [],
+      "level": 1,
+      "sectionTitle": "< http:llwww.nrc.gov/NRC/NUREGS/ SR1 350/V9/lpdr/html>",
+      "bbox": {
+        "x0": 355.0,
+        "y0": 506.503,
+        "x1": 514.0,
+        "y1": 528.278,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "1908b0ff-929f-4879-8665-a1c5ae9930d2",
+      "parentId": "4629f841-7f53-4470-acec-3c23b3f12248",
+      "blockType": "paragraph",
+      "text": "Microfiche of  most  NRC documents  made  publicly available since  January 1981  may  be found in the Local  Public Document  Rooms (LPDRs)  located  in the  vicinity of  nuclear  power plants. The locations of  the  LPDRs may  be obtained  from  the  PDR (see previous  paragraph) or  through:",
+      "contextPath": [
+        "<http://www.nrc.gov>"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 337.0,
+        "y0": 537.503,
+        "x1": 566.8,
+        "y1": 605.378,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "0be4ba17-4755-4b10-99e5-b3114cd42892",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "list",
+      "text": "The Superintendent  of  Documents U.S. Government  Printing Office PO. Box 37082 Washington, DC  20402-9328 <http://www.access.gpo.gov/su_docs> 202-512-1800",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 89.0,
+        "y0": 549.503,
+        "x1": 290.0,
+        "y1": 617.278,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "6dc85b65-ef84-45c7-88c1-94e5412906f2",
+      "parentId": "4629f841-7f53-4470-acec-3c23b3f12248",
+      "blockType": "paragraph",
+      "text": "NRC Public  Document Room 2120 L  Street, N.W.,  Lower Level Washington, DC  20555-0001 <http://www.nrc.gov/NRC/PDR/pdrl.htm> 1  -800-397-4209 or  locally 202-634-3273",
+      "contextPath": [
+        "<http://www.nrc.gov>"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 354.0,
+        "y0": 615.103,
+        "x1": 557.0,
+        "y1": 671.978,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "d116ed51-5a84-4393-8d3e-a99c2541911b",
+      "parentId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "blockType": "paragraph",
+      "text": "NRC publications in  the  NUREG series, NRC  regulations, and Title 10,  Energy,'f the Code  of Federal Regulations, may  be  purchased from  one of the  following  sources:",
+      "contextPath": [
+        "Availability of Reference Materials Cited  in  NRC Publications"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 88.0,
+        "y0": 627.203,
+        "x1": 318.8,
+        "y1": 671.778,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "f4a4c558-4ba8-4b58-bc57-bf06acb300d5",
+      "parentId": null,
+      "blockType": "section",
+      "text": "Availability of Reference Materials Cited  in  NRC Publications",
+      "contextPath": [],
+      "level": 1,
+      "sectionTitle": "Availability of Reference Materials Cited  in  NRC Publications",
+      "bbox": {
+        "x0": 163.0,
+        "y0": 681.889,
+        "x1": 493.0,
+        "y1": 694.014,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "38a021e3-08a3-4c2e-beeb-7e9581d1cc63",
+      "parentId": null,
+      "blockType": "section",
+      "text": "AVAILABILITY NOTICE",
+      "contextPath": [],
+      "level": 1,
+      "sectionTitle": "AVAILABILITY NOTICE",
+      "bbox": {
+        "x0": 249.0,
+        "y0": 704.782,
+        "x1": 388.1,
+        "y1": 717.832,
+        "page": 2
+      }
+    },
+    {
+      "blockId": "4860fce1-9090-43ea-b7fb-70dcbc193cfe",
+      "parentId": "3312649e-624f-4751-bbb9-4485b39e85dc",
+      "blockType": "paragraph",
+      "text": "Prepared for Division of  Engineering Technology Office of Nuclear Regulatory Research U.S.  Nuclear Regulatory Commission Washington, DC  20555-0001 NRC  Job  Code W6610",
+      "contextPath": [
+        "Effects of LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 32.0,
+        "y0": 175.05899999999997,
+        "x1": 232.8,
+        "y1": 257.95900000000006,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "ce782d49-00e7-4194-b399-7a5ed04ede7b",
+      "parentId": "3312649e-624f-4751-bbb9-4485b39e85dc",
+      "blockType": "paragraph",
+      "text": "M.  McNeil,  NRC  Project Manager",
+      "contextPath": [
+        "Effects of LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 32.0,
+        "y0": 302.693,
+        "x1": 171.7,
+        "y1": 312.593,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "97433712-251d-4e5e-a29a-77882e2b150d",
+      "parentId": "3312649e-624f-4751-bbb9-4485b39e85dc",
+      "blockType": "paragraph",
+      "text": "Argonne  National Laboratory 9700 South  Cass  Avenue Argonne,  IL  60439",
+      "contextPath": [
+        "Effects of LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 32.0,
+        "y0": 350.693,
+        "x1": 158.0,
+        "y1": 384.993,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "9c0013bb-f792-4170-80e9-18dd05041974",
+      "parentId": "3312649e-624f-4751-bbb9-4485b39e85dc",
+      "blockType": "paragraph",
+      "text": "Prepared by 0. K Chopra",
+      "contextPath": [
+        "Effects of LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 32.0,
+        "y0": 422.693,
+        "x1": 88.3,
+        "y1": 444.993,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "f5c77394-2e48-4e5e-b239-f9aeb1595454",
+      "parentId": "3312649e-624f-4751-bbb9-4485b39e85dc",
+      "blockType": "paragraph",
+      "text": "Date  Published:",
+      "contextPath": [
+        "Effects of LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 32.0,
+        "y0": 482.293,
+        "x1": 108.45,
+        "y1": 492.193,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "8cfc31b0-fd3b-4504-ad60-68a168fb46d4",
+      "parentId": "3312649e-624f-4751-bbb9-4485b39e85dc",
+      "blockType": "paragraph",
+      "text": "April 1999",
+      "contextPath": [
+        "Effects of LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 99.0,
+        "y0": 482.393,
+        "x1": 144.6,
+        "y1": 492.293,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "1a5642d3-b54b-4b55-94d9-491dc532f770",
+      "parentId": "3312649e-624f-4751-bbb9-4485b39e85dc",
+      "blockType": "paragraph",
+      "text": "Manuscript Completed:  November  1998",
+      "contextPath": [
+        "Effects of LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 32.0,
+        "y0": 494.893,
+        "x1": 197.2,
+        "y1": 504.793,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "3312649e-624f-4751-bbb9-4485b39e85dc",
+      "parentId": null,
+      "blockType": "section",
+      "text": "Effects of LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels",
+      "contextPath": [],
+      "level": 1,
+      "sectionTitle": "Effects of LWR Coolant Environments  on Fatigue Design  Curves  of Austenitic Stainless Steels",
+      "bbox": {
+        "x0": 28.0,
+        "y0": 527.072,
+        "x1": 307.1,
+        "y1": 633.272,
+        "page": 3
+      }
+    },
+    {
+      "blockId": "f6734057-0a65-4010-9ce0-1e2b597b021e",
+      "parentId": null,
+      "blockType": "section",
+      "text": "NUREG/CR-5704 has  been  reproduced from  the  best available copy.",
+      "contextPath": [],
+      "level": 1,
+      "sectionTitle": "NUREG/CR-5704 has  been  reproduced from  the  best available copy.",
+      "bbox": {
+        "x0": 205.0,
+        "y0": 420.259,
+        "x1": 412.5,
+        "y1": 445.959,
+        "page": 4
+      }
+    },
+    {
+      "blockId": "fe6ff82f-4c0f-4389-a7d7-9cbae405127e",
+      "parentId": "c22774a2-0768-4318-b2fa-117583eeca2f",
+      "blockType": "paragraph",
+      "text": "The  ASME Boiler and  Pressure Vessel  Code provides rules for the  construction of  nuclear power plant components.  Figures I-9.1 through  1-9.6 of  Appendix  I to  Section III  of the  Code specify  fatigue design  curves  for  structural materials. While effects of  reactor coolant environments are  not  explicitly addressed by the  design  curves, test data  indicate that the Code fatigue curves  may  not  always  be adequate  in  coolant environments.  This  report summarizes  work  performed  by  Argonne National Laboratory on fatigue of  austenitic stainless steels in  light water  reactor LWR) environments.  The existing fatigue S-N data  have  been evaluated to  establish the  effects of various material and loading variables such  as  steel type, dissolved oxygen  level, strain range, strain rate, and  temperature on  the  fatigue lives of  these steels. Statistical models  are  presented for estimating the  fatigue S-N curves  as  a  function of material, loading, and  environmental variables. Design  fatigue curves have  been  developed for austenitic stainless steel components  in  LWR  environments. The extent of  conservatism in  the design fatigue curves  and an  alternative method for  incorporating the  effects of  LWR coolant environments into the ASME Code fatigue evaluations are  discussed.",
+      "contextPath": [
+        "Abstract"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 72.0,
+        "y0": 357.176,
+        "x1": 552.25,
+        "y1": 540.276,
+        "page": 5
+      }
+    },
+    {
+      "blockId": "c22774a2-0768-4318-b2fa-117583eeca2f",
+      "parentId": null,
+      "blockType": "section",
+      "text": "Abstract",
+      "contextPath": [],
+      "level": 1,
+      "sectionTitle": "Abstract",
+      "bbox": {
+        "x0": 283.0,
+        "y0": 556.359,
+        "x1": 333.4,
+        "y1": 568.059,
+        "page": 5
+      }
+    },
+    {
+      "blockId": "c43294f6-3eab-41d7-a0b8-351ed0fb350e",
+      "parentId": "40fae63f-21f6-45a4-8d70-736876ecfede",
+      "blockType": "paragraph",
+      "text": "0.  K.  Chopra",
+      "contextPath": [
+        "EFFECTS OF  LWR COOLANT ENVIRONMENTS ON  FATIGUE DESIGN CURVES OF AUSTENITIC STAINLESS STEELS"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 274.0,
+        "y0": 609.376,
+        "x1": 337.4,
+        "y1": 620.176,
+        "page": 5
+      }
+    },
+    {
+      "blockId": "59cc5a81-86a6-4a78-9ee5-76d454e40b14",
+      "parentId": "40fae63f-21f6-45a4-8d70-736876ecfede",
+      "blockType": "paragraph",
+      "text": "by",
+      "contextPath": [
+        "EFFECTS OF  LWR COOLANT ENVIRONMENTS ON  FATIGUE DESIGN CURVES OF AUSTENITIC STAINLESS STEELS"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 300.0,
+        "y0": 636.776,
+        "x1": 311.3,
+        "y1": 647.576,
+        "page": 5
+      }
+    },
+    {
+      "blockId": "40fae63f-21f6-45a4-8d70-736876ecfede",
+      "parentId": null,
+      "blockType": "section",
+      "text": "EFFECTS OF  LWR COOLANT ENVIRONMENTS ON  FATIGUE DESIGN CURVES OF AUSTENITIC STAINLESS STEELS",
+      "contextPath": [],
+      "level": 1,
+      "sectionTitle": "EFFECTS OF  LWR COOLANT ENVIRONMENTS ON  FATIGUE DESIGN CURVES OF AUSTENITIC STAINLESS STEELS",
+      "bbox": {
+        "x0": 114.0,
+        "y0": 663.159,
+        "x1": 487.7,
+        "y1": 688.559,
+        "page": 5
+      }
+    },
+    {
+      "blockId": "1b6f47a3-6111-4e20-aadd-5f5a6add339a",
+      "parentId": "6c1cc6af-a093-461b-9f81-9426cca1db8e",
+      "blockType": "paragraph",
+      "text": ".........................",
+      "contextPath": [
+        "Contents"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 447.0,
+        "y0": 160.39300000000003,
+        "x1": 604.5,
+        "y1": 170.293,
+        "page": 6
+      }
+    },
+    {
+      "blockId": "39a74288-579d-4d36-9a84-fdd7bec00b44",
+      "parentId": "6c1cc6af-a093-461b-9f81-9426cca1db8e",
+      "blockType": "paragraph",
+      "text": "..........................",
+      "contextPath": [
+        "Contents"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 443.0,
+        "y0": 186.89300000000003,
+        "x1": 606.8,
+        "y1": 196.793,
+        "page": 6
+      }
+    },
+    {
+      "blockId": "56836013-ba14-4d3f-99d2-1202066ebc8e",
+      "parentId": "6c1cc6af-a093-461b-9f81-9426cca1db8e",
+      "blockType": "paragraph",
+      "text": "..............................",
+      "contextPath": [
+        "Contents"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 418.0,
+        "y0": 318.793,
+        "x1": 607.0,
+        "y1": 328.693,
+        "page": 6
+      }
+    },
+    {
+      "blockId": "2f0abc7a-a2a7-46d0-b498-eb8956baa917",
+      "parentId": "6c1cc6af-a093-461b-9f81-9426cca1db8e",
+      "blockType": "paragraph",
+      "text": ".....................................",
+      "contextPath": [
+        "Contents"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 331.0,
+        "y0": 398.393,
+        "x1": 606.65,
+        "y1": 408.293,
+        "page": 6
+      }
+    },
+    {
+      "blockId": "3a3ec9ec-7c0f-4669-8eb1-766602d8200b",
+      "parentId": "6c1cc6af-a093-461b-9f81-9426cca1db8e",
+      "blockType": "paragraph",
+      "text": "..................................",
+      "contextPath": [
+        "Contents"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 368.0,
+        "y0": 424.893,
+        "x1": 609.4,
+        "y1": 434.793,
+        "page": 6
+      }
+    },
+    {
+      "blockId": "6c1cc6af-a093-461b-9f81-9426cca1db8e",
+      "parentId": null,
+      "blockType": "section",
+      "text": "Contents",
+      "contextPath": [],
+      "level": 1,
+      "sectionTitle": "Contents",
+      "bbox": {
+        "x0": 74.0,
+        "y0": 691.382,
+        "x1": 131.2,
+        "y1": 704.332,
+        "page": 6
+      }
+    },
+    {
+      "blockId": "05a155af-95ee-4ebd-935a-eba729f87bfb",
+      "parentId": "6c1cc6af-a093-461b-9f81-9426cca1db8e",
+      "blockType": "paragraph",
+      "text": "References........................................................................",
+      "contextPath": [
+        "Contents"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 94.0,
+        "y0": 598.293,
+        "x1": 606.5,
+        "y1": 608.193,
+        "page": 7
+      }
+    },
+    {
+      "blockId": "2b7116ed-f763-4f52-858f-00ad341aaf38",
+      "parentId": "509e7c4f-8b2a-4727-9069-35eff9fccb7e",
+      "blockType": "paragraph",
+      "text": "The overall conservatism in  ASME Code'  fatigue evaluations has  also been  demonstrated in  fatigue tests on piping welds  and components. 5 4 Inair, the  margins  on  the  number of cycles to  failure for austenitic SS elbows  and  tees were  40-310  and 104-510, respectively. The margins  for  girth butt welds  were significantly lower  at 6-77.  In  these tests, fatigue life was expressed as  the number of  cycles for  the  crack to  penetrate through the wall, which  ranged  in thickness from 6 to 18 mm (0.237  to  0.719  in). The fatigue design  curves  represent the number of  cycles  thatare necessary to  form  a  3-mm-deep crack.  Consequently, depending  on wall  thickness, the  actual margins  to  failure may be  lower  by  a  factor of  >2.",
+      "contextPath": [
+        "8 Conservatism in  Design Fatigue  Curves"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 82.0,
+        "y0": 71.293,
+        "x1": 556.6,
+        "y1": 173.59299999999996,
+        "page": 8
+      }
+    },
+    {
+      "blockId": "509e7c4f-8b2a-4727-9069-35eff9fccb7e",
+      "parentId": null,
+      "blockType": "section",
+      "text": "8 Conservatism in  Design Fatigue  Curves",
+      "contextPath": [],
+      "level": 1,
+      "sectionLabel": "8",
+      "sectionTitle": "Conservatism in  Design Fatigue  Curves",
+      "bbox": {
+        "x0": 82.0,
+        "y0": 191.28200000000004,
+        "x1": 353.7,
+        "y1": 204.23199999999997,
+        "page": 8
+      }
+    },
+    {
+      "blockId": "2d564957-288f-4348-ad7b-0956683def31",
+      "parentId": "e4af5b4f-12d2-4eb5-9a17-7dc999d97d82",
+      "blockType": "paragraph",
+      "text": "where the  threshold and  saturation values  for T, ,  and  O are  defined in  Eqs.  8a-8c.  At temperatures Ž200 0 C and strain rates <0.0004%/s.  Eq. 13 yields an Fen of  =15 in  low-DO PWR water  (<0.05 ppm  DO)  and  =8 in  high-DO water  (0.05 ppm  DO). At temperatures <200°C,  Fen  is -2.5  in both  low-  and  high-DO water  at all strain rates.",
+      "contextPath": [
+        "7 Fatigue  Life Correction  Factor"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 81.0,
+        "y0": 227.99299999999994,
+        "x1": 559.4,
+        "y1": 277.793,
+        "page": 8
+      }
+    },
+    {
+      "blockId": "759f15fc-462b-4646-91df-873e3512b69c",
+      "parentId": "e4af5b4f-12d2-4eb5-9a17-7dc999d97d82",
+      "blockType": "paragraph",
+      "text": "：",
+      "contextPath": [
+        "7 Fatigue  Life Correction  Factor"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 167.7743123372396,
+        "y0": 313.76611328125,
+        "x1": 172.94270833333334,
+        "y1": 316.5604654947917,
+        "page": 8
+      }
+    },
+    {
+      "blockId": "4096d0f4-c1d2-4d6d-9d0e-d9cd9d147872",
+      "parentId": "e4af5b4f-12d2-4eb5-9a17-7dc999d97d82",
+      "blockType": "paragraph",
+      "text": "From Eqs.  5a  and  7a,  the fatigue life correction factor relative to  room-temperature air for Types 304  and  316  SSs  is given  by'",
+      "contextPath": [
+        "7 Fatigue  Life Correction  Factor"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 81.0,
+        "y0": 320.393,
+        "x1": 553.95,
+        "y1": 343.793,
+        "page": 8
+      }
+    },
+    {
+      "blockId": "d55af856-06d1-408c-8748-4cb450971141",
+      "parentId": "e4af5b4f-12d2-4eb5-9a17-7dc999d97d82",
+      "blockType": "paragraph",
+      "text": "The effects of  reactor coolant environments on fatigue life have  also  been expressed in terms  of  a  fatigue life correction factor Fen,  which is  the  ratio of  the  life in  air at  room temperature to  that in  water  at the  service temperature.'l 1 . 52 . 5 3 To incorporate environmental effects into the  ASME Code fatigue evaluation, a  fatigue usage  for a  specific load  pair, based on  the  current Code fatigue design  curve, is multiplied by  the  correction factor. A fatigue life correction factor Fen can  also be  obtained from  the  statistical model,' where",
+      "contextPath": [
+        "7 Fatigue  Life Correction  Factor"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 81.0,
+        "y0": 387.093,
+        "x1": 558.3,
+        "y1": 463.293,
+        "page": 8
+      }
+    },
+    {
+      "blockId": "5a6883dd-0b25-4cc9-aeb7-3e1be6cad06e",
+      "parentId": null,
+      "blockType": "equation",
+      "text": "\\ln(F_{en}) = \\ln(N_{air}) - \\ln(N_{water})",
+      "contextPath": [],
+      "bbox": {
+        "x0": 111.0,
+        "y0": 415.9839782714844,
+        "x1": 542.9931640625,
+        "y1": 432.09197998046875,
+        "page": 8
+      },
+      "equationData": {
+        "latex": "\\ln(F_{en}) = \\ln(N_{air}) - \\ln(N_{water})",
+        "equationNumber": "12"
+      }
+    },
+    {
+      "blockId": "e4af5b4f-12d2-4eb5-9a17-7dc999d97d82",
+      "parentId": null,
+      "blockType": "section",
+      "text": "7 Fatigue  Life Correction  Factor",
+      "contextPath": [],
+      "level": 1,
+      "sectionLabel": "7",
+      "sectionTitle": "Fatigue  Life Correction  Factor",
+      "bbox": {
+        "x0": 81.0,
+        "y0": 480.482,
+        "x1": 296.7,
+        "y1": 493.432,
+        "page": 8
+      }
+    },
+    {
+      "blockId": "8e69151d-0621-4c86-9989-1ff8248a28e9",
+      "parentId": null,
+      "blockType": "equation",
+      "text": "F_{en} = \\exp(0.935 - T^* \\dot{\\varepsilon}^* O^*)",
+      "contextPath": [],
+      "bbox": {
+        "x0": 112.0,
+        "y0": 482.33697509765625,
+        "x1": 542.493408203125,
+        "y1": 497.31097412109375,
+        "page": 8
+      },
+      "equationData": {
+        "latex": "F_{en} = \\exp(0.935 - T^* \\dot{\\varepsilon}^* O^*)",
+        "equationNumber": "13"
+      }
+    },
+    {
+      "blockId": "45498b2f-ac0d-4582-9829-e0e7a8b87faa",
+      "parentId": "6c1cc6af-a093-461b-9f81-9426cca1db8e",
+      "blockType": "paragraph",
+      "text": "These  curves can  be  used  to  perform  ASME Code fatigue evaluations of  components  that are  in  service in  LWR environments.  For  each set of  load  pairs, a partial'usage factor is obtained from  the appropriate design fatigue curve.  Information about  the service conditions, such  as  temperature, strain rate, and DO  level, are  required for  the  evaluations. The procedure  for  obtaining these  parameters  depends on whether  the  elapsed-time-vs.temperature information for  the  transient is  available. The maximum  values  of  temperature and DO  level and the slowest strain rate during the  transient may be  used  for a conservative estimate of  life.  Note that the  design  curves  in  LWR environments  not  only, account  for environmental effects on  life but  also  include the  difference between  the  current Code design curve  and  the  updated  design curve  in  air, i.e., the  difference between  the  solid and  dashed curves In  Fig.  31.",
+      "contextPath": [
+        "Contents"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 81.0,
+        "y0": 517.493,
+        "x1": 569.2,
+        "y1": 660.493,
+        "page": 8
+      }
+    },
+    {
+      "blockId": "d880fbb9-ed39-4619-a71a-8e8c741ddddf",
+      "parentId": "6c1cc6af-a093-461b-9f81-9426cca1db8e",
+      "blockType": "paragraph",
+      "text": "0.097% (stress amplitude of  189  MPa) was selected, below  which environmental effects on  life are  modest  and  are  represented by the  design curve  for  temperatures <200°C (shown  by  the solid line in  Figs. 31 and  32).",
+      "contextPath": [
+        "Contents"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 81.0,
+        "y0": 677.293,
+        "x1": 557.4,
+        "y1": 713.793,
+        "page": 8
+      }
+    },
+    {
+      "blockId": "4048d70e-dd8f-4c85-a3c0-e1e608bdeeb9",
+      "parentId": "509e7c4f-8b2a-4727-9069-35eff9fccb7e",
+      "blockType": "table",
+      "text": "| Variable                                      | Factoron Life   | Factoron Strain   |\n|:----------------------------------------------|:----------------|:------------------|\n| Material variability and experimental scatter | 2.5             | 1.4-1.7           |\n| Size                                          | 1.4             | 1.25              |\n| Surfacefinish                                 | 2.0-3.0         | 1.3               |\n| Loadinghistory                                | 1.5-2.5         | 1.5               |\n| Totaladjustrnent                              | 10.0-26.0       | 1.5-1.7           |",
+      "contextPath": [
+        "8 Conservatism in  Design Fatigue  Curves"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 109.46359252929688,
+        "y0": 91.38421630859375,
+        "x1": 525.793212890625,
+        "y1": 191.28314208984375,
+        "page": 9
+      },
+      "tableData": {
+        "headers": [
+          "Variable",
+          "Factoron Life",
+          "Factoron Strain"
+        ],
+        "rows": [
+          [
+            "Material variability and experimental scatter",
+            "2.5",
+            "1.4-1.7"
+          ],
+          [
+            "Size",
+            "1.4",
+            "1.25"
+          ],
+          [
+            "Surfacefinish",
+            "2.0-3.0",
+            "1.3"
+          ],
+          [
+            "Loadinghistory",
+            "1.5-2.5",
+            "1.5"
+          ],
+          [
+            "Totaladjustrnent",
+            "10.0-26.0",
+            "1.5-1.7"
+          ]
+        ]
+      }
+    },
+    {
+      "blockId": "d52ff26b-ae62-4f51-b11f-1196ee8be64f",
+      "parentId": "509e7c4f-8b2a-4727-9069-35eff9fccb7e",
+      "blockType": "paragraph",
+      "text": "Table 5.  Subfactors that may be  used to  accountfor effects of various variables on fatigue life",
+      "contextPath": [
+        "8 Conservatism in  Design Fatigue  Curves"
+      ],
+      "level": 2,
+      "bbox": {
+        "x0": 115.0,
+        "y0": 202.793,
+        "x1": 527.0,
+        "y1": 226.19299999999998,
+        "page": 9
+      }
+    },
+    {
+      "blockId": "9c970006-a6e3-4444-9186-60ee08b13ddc",
+      "parentId": "509e7c4f-8b2a-4727-9069-35eff9fccb7e",
+      "blockType": "paragraph",
+      "text": "Data  available in  the  literature have  been reviewed  to  evaluate the  effects of  various material, loading, and  environmental variables on the  fatigue life of  structural materials in  air and  LWR  environments. 3 3 The subfactors that may be  used  to  account for the  effects of  these variables on fatigue life are  summarized in Table  5. The factors on  strain primarily account for  variation in  the  fatigue limit of  a material caused  by  material variability, component size and surface finish, and loading history. Because  the  reduction in  fatigue life is  associated with  the growth  of  short cracks (<100 im),  the  effects of  these variables on threshold strain are  typically not  cumulative but  rather are  controlled by the  variable that has  the  largest effect. The  values in  Table  5  suggest that a  factor of  at least 1.5  on strain and 10  on  cycles is needed to  account  for  the  differences and uncertainties of  relating the  fatigue lives of laboratory test specimens  to  those of  large components. Beacuse  SSs develop  a corrosion scale in  LWR  environments, the  effect of  surface finish may not be  significant the  subfactor on life to  account for  surface finish effects may be  as  low as  1.5  or may be  eliminated completely. Therefore, a  factor of  1.5  or 2 on  life may be able  to  account for  the effects of  environment on the  fatigue lives of  austenitic SSs.",
+      "contextPath": [
+        "8 Conservatism in  Design Fatigue  Curves"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 84.0,
+        "y0": 242.89300000000003,
+        "x1": 564.0,
+        "y1": 438.093,
+        "page": 9
+      }
+    },
+    {
+      "blockId": "eb55cf05-b84c-425c-8e02-0333783fdcc9",
+      "parentId": "509e7c4f-8b2a-4727-9069-35eff9fccb7e",
+      "blockType": "paragraph",
+      "text": "Deardorff and Smith 5 5 have  discussed the  types  and extent of  conservatisms present in the  ASME Section III  fatigue evaluations and the  effects of  LWR environments on fatigue margins.  The sources of  conservatism include design  transients considerably more severe than  those  experienced in  service, grouping  of  transients, and simplified elastic-plastic analysis. Environmental effects on two  components,  the BWR feedwater nozzle/safe end and PWR  steam  generator feedwater nozzle/safe end,  both  constructed from  LAS  and  known  to  be affected by severe  thermal  transients, were also  investigated in the study.  When environmental effects on fatigue life were not  considered, Deardorff and Smith 5 5 estimated that the  ratio of  the  CUFs  for  the  PWR and BWR nozzles  (both  constructed from LAS), computed with  the  mean experimental curve  for  test specimen  data, to  CUFs  computed  with the  Code fatigue design curve  were  -60 and  90,  respectively. To maintain the  factor of 20 on life that was used  in  the  present Code fatigue design  curves to  account for  the  uncertainties due  to material and  loading variability, the  margins  for the  PWR and  BWR nozzles are  reduced to  3 and  4.5, respectively. These results suggest that, for  carbon  and low-alloy steels, the Code Design procedures  provide  some  margin in life that  can be used to account  for environmental effects on life.  However, as  noted  previously in  Section 6,  the  Code fatigue design curve  for  austenitic SSs is not  consistent with  the existing fatigue S-N data:  the actual margins  on  stress and  life are  1.5  and 10,  respectively, instead of  2  and  20. Consequently, the Code fatigue design curve  for  austenitic SSs  provides little or  no  margin  in  life to  account for environmental effects.",
+      "contextPath": [
+        "8 Conservatism in  Design Fatigue  Curves"
+      ],
+      "level": 1,
+      "bbox": {
+        "x0": 84.0,
+        "y0": 455.093,
+        "x1": 578.0,
+        "y1": 718.915,
+        "page": 9
+      }
+    }
+  ]
+}

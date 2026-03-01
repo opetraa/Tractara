@@ -569,8 +569,14 @@
               "type": "string"
             },
             "examples": [
-              ["1. 서론", "1.1 배경"],
-              ["2. 본론", "2.1 실험 방법"]
+              [
+                "1. 서론",
+                "1.1 배경"
+              ],
+              [
+                "2. 본론",
+                "2.1 실험 방법"
+              ]
             ]
           },
           "text": {
@@ -670,6 +676,20 @@
               },
               "alt": {
                 "type": "string"
+              }
+            }
+          },
+          "equationData": {
+            "type": "object",
+            "description": "수식 데이터 (blockType이 'equation'일 때)",
+            "properties": {
+              "latex": {
+                "type": "string",
+                "description": "수식의 LaTeX 표현"
+              },
+              "equationNumber": {
+                "type": "string",
+                "description": "수식 번호 (예: (3.1))"
               }
             }
           },

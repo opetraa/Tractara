@@ -46,7 +46,8 @@ clean:
 	find . -type d -name ".pytest_cache" -exec rm -r {} +
 	find . -type d -name ".mypy_cache" -exec rm -r {} +
 
-
+clean-data:
+	@python3 scripts/clean_data.py
 
 run:
 	poetry run uvicorn src.tractara.api.main:app --reload --host 0.0.0.0 --port 8000
