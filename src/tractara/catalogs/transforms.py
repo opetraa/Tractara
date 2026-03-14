@@ -68,7 +68,8 @@ def _extract_text_content(element: Any) -> Optional[str]:
 
 def _extract_jats_author_name(element: Any) -> List[Dict[str, str]]:
     """JATS contrib 요소에서 저자 이름을 추출합니다."""
-    # List elements directly passed, transform handles one or list, but let us handle if it is the element itself or a list of elements.
+    # List elements directly passed, transform handles one or list,
+    # but let us handle if it is the element itself or a list of elements.
     # We will assume `element` is a single element matching the xpath
     surname = element.findtext(".//surname") or ""
     given = element.findtext(".//given-names") or ""

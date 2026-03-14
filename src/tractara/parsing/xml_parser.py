@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional
 from lxml import etree
 
 from tractara.catalogs import catalog_loader
+
 from .models import ParsedBlock, ParsedDocument
 from .section_classifier import extract_section_label
 

@@ -108,7 +108,7 @@ sync-rules:
 	@python3 scripts/sync_ai_rules.py
 	@echo "✅ CLAUDE.md, GEMINI.md 업데이트 완료"
 
-git-push: format
+git-push: format lint
 	@git add .
 	@git diff-index --quiet HEAD || git commit -m '$(M)'
 	@git push -u origin $$(git rev-parse --abbrev-ref HEAD)
