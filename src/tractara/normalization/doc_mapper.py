@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from ..parsing.metadata_extractor import extract_metadata
-from ..parsing.pdf_parser import ParsedBlock, ParsedDocument
+from ..parsing.models import ParsedBlock, ParsedDocument
 
 # DOC 스키마 blockType enum에 허용된 값
 _VALID_BLOCK_TYPES = {
@@ -27,6 +27,9 @@ _VALID_BLOCK_TYPES = {
     "appendix",
     "footnote",
     "caption",
+    "note",
+    "warning",
+    "caution",
 }
 
 
@@ -82,6 +85,10 @@ def _blocks_to_content(blocks: List[ParsedBlock]) -> List[Dict[str, Any]]:
         if b.block_type == "equation" and b.equation_data:
             item["equationData"] = b.equation_data
 
+        # 구조화된 내용 (XML 파싱 등)
+        if hasattr(b, "structured_content") and b.structured_content:
+            item["structuredContent"] = b.structured_content
+
         content.append(item)
 
     return content
@@ -120,6 +127,15 @@ def build_doc_baseline(parsed: ParsedDocument) -> Dict[str, Any]:
         metadata["dc:subject"] = extracted.dc_subject
     if extracted.dc_coverage:
         metadata["dc:coverage"] = extracted.dc_coverage
+    if extracted.dc_rights:
+        metadata["dc:rights"] = extracted.dc_rights
+    if extracted.dc_alternative_titles:
+        metadata["dc:alternative_titles"] = extracted.dc_alternative_titles
+
+    val_status = "draft"
+    if extracted.doc_status:
+        status_map = {"new": "draft", "changed": "partial", "deleted": "deprecated"}
+        val_status = status_map.get(extracted.doc_status.lower(), "validated")
 
     doc: Dict[str, Any] = {
         "documentId": doc_id,
@@ -137,10 +153,13 @@ def build_doc_baseline(parsed: ParsedDocument) -> Dict[str, Any]:
                 "ocrApplied": False,
                 "confidence": 0.5,
             },
-            "validationStatus": "draft",
+            "validationStatus": val_status,
             "curationHistory": [],
         },
         "content": _blocks_to_content(parsed.blocks),
     }
+
+    if hasattr(parsed, "relations") and parsed.relations:
+        doc["relations"] = parsed.relations
 
     return doc

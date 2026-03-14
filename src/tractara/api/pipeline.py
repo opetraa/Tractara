@@ -13,6 +13,7 @@ from ..normalization.term_mapper import (
     extract_term_candidates,
 )
 from ..parsing.pdf_parser import parse_pdf
+from ..parsing.xml_parser import parse_xml
 from ..ssot.doc_ssot_repository import upsert_doc as upsert_doc_ssot
 from ..ssot.term_ssot_repository import upsert_terms as upsert_term_ssot
 from ..validation.json_schema_validator import schema_registry
@@ -21,7 +22,7 @@ from ..validation.term_validator import filter_promotable_terms
 logger = logging.getLogger(__name__)
 
 
-def ingest_single_document(pdf_path: Path) -> Dict[str, Any]:
+def ingest_single_document(file_path: Path) -> Dict[str, Any]:
     """
     PDF 1개에 대한 전체 파이프라인:
       1) 파싱
@@ -43,8 +44,11 @@ def ingest_single_document(pdf_path: Path) -> Dict[str, Any]:
         logger.warning(msg)
         warnings.append(msg)
 
-    # 1) Parsing (이제 Docling+PyMuPDF 사용!)
-    parsed = parse_pdf(pdf_path)
+    # 1) Parsing (Docling+PyMuPDF 사용 또는 XML 파싱)
+    if file_path.suffix.lower() == ".xml":
+        parsed = parse_xml(file_path)
+    else:
+        parsed = parse_pdf(file_path)
 
     # 2) DOC baseline + 스키마 검증
     doc_baseline = build_doc_baseline(parsed)

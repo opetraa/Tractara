@@ -1,0 +1,71 @@
+format_id: s1000d
+detect:
+  root_tag_contains: "dmodule"
+
+relations:
+  - xpath: ".//applicCrossRefTableRef/dmRef"
+    relation_type: "custom:GOVERNED_BY_APPLIC"
+    transform: "dmc_from_dmref"
+  - xpath: ".//brexDmRef/dmRef"
+    relation_type: "custom:COMPLIES_WITH"
+    transform: "dmc_from_dmref"
+
+metadata:
+  dc_title:
+    xpath: ".//techName"
+    combine_with: ".//infoName"
+    separator: " - "
+  dc_creator:
+    xpath: ".//responsiblePartnerCompany/enterpriseName"
+    entity_type: "organization"
+  dc_contributor:
+    xpath: ".//originator/enterpriseName"
+    entity_type: "organization"
+    role: "contributor"
+  dc_identifier:
+    xpath: ".//dmIdent"
+    transform: "dmc_assemble"
+  dc_date:
+    xpath: ".//issueDate"
+    transform: "date_from_attrs"
+  dc_type:
+    xpath: ".//dmIdent"
+    transform: "s1000d_info_code_to_type"
+  dc_rights:
+    - xpath: ".//security"
+      transform: "s1000d_security"
+    - xpath: ".//copyright/copyrightPara[1]/randomList/listItem/para"
+      transform: "join_text"
+      target_field: "rightsHolder"
+  dc_coverage:
+    - xpath: ".//applic/displayText/simplePara"
+      transform: "text_extract"
+      target_field: "component"
+    - xpath: ".//systemBreakdownCode"
+      target_field: "system"
+  dc_description:
+    - xpath: ".//skillLevel"
+      attribute: "skillLevelCode"
+      template: "Skill Level: {value}"
+    - xpath: ".//qualityAssurance/firstVerification"
+      attribute: "verificationType"
+      template: "Verification: {value}"
+  doc_status:
+    xpath: ".//dmStatus"
+    attribute: "issueType"
+
+content:
+  traverse_strategy: recursive
+  mappings:
+    - tag: "levelledpara"
+      block_type: "section"
+      title_child: "title"
+    - tag: "para"
+      block_type: "paragraph"
+    - tag: ["warning", "caution"]
+      block_type_from_tag: true
+    - tag: ["note", "notepara"]
+      block_type: "note"
+    - tag: "proceduralstep"
+      block_type: "procedureStep"
+      extract_structured: true

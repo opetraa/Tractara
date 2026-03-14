@@ -135,7 +135,9 @@ class LLMMetadata(BaseModel):
         description="모든 기여자·이해관계자 목록 (role로 dc:creator/dc:contributor/dc:publisher 구분)",
     )
     dc_date: DateInfo | None = Field(None, description="날짜 정보")
-    dc_language: str | None = Field(None, description="ISO 639-1 언어 코드 (ko, en 등)")
+    dc_language: str | None = Field(
+        None, description="ISO 639-1 또는 BCP-47 언어 코드 (ko, en-US 등)"
+    )
     dc_type: str | None = Field(
         None,
         description=(
@@ -147,6 +149,7 @@ class LLMMetadata(BaseModel):
     )
     dc_subject: list[str] | None = Field(None, description="핵심 기술 키워드 3~7개")
     dc_coverage: CoverageInfo | None = Field(None, description="적용 범위")
+    dc_description: str | None = Field(None, description="리소스 설명 (기술 메타데이터 등)")
 
 
 # ── 내부 블록 표현 ────────────────────────────────────────────────────────────
@@ -180,6 +183,9 @@ class ExtractedMetadata:
     dc_type: str | None = None
     dc_subject: list[str] | None = None
     dc_coverage: dict[str, Any] | None = None
+    dc_rights: dict[str, str] | None = None
+    dc_description: str | None = None
+    doc_status: str | None = None
 
 
 # ── Phase 1: Front-Matter Isolation ──────────────────────────────────────────
@@ -395,12 +401,12 @@ def _build_llm_prompt(frontmatter_text: str) -> str:
       regulator        — 규제기관 (예: NRC, 원자력안전위원회)
       national_lab     — 국립·정부출연 연구소 (예: ANL, KAERI, ORNL)
       corporate_research — 민간·운영사 부설 연구소 (예: KHNP 중앙연구원)
-- dc_language: 문서의 주된 서술 언어(Primary Language)를 ISO 639-1 코드로 선택 (한국어: ko, 영어: en).
+- dc_language: 문서의 주된 서술 언어(Primary Language)를 ISO 639-1 또는 BCP-47 코드로 선택 (한국어: ko, 영어: en-US).
     기술 용어나 한자가 섞여 있어도 문장 구조를 이루는 주 언어를 선택하세요.
 - dc_date: 날짜는 YYYY-MM-DD 형식. 용도별 매핑:
     작성 완료일/Draft → created | 공식 발행/Issue → issued | 개정/Revision → modified
     (주의: 날짜가 '2023년 11월' 처럼만 있으면 '2023-11-01'로 정규화하세요)
-- dc_language: ISO 639-1 (한국어: ko, 영어: en)
+- dc_language: ISO 639-1 또는 BCP-47 (한국어: ko, 영어: en-US)
 - dc_type: 반드시 아래 중 하나
     TechnicalReport | RegulatoryDocument | SafetyAnalysisReport | PeriodicSafetyReview |
     LicenseRenewalApplication | Code | Standard | Procedure | LicenseeEventReport |
@@ -478,8 +484,8 @@ def _merge_results(
 
     # language: Track B 우선, 실패 시 Track A(Heuristic)
     result.dc_language = (
-        track_b.dc_language.lower()
-        if track_b and track_b.dc_language and len(track_b.dc_language) == 2
+        track_b.dc_language
+        if track_b and track_b.dc_language and len(track_b.dc_language) >= 2
         else fallback_lang
     )
 
@@ -577,18 +583,311 @@ def _merge_results(
     return result
 
 
-# ── 공개 인터페이스 ───────────────────────────────────────────────────────────
+def _merge_xml_metadata(
+    base: ExtractedMetadata, override: ExtractedMetadata
+) -> ExtractedMetadata:
+    """base(dc: 추출) 위에 override(스키마별 추출)를 병합. override 값이 있으면 base를 덮어씀 (스키마별 추출이 더 정확함)."""
+    for field_name in (
+        "dc_title",
+        "dc_creator",
+        "dc_publisher",
+        "dc_contributor",
+        "dc_identifier",
+        "dc_date",
+        "dc_language",
+        "dc_type",
+        "dc_subject",
+        "dc_coverage",
+        "dc_rights",
+        "dc_description",
+        "dc_alternative_titles",
+    ):
+        getattr(base, field_name, None)
+        override_val = getattr(override, field_name, None)
+
+        # Override takes precedence if it has a meaningful value
+        if override_val:
+            setattr(base, field_name, override_val)
+
+    return base
+
+
+def _apply_catalog_metadata(root: Any, catalog: dict[str, Any]) -> ExtractedMetadata:
+    """YAML 카탈로그에 정의된 metadata 매핑을 XML에 적용합니다."""
+    meta = ExtractedMetadata()
+    meta_cfg = catalog.get("metadata", {})
+    if not meta_cfg:
+        return meta
+
+    from tractara.catalogs.transforms import TRANSFORM_REGISTRY
+
+    def _get_element(xpath_or_dc: str) -> Any:
+        if xpath_or_dc.startswith(".//") or "/" in xpath_or_dc:
+            return root.find(xpath_or_dc)
+        # Handle dc:element shortcut (e.g. title -> dc:title)
+        dc_uris = catalog.get(
+            "dc_namespaces",
+            [
+                "http://purl.org/dc/elements/1.1/",
+                "http://www.purl.org/dc/elements/1.1/",
+            ],
+        )
+        for uri in dc_uris:
+            el = root.find(f".//{{{uri}}}{xpath_or_dc}")
+            if el is not None:
+                return el
+        return None
+
+    def _get_elements(xpath_or_dc: str) -> list[Any]:
+        if xpath_or_dc.startswith(".//") or "/" in xpath_or_dc:
+            return root.findall(xpath_or_dc)
+        dc_uris = catalog.get(
+            "dc_namespaces",
+            [
+                "http://purl.org/dc/elements/1.1/",
+                "http://www.purl.org/dc/elements/1.1/",
+            ],
+        )
+        for uri in dc_uris:
+            els = root.findall(f".//{{{uri}}}{xpath_or_dc}")
+            if els:
+                return els
+        return []
+
+    # Process each DC field defined in catalog
+    for field_key, rules in meta_cfg.items():
+        if not hasattr(meta, field_key):
+            continue
+
+        # Convert single rule to list for uniform processing
+        if isinstance(rules, dict):
+            rules_list = [rules]
+        elif isinstance(rules, list):
+            rules_list = rules
+        else:
+            continue
+
+        for rule in rules_list:
+            # 1. Static value
+            if "static" in rule:
+                val = rule["static"]
+            else:
+                # 2. Extract values based on xpath or dc_element
+                xpath = rule.get("xpath") or rule.get("dc_element")
+                if not xpath:
+                    continue
+
+                elements = _get_elements(xpath)
+                if not elements:
+                    continue
+
+                # 3. Apply Transform if registered
+                transform_name = rule.get("transform")
+                val = None
+                if transform_name and transform_name in TRANSFORM_REGISTRY:
+                    transform_fn = TRANSFORM_REGISTRY[transform_name]
+                    if transform_name in ("jats_author_name", "join_text"):
+                        val = transform_fn(elements)  # specifically takes list
+                    else:
+                        val = transform_fn(elements[0])
+                else:
+                    # Default text extraction
+                    if "attribute" in rule:
+                        attr = rule["attribute"]
+                        texts = [e.get(attr) for e in elements if e.get(attr)]
+                    else:
+                        texts = [
+                            "".join(e.itertext()).strip()
+                            for e in elements
+                            if getattr(e, "text", None) or "".join(e.itertext()).strip()
+                        ]
+                    val = texts[0] if texts else None
+
+                    # Special handlers based on rules
+                    if "combine_with" in rule and val:
+                        other_el = _get_element(rule["combine_with"])
+                        other_val = (
+                            "".join(other_el.itertext()).strip()
+                            if other_el is not None
+                            else ""
+                        )
+                        sep = rule.get("separator", " ")
+                        if other_val:
+                            val = f"{val}{sep}{other_val}"
+
+                    if "split_by" in rule and val:
+                        val = [
+                            s.strip() for s in val.split(rule["split_by"]) if s.strip()
+                        ]
+
+                    if "truncate" in rule and val and isinstance(val, str):
+                        val = val[: rule["truncate"]].lower()
+
+                    if "template" in rule and val and isinstance(val, str):
+                        val = rule["template"].format(value=val)
+
+            # Formatting Output values into specific struct shapes
+            if val is None:
+                continue
+
+            # Get current value for cumulative updates
+            current_val = getattr(meta, field_key, None)
+
+            # dc_creator/publisher/contributor expects list of dicts
+            if field_key in ("dc_creator", "dc_publisher", "dc_contributor"):
+                if isinstance(val, list) and all(isinstance(i, dict) for i in val):
+                    new_items = val
+                else:
+                    # Default struct formatting per JSON Schema
+                    if field_key == "dc_creator":
+                        item = {
+                            "name": val,
+                            "entityType": rule.get("entity_type", "organization"),
+                        }
+                    elif field_key == "dc_publisher":
+                        item = {"name": val, "role": rule.get("role", "publisher")}
+                        org_type = rule.get("organization_type")
+                        if org_type and org_type in _VALID_ORG_TYPES:
+                            item["organizationType"] = org_type
+                    else:  # dc_contributor
+                        item = {
+                            "name": val,
+                            "entityType": rule.get("entity_type", "organization"),
+                        }
+                        item["role"] = rule.get("role", "contributor")
+                    new_items = [item]
+
+                if current_val:
+                    # Merge lists
+                    setattr(meta, field_key, current_val + new_items)
+                else:
+                    setattr(meta, field_key, new_items)
+
+            # dc_identifier expects list of dicts
+            elif field_key == "dc_identifier":
+                if isinstance(val, list) and all(isinstance(i, dict) for i in val):
+                    new_items = val
+                else:
+                    new_items = [{"scheme": rule.get("scheme", "URI"), "value": val}]
+
+                if current_val:
+                    setattr(meta, field_key, current_val + new_items)
+                else:
+                    setattr(meta, field_key, new_items)
+
+            # dc_date, dc_rights expects dict
+            elif field_key in ("dc_date", "dc_rights"):
+                target_field = rule.get("target_field")
+                if "dumb_down" in rule:
+                    # Dumb down mapping (like securityClassification -> accessRights)
+                    mapping = rule["dumb_down"]
+                    target_val = mapping.get(val, mapping.get("_default", {}))
+                    new_dict = target_val
+                elif target_field:
+                    new_dict = {target_field: val}
+                elif isinstance(val, dict):
+                    new_dict = val
+                else:
+                    # Best guess for date
+                    if field_key == "dc_date":
+                        new_dict = {"issued": val}
+                    else:
+                        new_dict = {}
+
+                if current_val and isinstance(current_val, dict):
+                    current_val.update(new_dict or {})
+                else:
+                    setattr(meta, field_key, new_dict)
+
+            # dc_coverage expects an object
+            elif field_key == "dc_coverage":
+                if isinstance(val, dict):
+                    new_dict = val
+                elif isinstance(val, str):
+                    target = rule.get("target_field", "spatialCoverage")
+                    new_dict = {target: val}
+                else:
+                    new_dict = {}
+
+                if current_val and isinstance(current_val, dict):
+                    current_val.update(new_dict)
+                else:
+                    setattr(meta, field_key, new_dict)
+
+            # String or List values (title, type, subject, language, description)
+            else:
+                if (
+                    field_key == "dc_type"
+                    and rule.get("validate_enum")
+                    and val not in _VALID_DOC_TYPES
+                ):
+                    continue
+
+                if (
+                    isinstance(val, str)
+                    and isinstance(current_val, str)
+                    and field_key == "dc_description"
+                ):
+                    sep = rule.get("join_separator", "; ")
+                    setattr(meta, field_key, f"{current_val}{sep}{val}")
+                else:
+                    setattr(meta, field_key, val)
+
+    logger.info(
+        "Catalog mapping %s applied. title=%r", catalog.get("format_id"), meta.dc_title
+    )
+    return meta
+
+
+def _extract_xml_metadata(xml_path: Path) -> ExtractedMetadata:
+    """XML 파일에서 메타데이터를 추출하여 ExtractedMetadata 구조체로 매핑합니다.
+
+    1단계: _base.yaml 카탈로그를 이용해 공통 요소 추출
+    2단계: 루트 태그에 맞는 개별 포맷 카탈로그(JATS/S1000D) 로 빈 필드 보충
+    """
+    try:
+        from lxml import etree
+    except ImportError:
+        logger.warning("lxml is required for XML metadata extraction.")
+        return ExtractedMetadata()
+
+    try:
+        tree = etree.parse(str(xml_path))  # pylint: disable=c-extension-no-member
+        root = tree.getroot()
+
+        from tractara.catalogs import catalog_loader
+
+        # 1단계: base 카탈로그 추출 (DC 네임스페이스)
+        base_cat = catalog_loader.get_base_catalog()
+        meta = _apply_catalog_metadata(root, base_cat)
+
+        # 2단계: 스키마별 카탈로그 감지 및 적용
+        tag = root.tag.lower()
+        specific_cat = catalog_loader.detect_catalog(tag)
+        if specific_cat:
+            schema_meta = _apply_catalog_metadata(root, specific_cat)
+            meta = _merge_xml_metadata(meta, schema_meta)
+
+        return meta
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        logger.error("Failed to extract XML metadata: %s", e)
+        return ExtractedMetadata()
+
+
 def extract_metadata(
     pdf_path: Path,
     api_key: str | None = None,
 ) -> ExtractedMetadata:
     """
-    PDF 메타데이터 추출 파이프라인.
+    PDF 또는 XML 파일에서 메타데이터를 추출 (Track A + Track B 결합).
 
-    1단계: Front-Matter Isolation (처음 4페이지 + 마지막 2페이지)
-    2단계: Track A (결정론적) + Track B (LLM) 병렬 실행
+    1단계: Front-Matter Isolation (처음 4페이지 + 마지막 2페이지) (PDF만 해당)
+    2단계: Track A (결정론적) + Track B (LLM) 병렬 실행 (PDF만 해당)
     3단계: 결과 병합 (Track A title/identifier 우선)
     """
+    if pdf_path.suffix.lower() == ".xml":
+        return _extract_xml_metadata(pdf_path)
+
     resolved_key = api_key or os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
 
     blocks, body_font_size = _extract_frontmatter_blocks(pdf_path)

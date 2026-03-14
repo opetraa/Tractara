@@ -1,0 +1,28 @@
+format_id: jats
+detect:
+  root_tag_contains: ["article", "pm"]
+
+metadata:
+  dc_title:
+    xpath: ".//article-title"
+  dc_creator:
+    xpath: ".//contrib[@contrib-type='author']"
+    transform: "jats_author_name"
+  dc_identifier:
+    xpath: ".//article-id[@pub-id-type='doi']"
+    scheme: "DOI"
+  dc_type:
+    static: "JournalArticle"
+
+content:
+  traverse_strategy: "jats_body" # Using specific strategy for sec > p
+  mappings:
+    - tag: "sec"
+      block_type: "section"
+      title_child: "title"
+    - tag: "p"
+      block_type: "paragraph"
+    - tag: "table-wrap"
+      block_type: "table"
+    - tag: "disp-formula"
+      block_type: "equation"

@@ -11,7 +11,7 @@ import instructor
 from pydantic import BaseModel, Field
 
 from ..models.term_types import TermType
-from ..parsing.pdf_parser import ParsedDocument
+from ..parsing.models import ParsedDocument
 from ..tracing import get_trace_id
 
 logger = logging.getLogger(__name__)

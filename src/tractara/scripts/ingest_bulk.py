@@ -1,4 +1,4 @@
-"""PDF 볌크 인제스트 스크립트."""
+"""Document 벌크 인제스트 스크립트."""
 # !/usr/bin/env python3
 import logging
 import sys
@@ -30,7 +30,7 @@ logger = logging.getLogger("bulk_ingest")
 
 
 def main():
-    """PDF 볌크 인제스트 실행."""
+    """Document 벌크 인제스트 실행."""
     # 1. 로깅 및 스키마 초기화
     configure_logging()
     schema_registry.load()
@@ -44,44 +44,48 @@ def main():
 
     if not target_dir.exists():
         logger.error("❌ 데이터 디렉토리를 찾을 수 없습니다: %s", target_dir)
-        logger.error("프로젝트 루트에 'data' 폴더를 생성하고 PDF 파일을 넣어주세요.")
+        logger.error("프로젝트 루트에 'data' 폴더를 생성하고 PDF/XML 파일을 넣어주세요.")
         sys.exit(1)
 
-    # 3. PDF 파일 탐색
-    pdf_files = list(target_dir.glob("*.pdf"))
-    if not pdf_files:
-        logger.warning("⚠️  %s 디렉토리에 PDF 파일이 없습니다.", target_dir)
+    target_files = sorted(
+        list(target_dir.glob("*.pdf"))
+        + list(target_dir.glob("*.PDF"))
+        + list(target_dir.glob("*.xml"))
+        + list(target_dir.glob("*.XML"))
+    )
+    if not target_files:
+        logger.warning("⚠️  %s 디렉토리에 처리할 파일(PDF/XML)이 없습니다.", target_dir)
         return
 
-    logger.info("🚀 일괄 수집 시작: %s 내 %d개 PDF 파일", target_dir, len(pdf_files))
+    logger.info("🚀 일괄 수집 시작: %s 내 %d개 파일", target_dir, len(target_files))
 
     # 4. 파일별 수집 실행
     success_count = 0
     fail_count = 0
 
-    for i, pdf_path in enumerate(pdf_files, 1):
-        logger.info("[%d/%d] 처리 중: %s ...", i, len(pdf_files), pdf_path.name)
+    for i, file_path in enumerate(target_files, 1):
+        logger.info("[%d/%d] 처리 중: %s ...", i, len(target_files), file_path.name)
         try:
             # 파이프라인 실행
-            result = ingest_single_document(pdf_path)
+            result = ingest_single_document(file_path)
 
             doc_id = result.get("documentId", "Unknown ID")
             term_count = result.get("promotedTermCount", 0)
 
             logger.info(
-                "✅ 성공: %s (DocID: %s, Terms: %s)", pdf_path.name, doc_id, term_count
+                "✅ 성공: %s (DocID: %s, Terms: %s)", file_path.name, doc_id, term_count
             )
             success_count += 1
 
         except (OSError, RuntimeError, ValueError) as e:
-            logger.error("❌ 실패: %s", pdf_path.name)
+            logger.error("❌ 실패: %s", file_path.name)
             logger.error("   이유: %s", str(e))
             fail_count += 1
 
     # 5. 최종 리포트
     logger.info("=" * 60)
     logger.info("📊 일괄 수집 완료 리포트")
-    logger.info("   - 총 파일 수 : %d", len(pdf_files))
+    logger.info("   - 총 파일 수 : %d", len(target_files))
     logger.info("   - 성공       : %d", success_count)
     logger.info("   - 실패       : %d", fail_count)
     logger.info("=" * 60)

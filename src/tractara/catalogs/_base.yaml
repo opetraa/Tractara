@@ -1,0 +1,36 @@
+format_id: _base
+dc_namespaces:
+  - "http://purl.org/dc/elements/1.1/"
+  - "http://www.purl.org/dc/elements/1.1/"
+
+metadata:
+  dc_title:
+    dc_element: "title"
+  dc_creator:
+    dc_element: "creator"
+    entity_type: "organization"
+  dc_publisher:
+    dc_element: "publisher"
+    entity_type: "organization"
+    role: "publisher"
+  dc_contributor:
+    dc_element: "contributor"
+    entity_type: "organization"
+    role: "contributor"
+  dc_subject:
+    dc_element: "subject"
+    split_by: " - "
+  dc_date:
+    dc_element: "date"
+    target_field: "issued"
+  dc_identifier:
+    dc_element: "identifier"
+    scheme: "URI"
+  dc_language:
+    dc_element: "language"
+  dc_rights:
+    dc_element: "rights"
+    target_field: "accessRights"
+  dc_type:
+    dc_element: "type"
+    validate_enum: true

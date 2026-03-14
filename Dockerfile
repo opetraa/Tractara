@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y \
     git \
     poppler-utils \
     libgl1-mesa-glx \
+    libxml2-dev \
+    libxslt-dev \
     tesseract-ocr \
     tesseract-ocr-kor \
     && apt-get clean \

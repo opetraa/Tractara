@@ -255,12 +255,16 @@
         },
         "dc:language": {
           "type": "string",
-          "description": "문서 주 언어 (ISO 639-1)",
-          "pattern": "^[a-z]{2}$",
+          "description": "문서 주 언어 (BCP-47: ISO 639-1 또는 ISO 639-1 + 국가 코드)",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
           "examples": [
             "ko",
-            "en"
+            "en-US"
           ]
+        },
+        "dc:description": {
+          "type": "string",
+          "description": "리소스에 대한 설명 (기술 메타데이터 포함)"
         },
         "dc:subject": {
           "type": "array",
@@ -539,7 +543,10 @@
               "reference",
               "appendix",
               "footnote",
-              "caption"
+              "caption",
+              "note",
+              "warning",
+              "caution"
             ]
           },
           "sectionLabel": {
@@ -626,17 +633,41 @@
             "type": "object",
             "description": "절차서의 구조화된 내용 (ACT-R 인지 구조 맵핑)",
             "properties": {
-              "condition": {
-                "type": "string",
-                "description": "조건 (Condition)"
+              "conditions": {
+                "type": "array",
+                "description": "사전 조건 (Condition) 목록",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string" },
+                    "identifier": { "type": "string" },
+                    "description": { "type": "string" },
+                    "parameters": { "type": "object" }
+                  }
+                }
               },
-              "action": {
-                "type": "string",
-                "description": "행동 (Action)"
+              "actions": {
+                "type": "array",
+                "description": "행동 (Action) 목록",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "actionType": { "type": "string" },
+                    "target": { "type": "string" },
+                    "parameters": { "type": "object" }
+                  }
+                }
               },
-              "acceptanceCriterion": {
-                "type": "string",
-                "description": "허용 기준 (Acceptance Criterion)"
+              "acceptanceCriteria": {
+                "type": "array",
+                "description": "허용 기준 (Acceptance Criteria) 목록",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "criterion": { "type": "string" },
+                    "parameters": { "type": "object" }
+                  }
+                }
               }
             }
           },
@@ -778,23 +809,31 @@
             "description": "관계의 출발 블록 (null이면 문서 전체)"
           },
           "relationType": {
-            "type": "string",
-            "description": "관계 유형 (제어 어휘)",
-            "enum": [
-              "CITES",
-              "REFERENCES",
-              "IS_CITED_BY",
-              "SUPERSEDES",
-              "IS_SUPERSEDED_BY",
-              "SUPPLEMENTS",
-              "IS_SUPPLEMENTED_BY",
-              "REQUIRES",
-              "IS_REQUIRED_BY",
-              "RELATED_TO",
-              "DERIVES_FROM",
-              "HAS_VERSION",
-              "IMPLEMENTS",
-              "CONTRADICTS"
+            "description": "관계 유형 (제어 어휘 또는 custom: 확장)",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "CITES",
+                  "REFERENCES",
+                  "IS_CITED_BY",
+                  "SUPERSEDES",
+                  "IS_SUPERSEDED_BY",
+                  "SUPPLEMENTS",
+                  "IS_SUPPLEMENTED_BY",
+                  "REQUIRES",
+                  "IS_REQUIRED_BY",
+                  "RELATED_TO",
+                  "DERIVES_FROM",
+                  "HAS_VERSION",
+                  "IMPLEMENTS",
+                  "CONTRADICTS"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^custom:[a-zA-Z0-9_.-]+$"
+              }
             ]
           },
           "target": {

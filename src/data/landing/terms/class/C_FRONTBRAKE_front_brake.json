@@ -1,0 +1,33 @@
+{
+  "type": "term_entry",
+  "termId": "term:class:front_brake",
+  "termType": "TERM-CLASS",
+  "term": "Front brake",
+  "lang": "bilingual",
+  "headword_en": "Front brake",
+  "headword_ko": "전륜 브레이크",
+  "definition_en": "A mechanical device which inhibits motion by absorbing energy from a moving system, specifically located on the front wheels of a vehicle.",
+  "definition_ko": "이동하는 시스템의 에너지를 흡수하여 운동을 억제하는 기계 장치로, 특히 차량의 앞바퀴에 위치한 제동 장치.",
+  "slots": {
+    "context_ko": "Front brake - Install procedures"
+  },
+  "examples": [],
+  "negatives": [],
+  "domain": [
+    "automotive",
+    "mechanical"
+  ],
+  "relatedTerms": [],
+  "relations": [],
+  "taxonomyBindings": [],
+  "provenance": {
+    "sources": [
+      {
+        "docId": "DOC_09b05cd43b3a492680ac38e6b82b319d"
+      }
+    ],
+    "curationStatus": "candidate",
+    "trace_id": "32bef0106ecb407ba1ae10aa5237b4aa"
+  },
+  "status": "candidate"
+}
