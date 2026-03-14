@@ -602,7 +602,7 @@ def _merge_xml_metadata(
         "dc_description",
         "dc_alternative_titles",
     ):
-        base_val = getattr(base, field_name, None)
+        getattr(base, field_name, None)
         override_val = getattr(override, field_name, None)
 
         # Override takes precedence if it has a meaningful value

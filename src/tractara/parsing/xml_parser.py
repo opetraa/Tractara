@@ -7,12 +7,11 @@ from typing import Any, Dict, List, Optional
 
 from lxml import etree
 
+from tractara.catalogs import catalog_loader
 from .models import ParsedBlock, ParsedDocument
 from .section_classifier import extract_section_label
 
 logger = logging.getLogger(__name__)
-
-from tractara.catalogs import catalog_loader
 
 
 def parse_xml(file_path: Path) -> ParsedDocument:
@@ -217,7 +216,8 @@ class CatalogDrivenStrategy:
         parent_id: Optional[str],
         level: int,
         context_path: List[str],
-    ):
+    ):  # pylint: disable=too-many-arguments,too-many-positional-arguments,too-many-branches,too-many-statements
+        """요소 트리를 순회하며 블록을 생성합니다."""
         current_context = list(context_path)
 
         for child in element:
@@ -350,6 +350,7 @@ class CatalogDrivenStrategy:
         context_path: List[str],
         level: int,
     ):
+        # pylint: disable=too-many-arguments,too-many-positional-arguments,too-many-branches,too-many-statements
         """절차 단계 파싱 (S1000D 특화 로직 유지, 중첩 및 분리 파싱)"""
         text_parts = []
         structured_content: Dict[str, List] = {
