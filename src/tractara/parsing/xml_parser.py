@@ -3,7 +3,7 @@
 import logging
 import uuid
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from lxml import etree
 
@@ -31,7 +31,9 @@ def parse_xml(file_path: Path) -> ParsedDocument:
                 catalog.get("format_id"),
                 file_path.name,
             )
-            parser = CatalogDrivenStrategy(catalog)
+            parser: Union[
+                CatalogDrivenStrategy, GenericXmlStrategy
+            ] = CatalogDrivenStrategy(catalog)
         else:
             logger.info(
                 "Detected Unknown XML format. Using generic fallback: %s",
@@ -314,11 +316,7 @@ class CatalogDrivenStrategy:
 
                 elif block_type in ("table", "equation"):
                     text = "".join(child.itertext()).strip()
-                    kwargs = (
-                        {"equation_data": {"latex": text}}
-                        if block_type == "equation"
-                        else {}
-                    )
+                    eq_data = {"latex": text} if block_type == "equation" else None
                     blocks.append(
                         ParsedBlock(
                             page=1,
@@ -327,7 +325,7 @@ class CatalogDrivenStrategy:
                             parent_id=parent_id,
                             context_path=current_context,
                             block_id=str(uuid.uuid4()),
-                            **kwargs,
+                            equation_data=eq_data,
                         )
                     )
             else:
