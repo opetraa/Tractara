@@ -135,7 +135,9 @@ class LLMMetadata(BaseModel):
         description="모든 기여자·이해관계자 목록 (role로 dc:creator/dc:contributor/dc:publisher 구분)",
     )
     dc_date: DateInfo | None = Field(None, description="날짜 정보")
-    dc_language: str | None = Field(None, description="ISO 639-1 또는 BCP-47 언어 코드 (ko, en-US 등)")
+    dc_language: str | None = Field(
+        None, description="ISO 639-1 또는 BCP-47 언어 코드 (ko, en-US 등)"
+    )
     dc_type: str | None = Field(
         None,
         description=(
@@ -581,21 +583,32 @@ def _merge_results(
     return result
 
 
-def _merge_xml_metadata(base: ExtractedMetadata, override: ExtractedMetadata) -> ExtractedMetadata:
+def _merge_xml_metadata(
+    base: ExtractedMetadata, override: ExtractedMetadata
+) -> ExtractedMetadata:
     """base(dc: 추출) 위에 override(스키마별 추출)를 병합. override 값이 있으면 base를 덮어씀 (스키마별 추출이 더 정확함)."""
     for field_name in (
-        "dc_title", "dc_creator", "dc_publisher", "dc_contributor",
-        "dc_identifier", "dc_date", "dc_language", "dc_type",
-        "dc_subject", "dc_coverage", "dc_rights", "dc_description",
+        "dc_title",
+        "dc_creator",
+        "dc_publisher",
+        "dc_contributor",
+        "dc_identifier",
+        "dc_date",
+        "dc_language",
+        "dc_type",
+        "dc_subject",
+        "dc_coverage",
+        "dc_rights",
+        "dc_description",
         "dc_alternative_titles",
     ):
         base_val = getattr(base, field_name, None)
         override_val = getattr(override, field_name, None)
-        
+
         # Override takes precedence if it has a meaningful value
         if override_val:
             setattr(base, field_name, override_val)
-            
+
     return base
 
 
@@ -612,7 +625,13 @@ def _apply_catalog_metadata(root: Any, catalog: dict[str, Any]) -> ExtractedMeta
         if xpath_or_dc.startswith(".//") or "/" in xpath_or_dc:
             return root.find(xpath_or_dc)
         # Handle dc:element shortcut (e.g. title -> dc:title)
-        dc_uris = catalog.get("dc_namespaces", ["http://purl.org/dc/elements/1.1/", "http://www.purl.org/dc/elements/1.1/"])
+        dc_uris = catalog.get(
+            "dc_namespaces",
+            [
+                "http://purl.org/dc/elements/1.1/",
+                "http://www.purl.org/dc/elements/1.1/",
+            ],
+        )
         for uri in dc_uris:
             el = root.find(f".//{{{uri}}}{xpath_or_dc}")
             if el is not None:
@@ -622,7 +641,13 @@ def _apply_catalog_metadata(root: Any, catalog: dict[str, Any]) -> ExtractedMeta
     def _get_elements(xpath_or_dc: str) -> list[Any]:
         if xpath_or_dc.startswith(".//") or "/" in xpath_or_dc:
             return root.findall(xpath_or_dc)
-        dc_uris = catalog.get("dc_namespaces", ["http://purl.org/dc/elements/1.1/", "http://www.purl.org/dc/elements/1.1/"])
+        dc_uris = catalog.get(
+            "dc_namespaces",
+            [
+                "http://purl.org/dc/elements/1.1/",
+                "http://www.purl.org/dc/elements/1.1/",
+            ],
+        )
         for uri in dc_uris:
             els = root.findall(f".//{{{uri}}}{xpath_or_dc}")
             if els:
@@ -662,31 +687,41 @@ def _apply_catalog_metadata(root: Any, catalog: dict[str, Any]) -> ExtractedMeta
                 if transform_name and transform_name in TRANSFORM_REGISTRY:
                     transform_fn = TRANSFORM_REGISTRY[transform_name]
                     if transform_name in ("jats_author_name", "join_text"):
-                        val = transform_fn(elements) # specifically takes list
+                        val = transform_fn(elements)  # specifically takes list
                     else:
-                         val = transform_fn(elements[0])
+                        val = transform_fn(elements[0])
                 else:
                     # Default text extraction
                     if "attribute" in rule:
                         attr = rule["attribute"]
                         texts = [e.get(attr) for e in elements if e.get(attr)]
                     else:
-                        texts = [ "".join(e.itertext()).strip() for e in elements if getattr(e, "text", None) or "".join(e.itertext()).strip() ]
+                        texts = [
+                            "".join(e.itertext()).strip()
+                            for e in elements
+                            if getattr(e, "text", None) or "".join(e.itertext()).strip()
+                        ]
                     val = texts[0] if texts else None
 
                     # Special handlers based on rules
                     if "combine_with" in rule and val:
                         other_el = _get_element(rule["combine_with"])
-                        other_val = "".join(other_el.itertext()).strip() if other_el is not None else ""
+                        other_val = (
+                            "".join(other_el.itertext()).strip()
+                            if other_el is not None
+                            else ""
+                        )
                         sep = rule.get("separator", " ")
                         if other_val:
                             val = f"{val}{sep}{other_val}"
-                    
+
                     if "split_by" in rule and val:
-                        val = [s.strip() for s in val.split(rule["split_by"]) if s.strip()]
+                        val = [
+                            s.strip() for s in val.split(rule["split_by"]) if s.strip()
+                        ]
 
                     if "truncate" in rule and val and isinstance(val, str):
-                        val = val[:rule["truncate"]].lower()
+                        val = val[: rule["truncate"]].lower()
 
                     if "template" in rule and val and isinstance(val, str):
                         val = rule["template"].format(value=val)
@@ -703,61 +738,67 @@ def _apply_catalog_metadata(root: Any, catalog: dict[str, Any]) -> ExtractedMeta
                 if isinstance(val, list) and all(isinstance(i, dict) for i in val):
                     new_items = val
                 else:
-                     # Default struct formatting per JSON Schema
-                     if field_key == "dc_creator":
-                         item = {"name": val, "entityType": rule.get("entity_type", "organization")}
-                     elif field_key == "dc_publisher":
-                         item = {"name": val, "role": rule.get("role", "publisher")}
-                         org_type = rule.get("organization_type")
-                         if org_type and org_type in _VALID_ORG_TYPES:
-                             item["organizationType"] = org_type
-                     else: # dc_contributor
-                         item = {"name": val, "entityType": rule.get("entity_type", "organization")}
-                         item["role"] = rule.get("role", "contributor")
-                     new_items = [item]
-                
+                    # Default struct formatting per JSON Schema
+                    if field_key == "dc_creator":
+                        item = {
+                            "name": val,
+                            "entityType": rule.get("entity_type", "organization"),
+                        }
+                    elif field_key == "dc_publisher":
+                        item = {"name": val, "role": rule.get("role", "publisher")}
+                        org_type = rule.get("organization_type")
+                        if org_type and org_type in _VALID_ORG_TYPES:
+                            item["organizationType"] = org_type
+                    else:  # dc_contributor
+                        item = {
+                            "name": val,
+                            "entityType": rule.get("entity_type", "organization"),
+                        }
+                        item["role"] = rule.get("role", "contributor")
+                    new_items = [item]
+
                 if current_val:
                     # Merge lists
                     setattr(meta, field_key, current_val + new_items)
                 else:
                     setattr(meta, field_key, new_items)
-            
+
             # dc_identifier expects list of dicts
             elif field_key == "dc_identifier":
                 if isinstance(val, list) and all(isinstance(i, dict) for i in val):
                     new_items = val
                 else:
                     new_items = [{"scheme": rule.get("scheme", "URI"), "value": val}]
-                
+
                 if current_val:
                     setattr(meta, field_key, current_val + new_items)
                 else:
                     setattr(meta, field_key, new_items)
-                
+
             # dc_date, dc_rights expects dict
             elif field_key in ("dc_date", "dc_rights"):
-                 target_field = rule.get("target_field")
-                 if "dumb_down" in rule:
-                     # Dumb down mapping (like securityClassification -> accessRights)
-                     mapping = rule["dumb_down"]
-                     target_val = mapping.get(val, mapping.get("_default", {}))
-                     new_dict = target_val
-                 elif target_field:
-                     new_dict = {target_field: val}
-                 elif isinstance(val, dict):
-                     new_dict = val
-                 else:
-                     # Best guess for date
-                     if field_key == "dc_date":
-                         new_dict = {"issued": val}
-                     else:
-                         new_dict = {}
+                target_field = rule.get("target_field")
+                if "dumb_down" in rule:
+                    # Dumb down mapping (like securityClassification -> accessRights)
+                    mapping = rule["dumb_down"]
+                    target_val = mapping.get(val, mapping.get("_default", {}))
+                    new_dict = target_val
+                elif target_field:
+                    new_dict = {target_field: val}
+                elif isinstance(val, dict):
+                    new_dict = val
+                else:
+                    # Best guess for date
+                    if field_key == "dc_date":
+                        new_dict = {"issued": val}
+                    else:
+                        new_dict = {}
 
-                 if current_val and isinstance(current_val, dict):
-                     current_val.update(new_dict or {})
-                 else:
-                     setattr(meta, field_key, new_dict)
-                         
+                if current_val and isinstance(current_val, dict):
+                    current_val.update(new_dict or {})
+                else:
+                    setattr(meta, field_key, new_dict)
+
             # dc_coverage expects an object
             elif field_key == "dc_coverage":
                 if isinstance(val, dict):
@@ -775,17 +816,28 @@ def _apply_catalog_metadata(root: Any, catalog: dict[str, Any]) -> ExtractedMeta
 
             # String or List values (title, type, subject, language, description)
             else:
-                 if field_key == "dc_type" and rule.get("validate_enum") and val not in _VALID_DOC_TYPES:
-                     continue
-                 
-                 if isinstance(val, str) and isinstance(current_val, str) and field_key == "dc_description":
-                     sep = rule.get("join_separator", "; ")
-                     setattr(meta, field_key, f"{current_val}{sep}{val}")
-                 else:
-                     setattr(meta, field_key, val)
+                if (
+                    field_key == "dc_type"
+                    and rule.get("validate_enum")
+                    and val not in _VALID_DOC_TYPES
+                ):
+                    continue
 
-    logger.info("Catalog mapping %s applied. title=%r", catalog.get("format_id"), meta.dc_title)
+                if (
+                    isinstance(val, str)
+                    and isinstance(current_val, str)
+                    and field_key == "dc_description"
+                ):
+                    sep = rule.get("join_separator", "; ")
+                    setattr(meta, field_key, f"{current_val}{sep}{val}")
+                else:
+                    setattr(meta, field_key, val)
+
+    logger.info(
+        "Catalog mapping %s applied. title=%r", catalog.get("format_id"), meta.dc_title
+    )
     return meta
+
 
 def _extract_xml_metadata(xml_path: Path) -> ExtractedMetadata:
     """XML 파일에서 메타데이터를 추출하여 ExtractedMetadata 구조체로 매핑합니다.
@@ -804,7 +856,7 @@ def _extract_xml_metadata(xml_path: Path) -> ExtractedMetadata:
         root = tree.getroot()
 
         from tractara.catalogs import catalog_loader
-        
+
         # 1단계: base 카탈로그 추출 (DC 네임스페이스)
         base_cat = catalog_loader.get_base_catalog()
         meta = _apply_catalog_metadata(root, base_cat)
@@ -820,6 +872,7 @@ def _extract_xml_metadata(xml_path: Path) -> ExtractedMetadata:
     except Exception as e:  # pylint: disable=broad-exception-caught
         logger.error("Failed to extract XML metadata: %s", e)
         return ExtractedMetadata()
+
 
 def extract_metadata(
     pdf_path: Path,

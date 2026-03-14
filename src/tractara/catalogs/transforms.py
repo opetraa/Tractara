@@ -32,7 +32,7 @@ def _assemble_dmc_identifier(element: Any) -> List[Dict[str, str]]:
         issue_info = element.find(".//issueInfo")
     if issue_info is None and element.getparent() is not None:
         issue_info = element.getparent().find(".//issueInfo")
-        
+
     if issue_info is not None:
         iss_num = issue_info.get("issueNumber", "")
         in_work = issue_info.get("inWork", "")
@@ -74,8 +74,9 @@ def _extract_jats_author_name(element: Any) -> List[Dict[str, str]]:
     given = element.findtext(".//given-names") or ""
     name = f"{given} {surname}".strip()
     if name:
-         return [{"name": name, "entityType": "person"}]
+        return [{"name": name, "entityType": "person"}]
     return []
+
 
 def _jats_author_names_list(elements: List[Any]) -> List[Dict[str, str]]:
     """JATS contrib 요소 리스트에서 저자 이름들을 추출합니다."""
@@ -107,10 +108,7 @@ def _s1000d_security(element: Any) -> Dict[str, str]:
     parts = [p for p in (sec_class, comm_class, caveat) if p]
     license_val = "_".join(parts) if parts else "01"
 
-    return {
-        "accessRights": access,
-        "license": license_val
-    }
+    return {"accessRights": access, "license": license_val}
 
 
 def _s1000d_info_code_to_type(element: Any) -> str:
@@ -121,9 +119,9 @@ def _s1000d_info_code_to_type(element: Any) -> str:
     info_code = dm_code.get("infoCode", "")
 
     mapping = {
-        "040": "TechnicalReport", 
-        "520": "Procedure",       
-        "720": "Procedure",       
+        "040": "TechnicalReport",
+        "520": "Procedure",
+        "720": "Procedure",
     }
     return mapping.get(info_code[:3], "Procedure")
 

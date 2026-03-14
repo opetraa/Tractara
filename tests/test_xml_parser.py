@@ -141,7 +141,7 @@ def test_s1000d_parsing(s1000d_xml_file: Path):
     doc = parse_xml(s1000d_xml_file)
 
     assert doc.metadata["parser"] == "s1000d_xml"
-    
+
     assert len(doc.relations) == 2
     assert doc.relations[0]["relationType"] == "custom:GOVERNED_BY_APPLIC"
     assert doc.relations[1]["relationType"] == "custom:COMPLIES_WITH"
@@ -151,7 +151,7 @@ def test_s1000d_parsing(s1000d_xml_file: Path):
     title_block = blocks[0]
     assert title_block.block_type == "title"
     assert title_block.text == "Bicycle - Maintenance"
-    
+
     prelim_block = blocks[1]
     assert prelim_block.block_type == "section"
     assert prelim_block.text == "preliminaryRqmts"
@@ -167,7 +167,7 @@ def test_s1000d_parsing(s1000d_xml_file: Path):
     # blocks[5] = note (empty step)
     # blocks[6] = procedureStep
     # blocks[7] = closeRqmts
-    
+
     note = blocks[4]
     assert note.block_type == "note"
     assert "Ensure the bike is on a stand." in note.text
@@ -186,6 +186,7 @@ def test_s1000d_parsing(s1000d_xml_file: Path):
     assert step.structured_content is not None
     conditions = step.structured_content["conditions"]
     assert len(conditions) == 2
+
 
 def test_s1000d_metadata_extraction(s1000d_xml_file: Path):
     meta = extract_metadata(s1000d_xml_file)

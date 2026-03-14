@@ -134,11 +134,7 @@ def build_doc_baseline(parsed: ParsedDocument) -> Dict[str, Any]:
 
     val_status = "draft"
     if extracted.doc_status:
-        status_map = {
-            "new": "draft",
-            "changed": "partial",
-            "deleted": "deprecated"
-        }
+        status_map = {"new": "draft", "changed": "partial", "deleted": "deprecated"}
         val_status = status_map.get(extracted.doc_status.lower(), "validated")
 
     doc: Dict[str, Any] = {
