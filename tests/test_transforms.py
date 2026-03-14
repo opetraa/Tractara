@@ -1,15 +1,17 @@
+import xml.etree.ElementTree as ET
+
 import pytest
 from lxml import etree
-import xml.etree.ElementTree as ET
+
 from tractara.catalogs.transforms import (
     _assemble_dmc_identifier,
-    _dmc_from_dmref,
     _date_from_element_attrs,
-    _extract_text_content,
+    _dmc_from_dmref,
     _extract_jats_author_name,
+    _extract_text_content,
     _join_elements_text,
-    _s1000d_security,
     _s1000d_info_code_to_type,
+    _s1000d_security,
 )
 
 

@@ -1,6 +1,7 @@
-import pytest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
+
+import pytest
 
 from tractara.normalization.doc_mapper import _blocks_to_content, build_doc_baseline
 from tractara.parsing.models import ParsedBlock, ParsedDocument

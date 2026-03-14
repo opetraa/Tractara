@@ -1,10 +1,12 @@
-import pytest
 from pathlib import Path
+
+import pytest
 from lxml import etree
+
 from tractara.parsing.metadata_extractor import (
-    _merge_xml_metadata,
-    _apply_catalog_metadata,
     ExtractedMetadata,
+    _apply_catalog_metadata,
+    _merge_xml_metadata,
 )
 
 
