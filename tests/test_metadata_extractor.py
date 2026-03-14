@@ -7,15 +7,17 @@ from tractara.parsing.metadata_extractor import (
     ExtractedMetadata,
 )
 
+
 def test_merge_xml_metadata():
     base = ExtractedMetadata(dc_title="Base Title", dc_language="en")
     override = ExtractedMetadata(dc_title="Override Title", dc_description="New Desc")
-    
+
     merged = _merge_xml_metadata(base, override)
-    
+
     assert merged.dc_title == "Override Title"
     assert merged.dc_language == "en"
     assert merged.dc_description == "New Desc"
+
 
 def test_apply_catalog_metadata_basic():
     xml_content = """<root>
@@ -26,7 +28,7 @@ def test_apply_catalog_metadata_basic():
         <desc>Line 2</desc>
     </root>"""
     root = etree.fromstring(xml_content)
-    
+
     catalog = {
         "format_id": "test_cat",
         "metadata": {
@@ -35,11 +37,11 @@ def test_apply_catalog_metadata_basic():
             "dc_subject": {"xpath": ".//subject"},
             "dc_description": [
                 {"xpath": ".//desc[1]"},
-                {"xpath": ".//desc[2]", "join_separator": " | "}
-            ]
-        }
+                {"xpath": ".//desc[2]", "join_separator": " | "},
+            ],
+        },
     }
-    
+
     meta = _apply_catalog_metadata(root, catalog)
     assert meta.dc_title == "Doc Title"
     assert meta.dc_creator == [{"name": "John Doe", "entityType": "person"}]

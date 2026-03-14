@@ -194,17 +194,19 @@ def test_s1000d_metadata_extraction(s1000d_xml_file: Path):
     assert "Skill Level: sk01" in meta.dc_description
     assert "Verification: tabtop" in meta.dc_description
 
+
 def test_generic_xml_parsing(tmp_path: Path):
     generic_xml = """<root>
         <some_node>Some text</some_node>
     </root>"""
     p = tmp_path / "generic.xml"
     p.write_text(generic_xml)
-    
+
     doc = parse_xml(p)
     assert doc.metadata["parser"] == "generic_xml"
     assert len(doc.blocks) == 1
     assert "Some text" in doc.blocks[0].text
+
 
 def test_parse_xml_exception(tmp_path: Path):
     # invalid xml

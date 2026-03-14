@@ -8,12 +8,56 @@ from tractara.parsing.models import ParsedBlock, ParsedDocument
 
 def test_blocks_to_content():
     blocks = [
-        ParsedBlock(page=1, block_type="title", text="Test Title", level=0, block_id="b1", context_path=[]),
-        ParsedBlock(page=1, block_type="paragraph", text="P1", level=999, block_id="b2", parent_id="b1", context_path=["Test Title"]),
-        ParsedBlock(page=1, block_type="note", text="N1", level=1, block_id="b3", context_path=["Test Title"]),
-        ParsedBlock(page=1, block_type="unknown_type", text="U1", level=1, block_id="b4", context_path=[]),
-        ParsedBlock(page=1, block_type="table", text="Table1", level=1, table_data={"headers": ["A"], "rows": [["1"]]}, context_path=[]),
-        ParsedBlock(page=1, block_type="equation", text="Eq1", level=1, equation_data={"latex": "E=mc^2"}, context_path=[], confidence=0.8),
+        ParsedBlock(
+            page=1,
+            block_type="title",
+            text="Test Title",
+            level=0,
+            block_id="b1",
+            context_path=[],
+        ),
+        ParsedBlock(
+            page=1,
+            block_type="paragraph",
+            text="P1",
+            level=999,
+            block_id="b2",
+            parent_id="b1",
+            context_path=["Test Title"],
+        ),
+        ParsedBlock(
+            page=1,
+            block_type="note",
+            text="N1",
+            level=1,
+            block_id="b3",
+            context_path=["Test Title"],
+        ),
+        ParsedBlock(
+            page=1,
+            block_type="unknown_type",
+            text="U1",
+            level=1,
+            block_id="b4",
+            context_path=[],
+        ),
+        ParsedBlock(
+            page=1,
+            block_type="table",
+            text="Table1",
+            level=1,
+            table_data={"headers": ["A"], "rows": [["1"]]},
+            context_path=[],
+        ),
+        ParsedBlock(
+            page=1,
+            block_type="equation",
+            text="Eq1",
+            level=1,
+            equation_data={"latex": "E=mc^2"},
+            context_path=[],
+            confidence=0.8,
+        ),
     ]
     blocks[5].structured_content = {"formula": "E=mc^2"}
 
@@ -69,8 +113,17 @@ def test_build_doc_baseline(mock_extract):
     doc = ParsedDocument(
         source_path="/fake/path.xml",
         metadata={"version": "1.0.0"},
-        blocks=[ParsedBlock(page=1, block_type="title", text="Mock Title", context_path=[])],
-        relations=[{"sourceBlockId": "b1", "relationType": "RELATED_TO", "target": "b2", "confidence": 1.0}]
+        blocks=[
+            ParsedBlock(page=1, block_type="title", text="Mock Title", context_path=[])
+        ],
+        relations=[
+            {
+                "sourceBlockId": "b1",
+                "relationType": "RELATED_TO",
+                "target": "b2",
+                "confidence": 1.0,
+            }
+        ],
     )
 
     baseline = build_doc_baseline(doc)
@@ -83,16 +136,16 @@ def test_build_doc_baseline(mock_extract):
     assert len(baseline["content"]) == 1
     assert baseline["content"][0]["blockType"] == "title"
     assert len(baseline["relations"]) == 1
-    
+
     # Test valid status mapping
     mock_meta.doc_status = "changed"
     baseline = build_doc_baseline(doc)
     assert baseline["provenance"]["validationStatus"] == "partial"
-    
+
     mock_meta.doc_status = "deleted"
     baseline = build_doc_baseline(doc)
     assert baseline["provenance"]["validationStatus"] == "deprecated"
-    
+
     mock_meta.doc_status = "unknown_status"
     baseline = build_doc_baseline(doc)
     assert baseline["provenance"]["validationStatus"] == "validated"
